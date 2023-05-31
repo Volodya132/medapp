@@ -1,0 +1,26 @@
+{
+  "Hello": "Привіт",
+  "WelcomeBack": "З поверненням",
+  "SubtitleOnLoginScreen": "Я радий знову вас бачити. Ви можете продовжити там, де зупинилися, увійшовши в свій обліковий запис",
+  "HowDoYouDo": "Як Ваші справи?",
+  "PatientSearchHint": "Пошук пацієнта",
+  "PatientsLbl": "Пацієнти",
+  "LastChange": "Остання зміна",
+  "AddPatient": "Добавити пацієнта",
+  "NoInformation": "немає інформації",
+  "WrongAnswerOrPassword": "Неправильний пароль або логін",
+  "ServiceError": "Помилка сервісу",
+  "Login": "Логін",
+  "Password": "Пароль",
+  "Name": "Ім'я",
+  "Area": "Площа",
+  "Type": "Тип",
+  "Location": "Розташування",
+  "Severity": "Важкість",
+  "Time": "Час",
+  "Cause": "Причина",
+  "Forgot password": "Забув пароль",
+  "DontHaveAcc": "Все ще немає облікового запису?",
+  "SingUp": "Реєстрація"
+
+}
