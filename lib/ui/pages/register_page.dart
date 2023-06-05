@@ -216,7 +216,6 @@ class RegButtonWidget extends StatelessWidget {
         ? const CircularProgressIndicator()
         : const Text('Реєстрація');
     return ElevatedButton(
-      style:  styleForCommonButton,
       onPressed: () => onPressed?.call(context),
       child: child,
     );

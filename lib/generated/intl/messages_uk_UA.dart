@@ -22,16 +22,24 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Add": MessageLookupByLibrary.simpleMessage("Додати"),
         "AddPatient": MessageLookupByLibrary.simpleMessage("Добавити пацієнта"),
+        "Address": MessageLookupByLibrary.simpleMessage("Адреса"),
+        "Age": MessageLookupByLibrary.simpleMessage("Вік"),
         "Area": MessageLookupByLibrary.simpleMessage("Площа"),
         "Cause": MessageLookupByLibrary.simpleMessage("Причина"),
         "DontHaveAcc": MessageLookupByLibrary.simpleMessage(
             "Все ще немає облікового запису?"),
+        "FName": MessageLookupByLibrary.simpleMessage("Ім\'я"),
+        "ForgotPassword": MessageLookupByLibrary.simpleMessage("Забув пароль"),
+        "Gender": MessageLookupByLibrary.simpleMessage("Стать"),
         "Hello": MessageLookupByLibrary.simpleMessage("Привіт"),
         "HowDoYouDo": MessageLookupByLibrary.simpleMessage("Як Ваші справи?"),
+        "LName": MessageLookupByLibrary.simpleMessage("Прізвище"),
         "LastChange": MessageLookupByLibrary.simpleMessage("Остання зміна"),
         "Location": MessageLookupByLibrary.simpleMessage("Розташування"),
         "Login": MessageLookupByLibrary.simpleMessage("Логін"),
+        "MName": MessageLookupByLibrary.simpleMessage("По-батькові"),
         "Name": MessageLookupByLibrary.simpleMessage("Ім\'я"),
         "NoInformation":
             MessageLookupByLibrary.simpleMessage("немає інформації"),
@@ -44,6 +52,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "SingUp": MessageLookupByLibrary.simpleMessage("Реєстрація"),
         "SubtitleOnLoginScreen": MessageLookupByLibrary.simpleMessage(
             "Я радий знову вас бачити. Ви можете продовжити там, де зупинилися, увійшовши в свій обліковий запис"),
+        "TelephoneNumber":
+            MessageLookupByLibrary.simpleMessage("Номер телефону"),
         "Time": MessageLookupByLibrary.simpleMessage("Час"),
         "Type": MessageLookupByLibrary.simpleMessage("Тип"),
         "WelcomeBack": MessageLookupByLibrary.simpleMessage("З поверненням"),

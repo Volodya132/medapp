@@ -100,7 +100,7 @@ class AuthWidget extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             _WelcomeWidget(),
             SizedBox(height: 10),
@@ -226,7 +226,7 @@ class AuthButtonWidget extends StatelessWidget {
         ? const CircularProgressIndicator()
         : const Text('Авторизуватися');
     return ElevatedButton(
-      style:  styleForCommonButton,
+      //style:  styleForCommonButton,
       onPressed: () => onPressed?.call(context),
       child: child,
     );

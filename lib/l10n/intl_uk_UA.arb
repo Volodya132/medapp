@@ -19,8 +19,16 @@
   "Severity": "Важкість",
   "Time": "Час",
   "Cause": "Причина",
-  "Forgot password": "Забув пароль",
+  "ForgotPassword": "Забув пароль",
   "DontHaveAcc": "Все ще немає облікового запису?",
-  "SingUp": "Реєстрація"
+  "SingUp": "Реєстрація",
+  "Add": "Додати",
+  "TelephoneNumber": "Номер телефону",
+  "Address": "Адреса",
+  "Gender": "Стать",
+  "Age": "Вік",
+  "FName": "Ім'я",
+  "MName": "По-батькові",
+  "LName": "Прізвище"
 
 }

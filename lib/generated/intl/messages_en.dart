@@ -26,8 +26,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "AddPatient": MessageLookupByLibrary.simpleMessage("Add patient"),
         "Address": MessageLookupByLibrary.simpleMessage("address"),
         "Age": MessageLookupByLibrary.simpleMessage("age"),
-        "Area": MessageLookupByLibrary.simpleMessage("Площа"),
-        "Cause": MessageLookupByLibrary.simpleMessage("Причина"),
+        "Area": MessageLookupByLibrary.simpleMessage("Area"),
+        "Cause": MessageLookupByLibrary.simpleMessage("Cause"),
         "Description": MessageLookupByLibrary.simpleMessage("Description"),
         "DontHaveAcc":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
@@ -39,7 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "HowDoYouDo": MessageLookupByLibrary.simpleMessage("How do you do?"),
         "LName": MessageLookupByLibrary.simpleMessage("Last name"),
         "LastChange": MessageLookupByLibrary.simpleMessage("Last change"),
-        "Location": MessageLookupByLibrary.simpleMessage("Розташування"),
+        "Location": MessageLookupByLibrary.simpleMessage("Location"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "MName": MessageLookupByLibrary.simpleMessage("Middle name"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -49,14 +49,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Patient search"),
         "PatientsLbl": MessageLookupByLibrary.simpleMessage("Patients"),
         "ServiceError": MessageLookupByLibrary.simpleMessage("Service error"),
-        "Severity": MessageLookupByLibrary.simpleMessage("Важкість"),
+        "Severity": MessageLookupByLibrary.simpleMessage("Severity"),
         "SingUp": MessageLookupByLibrary.simpleMessage("Sing up"),
         "SubtitleOnLoginScreen": MessageLookupByLibrary.simpleMessage(
             "I am happy to see you again. You can continue where you left off by logging in"),
         "TelephoneNumber":
             MessageLookupByLibrary.simpleMessage("telephone number"),
-        "Time": MessageLookupByLibrary.simpleMessage("Час"),
-        "Type": MessageLookupByLibrary.simpleMessage("Тип"),
+        "Time": MessageLookupByLibrary.simpleMessage("Time"),
+        "Type": MessageLookupByLibrary.simpleMessage("Type"),
         "WelcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
         "WrongAnswerOrPassword":
             MessageLookupByLibrary.simpleMessage("Wrong answer or password")

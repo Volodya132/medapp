@@ -210,7 +210,7 @@ class _AddPatientWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final viewModel = context.read<_ViewModel>();
     return ElevatedButton(
-      style:  styleForCommonButton,
+
       onPressed: viewModel.onAddPatientButtonPressed,
       child: Row (
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -233,7 +233,7 @@ class _MenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<_ViewModel>();
-    return ElevatedButton(
+    return FloatingActionButton(
       onPressed: () => viewModel.onLogoutPressed(context),
       child: const Text('Вихід'),
     );

@@ -329,7 +329,6 @@ class RegButtonWidget extends StatelessWidget {
         .of(context)
         .Add);
     return ElevatedButton(
-      style:  styleForCommonButton,
       onPressed: () => onPressed?.call(context),
       child: child,
     );

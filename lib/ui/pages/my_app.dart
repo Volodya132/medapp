@@ -1,6 +1,8 @@
 
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:medapp/ui/helper/theme.dart';
 import 'package:medapp/ui/pages/add_injury.dart';
 import 'package:medapp/ui/pages/add_injurySnapshot.dart';
 import 'package:medapp/ui/pages/auth_page.dart';
@@ -24,110 +26,113 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: S.delegate.supportedLocales,
-      title: 'Flutter Demo',
-      onGenerateRoute: (RouteSettings settings) {
-        if (settings.name == '/auth') {
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                AuthWidget.create(),
-            transitionDuration: Duration.zero,
-          );
-        } else if (settings.name == '/patients_page') {
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                PatientsPage.create(),
-            transitionDuration: Duration.zero,
-          );
-        } else if (settings.name == '/loader') {
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                LoaderWidget.create(),
-            transitionDuration: Duration.zero,
-          );
-        } else if (settings.name == '/auth/register') {
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                RegisterWidget.create(),
-            transitionDuration: Duration.zero,
-          );
-        }
-        else if (settings.name == '/patients_page/addPatient') {
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                AddPatientWidget.create(),
-            transitionDuration: Duration.zero,
-          );
-        }
-        else if (settings.name == '/patients_page/patientDetail') {
-          final arguments = settings.arguments;
-          final patientID = arguments is ObjectId ? arguments : 0;
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                PatientDetail.create(patientID),
-            transitionDuration: Duration.zero,
-          );
-        }
-        else if (settings.name == '/patients_page/patientDetail/addInjury') {
-          final arguments = settings.arguments;
-          final patientID = arguments is ObjectId ? arguments : 0;
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                AddInjuryWidget.create(patientID),
-            transitionDuration: Duration.zero,
-          );
-        }
-        else if (settings.name == '/patients_page/patientDetail/injuryDetail') {
-          final arguments = settings.arguments;
-          final injuryID = arguments is ObjectId ? arguments : 0;
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                InjuryDetail.create(injuryID),
-            transitionDuration: Duration.zero,
-          );
-        }
-        else if (settings.name == '/patients_page/patientDetail/injuryDetail/addInjurySnapshot') {
-          final arguments = settings.arguments;
-          final injuryID = arguments is ObjectId ? arguments : 0;
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                AddInjurySnapshotWidget.create(injuryID),
-            transitionDuration: Duration.zero,
-          );
-        }
-        else if (settings.name == '/patients_page/patientDetail/injuryDetail/injurySnapshotDetail') {
-          final arguments = settings.arguments;
-          final injurySnapshotID = arguments is ObjectId ? arguments : 0;
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                InjurySnapshotDetailPage.create(injurySnapshotID),
-            transitionDuration: Duration.zero,
-          );
-        }
-        else if (settings.name == '/patients_page/patientDetail/injuryDetail/injurySnapshotDetail/injurySnapshotPaintMask') {
-          final arguments = settings.arguments;
-          final injurySnapshotPhoto = arguments is String ? arguments : "";
-          return PageRouteBuilder<dynamic>(
-            pageBuilder: (context, animation1, animation2) =>
-                InjurySnapshotPaintMaskPage.create(injurySnapshotPhoto),
-            transitionDuration: Duration.zero,
-          );
-        }
-      },
+    return AdaptiveTheme(
+      light: kLightTheme,
+      dark: kDarkTheme,
+      initial: AdaptiveThemeMode.light,
+      builder: (theme, darkTheme) => MaterialApp(
+        theme: theme,
+        darkTheme: darkTheme,
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        title: 'Flutter Demo',
+        onGenerateRoute: (RouteSettings settings) {
+          if (settings.name == '/auth') {
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  AuthWidget.create(),
+              transitionDuration: Duration.zero,
+            );
+          } else if (settings.name == '/patients_page') {
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  PatientsPage.create(),
+              transitionDuration: Duration.zero,
+            );
+          } else if (settings.name == '/loader') {
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  LoaderWidget.create(),
+              transitionDuration: Duration.zero,
+            );
+          } else if (settings.name == '/auth/register') {
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  RegisterWidget.create(),
+              transitionDuration: Duration.zero,
+            );
+          }
+          else if (settings.name == '/patients_page/addPatient') {
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  AddPatientWidget.create(),
+              transitionDuration: Duration.zero,
+            );
+          }
+          else if (settings.name == '/patients_page/patientDetail') {
+            final arguments = settings.arguments;
+            final patientID = arguments is ObjectId ? arguments : 0;
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  PatientDetail.create(patientID),
+              transitionDuration: Duration.zero,
+            );
+          }
+          else if (settings.name == '/patients_page/patientDetail/addInjury') {
+            final arguments = settings.arguments;
+            final patientID = arguments is ObjectId ? arguments : 0;
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  AddInjuryWidget.create(patientID),
+              transitionDuration: Duration.zero,
+            );
+          }
+          else if (settings.name == '/patients_page/patientDetail/injuryDetail') {
+            final arguments = settings.arguments;
+            final injuryID = arguments is ObjectId ? arguments : 0;
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  InjuryDetail.create(injuryID),
+              transitionDuration: Duration.zero,
+            );
+          }
+          else if (settings.name == '/patients_page/patientDetail/injuryDetail/addInjurySnapshot') {
+            final arguments = settings.arguments;
+            final injuryID = arguments is ObjectId ? arguments : 0;
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  AddInjurySnapshotWidget.create(injuryID),
+              transitionDuration: Duration.zero,
+            );
+          }
+          else if (settings.name == '/patients_page/patientDetail/injuryDetail/injurySnapshotDetail') {
+            final arguments = settings.arguments;
+            final injurySnapshotID = arguments is ObjectId ? arguments : 0;
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  InjurySnapshotDetailPage.create(injurySnapshotID),
+              transitionDuration: Duration.zero,
+            );
+          }
+          else if (settings.name == '/patients_page/patientDetail/injuryDetail/injurySnapshotDetail/injurySnapshotPaintMask') {
+            final arguments = settings.arguments;
+            final injurySnapshotPhoto = arguments is String ? arguments : "";
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  InjurySnapshotPaintMaskPage.create(injurySnapshotPhoto),
+              transitionDuration: Duration.zero,
+            );
+          }
+        },
 
-
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+        home: LoaderWidget.create(),
       ),
-      home: LoaderWidget.create(),
     );
   }
 }

@@ -11,12 +11,13 @@ import 'package:realm/realm.dart';
 import '../../domain/entity/injury.dart';
 import '../../domain/entity/patient.dart';
 import '../../domain/services/patient_service.dart';
+import '../helper/buttonConstants.dart';
 
 
 
 class _ViewModelState {
-  var painterController;
-  _ViewModelState(painterController) {
+  PainterController painterController;
+  _ViewModelState(this.painterController) {
     painterController.clearContent();
   }
 
@@ -28,14 +29,7 @@ class _ViewModel extends ChangeNotifier {
   BuildContext context;
   final String photo;
 
-  final _state = _ViewModelState( PainterController()
-    ..setPenType(PenType.pencil)
-    ..setStrokeColor(Colors.orange)
-    ..setMinStrokeWidth(3)
-    ..setMaxStrokeWidth(10)
-    ..setBlurSigma(0.0)
-    ..setBlendMode(ui.BlendMode.srcOver)
-    ..clearContent());
+  final _state = _ViewModelState( PainterController());
 
   _ViewModelState get state => _state;
 
@@ -45,10 +39,17 @@ class _ViewModel extends ChangeNotifier {
 
   @override
   void dispose() {
+    state.painterController.clearContent();
     super.dispose();
   }
   void _updateState() {
   }
+
+  Future<void> onAddCleanButtonPressed() async {
+    state.painterController.clearContent();
+
+  }
+
 }
 
 class InjurySnapshotPaintMaskPage extends StatelessWidget {
@@ -72,7 +73,8 @@ class InjurySnapshotPaintMaskPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
-                children:  [
+                children:  const[
+                  RegButtonWidget(),
                   _PainterWidget(),
                   SizedBox(height: 20),
                 ],
@@ -84,56 +86,37 @@ class InjurySnapshotPaintMaskPage extends StatelessWidget {
   }
 }
 
+class _PainterWidget extends StatelessWidget {
+  const _PainterWidget({Key? key}) : super(key: key);
 
-class _PainterWidget extends StatefulWidget {
-  var painterController;
-   _PainterWidget({
-    Key? key,
-  }) : super(key: key);
-
-
-  @override
-  State<_PainterWidget> createState() => _PainterWidgetState();
-
-
-}
-
-class _PainterWidgetState extends State<_PainterWidget> {
-
-  @override
-  void initState() {
-    super.initState();
-    widget.painterController = PainterController()
-      ..setPenType(PenType.pencil)
-      ..setStrokeColor(Colors.black)
-      ..setMinStrokeWidth(3)
-      ..setMaxStrokeWidth(10)
-      ..setBlurSigma(0.0)
-      ..setBlendMode(ui.BlendMode.srcOver);
-    widget.painterController.clearContent();
-
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<_ViewModel>();
-    //final painterController = context.select((_ViewModel vm) => vm.state.painterController);
+    final painterController = context.select((_ViewModel vm) => vm.state.painterController);
 
     return Container(
       child: Painter(
 
-          controller: widget.painterController,
-          //backgroundColor: Colors.green.withOpacity(0.4),
+          controller: painterController,
           //size: const Size(300, 300),
           child: Image.file(File(viewModel.photo))
 
       ),
     );
-
   }
 }
 
+class RegButtonWidget extends StatelessWidget {
+  const RegButtonWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<_ViewModel>();
+
+    final child = Text('delete');
+    return ElevatedButton(
+      onPressed: model.onAddCleanButtonPressed,
+      child: child,
+    );
+  }
+}

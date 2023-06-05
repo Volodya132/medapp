@@ -190,60 +190,60 @@ class S {
     );
   }
 
-  /// `Площа`
+  /// `Area`
   String get Area {
     return Intl.message(
-      'Площа',
+      'Area',
       name: 'Area',
       desc: '',
       args: [],
     );
   }
 
-  /// `Тип`
+  /// `Type`
   String get Type {
     return Intl.message(
-      'Тип',
+      'Type',
       name: 'Type',
       desc: '',
       args: [],
     );
   }
 
-  /// `Розташування`
+  /// `Location`
   String get Location {
     return Intl.message(
-      'Розташування',
+      'Location',
       name: 'Location',
       desc: '',
       args: [],
     );
   }
 
-  /// `Важкість`
+  /// `Severity`
   String get Severity {
     return Intl.message(
-      'Важкість',
+      'Severity',
       name: 'Severity',
       desc: '',
       args: [],
     );
   }
 
-  /// `Час`
+  /// `Time`
   String get Time {
     return Intl.message(
-      'Час',
+      'Time',
       name: 'Time',
       desc: '',
       args: [],
     );
   }
 
-  /// `Причина`
+  /// `Cause`
   String get Cause {
     return Intl.message(
-      'Причина',
+      'Cause',
       name: 'Cause',
       desc: '',
       args: [],

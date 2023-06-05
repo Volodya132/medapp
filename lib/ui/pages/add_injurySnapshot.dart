@@ -283,7 +283,6 @@ class _AddButtonWidget extends StatelessWidget {
         .of(context)
         .Add);
     return ElevatedButton(
-      style: styleForCommonButton,
       onPressed: () => onPressed?.call(context),
       child: child,
     );
@@ -323,7 +322,6 @@ class _PickImagesButtonWidget extends StatelessWidget {
     final model = context.read<_ViewModel>();
 
     return ElevatedButton(
-      style: styleForCommonButton,
       onPressed: model.onPickImagesButtonPressed,
       child: Text("${S
           .of(context)
