@@ -11,12 +11,23 @@ class _Doctor {
   @MapTo('_id')
   ObjectId id = ObjectId();
 
-  String name = "";
-  List<ObjectId> patientsIDs = [];
-
+  String fName = "";
+  String lName = "";
+  String mName = "";
+  String gender = "";
+  String number = "";
+  String email = "";
+  List<String> specialities = [];
+  DateTime? birtday;
+  String BIO = "";
   String login = "";
   String password = "";
 
+  List<ObjectId> patientsIDs = [];
+
+
+
   List<Patient?> get patients => patientsIDs.map((id) => RealmService.getPatientByID(id)).toList();
+
 
 }

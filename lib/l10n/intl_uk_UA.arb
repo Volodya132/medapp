@@ -29,6 +29,12 @@
   "Age": "Вік",
   "FName": "Ім'я",
   "MName": "По-батькові",
-  "LName": "Прізвище"
-
+  "LName": "Прізвище",
+  "Registraion": "Реєстрація",
+  "FormatOfDate": "dd.MM.yyyy",
+  "Birthday": "День народження",
+  "RepeatPassword": "Повторіть пароль",
+  "FieldCannotBeEmpty": "Поле не може бути пустим",
+  "PasswordsDoNotMatch": "Паролі не співпадають",
+  "InputError": "Помилка введення"
 }

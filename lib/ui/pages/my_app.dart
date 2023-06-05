@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
       dark: kDarkTheme,
       initial: AdaptiveThemeMode.light,
       builder: (theme, darkTheme) => MaterialApp(
+
         theme: theme,
         darkTheme: darkTheme,
         debugShowCheckedModeBanner: false,

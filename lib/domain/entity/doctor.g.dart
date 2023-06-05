@@ -11,23 +11,46 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
 
   Doctor(
     ObjectId id, {
-    String name = "",
+    String fName = "",
+    String lName = "",
+    String mName = "",
+    String gender = "",
+    String number = "",
+    String email = "",
+    DateTime? birtday,
+    String BIO = "",
     String login = "",
     String password = "",
+    Iterable<String> specialities = const [],
     Iterable<ObjectId> patientsIDs = const [],
   }) {
     if (!_defaultsSet) {
       _defaultsSet = RealmObjectBase.setDefaults<Doctor>({
         '_id': ObjectId(),
-        'name': "",
+        'fName': "",
+        'lName': "",
+        'mName': "",
+        'gender': "",
+        'number': "",
+        'email': "",
+        'BIO': "",
         'login': "",
         'password': "",
       });
     }
     RealmObjectBase.set(this, '_id', id);
-    RealmObjectBase.set(this, 'name', name);
+    RealmObjectBase.set(this, 'fName', fName);
+    RealmObjectBase.set(this, 'lName', lName);
+    RealmObjectBase.set(this, 'mName', mName);
+    RealmObjectBase.set(this, 'gender', gender);
+    RealmObjectBase.set(this, 'number', number);
+    RealmObjectBase.set(this, 'email', email);
+    RealmObjectBase.set(this, 'birtday', birtday);
+    RealmObjectBase.set(this, 'BIO', BIO);
     RealmObjectBase.set(this, 'login', login);
     RealmObjectBase.set(this, 'password', password);
+    RealmObjectBase.set<RealmList<String>>(
+        this, 'specialities', RealmList<String>(specialities));
     RealmObjectBase.set<RealmList<ObjectId>>(
         this, 'patientsIDs', RealmList<ObjectId>(patientsIDs));
   }
@@ -40,16 +63,52 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
   set id(ObjectId value) => RealmObjectBase.set(this, '_id', value);
 
   @override
-  String get name => RealmObjectBase.get<String>(this, 'name') as String;
+  String get fName => RealmObjectBase.get<String>(this, 'fName') as String;
   @override
-  set name(String value) => RealmObjectBase.set(this, 'name', value);
+  set fName(String value) => RealmObjectBase.set(this, 'fName', value);
 
   @override
-  RealmList<ObjectId> get patientsIDs =>
-      RealmObjectBase.get<ObjectId>(this, 'patientsIDs') as RealmList<ObjectId>;
+  String get lName => RealmObjectBase.get<String>(this, 'lName') as String;
   @override
-  set patientsIDs(covariant RealmList<ObjectId> value) =>
+  set lName(String value) => RealmObjectBase.set(this, 'lName', value);
+
+  @override
+  String get mName => RealmObjectBase.get<String>(this, 'mName') as String;
+  @override
+  set mName(String value) => RealmObjectBase.set(this, 'mName', value);
+
+  @override
+  String get gender => RealmObjectBase.get<String>(this, 'gender') as String;
+  @override
+  set gender(String value) => RealmObjectBase.set(this, 'gender', value);
+
+  @override
+  String get number => RealmObjectBase.get<String>(this, 'number') as String;
+  @override
+  set number(String value) => RealmObjectBase.set(this, 'number', value);
+
+  @override
+  String get email => RealmObjectBase.get<String>(this, 'email') as String;
+  @override
+  set email(String value) => RealmObjectBase.set(this, 'email', value);
+
+  @override
+  RealmList<String> get specialities =>
+      RealmObjectBase.get<String>(this, 'specialities') as RealmList<String>;
+  @override
+  set specialities(covariant RealmList<String> value) =>
       throw RealmUnsupportedSetError();
+
+  @override
+  DateTime? get birtday =>
+      RealmObjectBase.get<DateTime>(this, 'birtday') as DateTime?;
+  @override
+  set birtday(DateTime? value) => RealmObjectBase.set(this, 'birtday', value);
+
+  @override
+  String get BIO => RealmObjectBase.get<String>(this, 'BIO') as String;
+  @override
+  set BIO(String value) => RealmObjectBase.set(this, 'BIO', value);
 
   @override
   String get login => RealmObjectBase.get<String>(this, 'login') as String;
@@ -61,6 +120,13 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
       RealmObjectBase.get<String>(this, 'password') as String;
   @override
   set password(String value) => RealmObjectBase.set(this, 'password', value);
+
+  @override
+  RealmList<ObjectId> get patientsIDs =>
+      RealmObjectBase.get<ObjectId>(this, 'patientsIDs') as RealmList<ObjectId>;
+  @override
+  set patientsIDs(covariant RealmList<ObjectId> value) =>
+      throw RealmUnsupportedSetError();
 
   @override
   Stream<RealmObjectChanges<Doctor>> get changes =>
@@ -76,11 +142,20 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
     return const SchemaObject(ObjectType.realmObject, Doctor, 'Doctor', [
       SchemaProperty('id', RealmPropertyType.objectid,
           mapTo: '_id', primaryKey: true),
-      SchemaProperty('name', RealmPropertyType.string),
-      SchemaProperty('patientsIDs', RealmPropertyType.objectid,
+      SchemaProperty('fName', RealmPropertyType.string),
+      SchemaProperty('lName', RealmPropertyType.string),
+      SchemaProperty('mName', RealmPropertyType.string),
+      SchemaProperty('gender', RealmPropertyType.string),
+      SchemaProperty('number', RealmPropertyType.string),
+      SchemaProperty('email', RealmPropertyType.string),
+      SchemaProperty('specialities', RealmPropertyType.string,
           collectionType: RealmCollectionType.list),
+      SchemaProperty('birtday', RealmPropertyType.timestamp, optional: true),
+      SchemaProperty('BIO', RealmPropertyType.string),
       SchemaProperty('login', RealmPropertyType.string),
       SchemaProperty('password', RealmPropertyType.string),
+      SchemaProperty('patientsIDs', RealmPropertyType.objectid,
+          collectionType: RealmCollectionType.list),
     ]);
   }
 }

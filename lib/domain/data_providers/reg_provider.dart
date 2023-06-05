@@ -20,8 +20,11 @@ class RegProviderIncorrectLoginDataError {}
 class RegProvider {
   final _sharedPreferences = SharedPreferences.getInstance();
 
-  Future<void> registerDoctor(String login, String password, String name) async {
-    var doctor = Doctor(ObjectId(), name: name, login: login, password: password);
+  Future<void> registerDoctor(Doctor doctor) async {
+    if((await RealmService.getDoctorByLogin(doctor.login)) != null) {
+      throw RegProviderIncorrectLoginDataError();
+    }
+
     await RealmService.addDoctor(doctor);
   }
 

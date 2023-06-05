@@ -26,10 +26,17 @@
   "Add": "Add",
   "TelephoneNumber": "telephone number",
   "Address": "address",
-  "Gender": "gender",
+  "Gender": "Gender",
   "Age": "age",
   "FName": "First name",
   "MName": "Middle name",
-  "LName": "Last name"
+  "LName": "Last name",
+  "Registraion": "Registraion",
+  "FormatOfDate": "MM.dd.yyyy",
+  "Birthday": "Birthday",
+  "RepeatPassword": "Repeat password",
+  "FieldCannotBeEmpty": "Field cannot be empty",
+  "PasswordsDoNotMatch": "Passwords do not match",
+  "InputError": "Input error"
 
 }

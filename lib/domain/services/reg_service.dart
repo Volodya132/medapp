@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:medapp/domain/data_providers/reg_provider.dart';
+import 'package:medapp/domain/entity/doctor.dart';
 import 'package:realm/realm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,8 +10,9 @@ class RegService {
   final _regProvider = RegProvider();
 
   final sharedPreferences = SharedPreferences.getInstance();
-  Future<void> registerDoctor(String login, String password, String name) async {
-     await _regProvider.registerDoctor(login, password, name);
+  Future<void> registerDoctor(Doctor doctor) async {
+
+     await _regProvider.registerDoctor(doctor);
   }
 
   Future<void> registerPatient(String fname, String mname, String lname,String age, String gender, String phoneNumber, String? id) async {

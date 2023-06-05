@@ -88,7 +88,7 @@ class _ViewModel extends ChangeNotifier {
   void _updateState() {
     final Doctor doctor = _doctorService.doctor!;
     _state = _state.copyWith(
-      doctorNameTitle: doctor.name,
+      doctorNameTitle: doctor.fName,
       patients: doctor.patients,
     );
     notifyListeners();
@@ -108,6 +108,10 @@ class PatientsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(toolbarHeight: double.minPositive,
+        backgroundColor: Colors.transparent,
+        elevation: 0),
       body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(

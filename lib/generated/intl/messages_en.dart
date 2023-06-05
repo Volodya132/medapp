@@ -27,16 +27,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "Address": MessageLookupByLibrary.simpleMessage("address"),
         "Age": MessageLookupByLibrary.simpleMessage("age"),
         "Area": MessageLookupByLibrary.simpleMessage("Area"),
+        "Birthday": MessageLookupByLibrary.simpleMessage("Birthday"),
         "Cause": MessageLookupByLibrary.simpleMessage("Cause"),
         "Description": MessageLookupByLibrary.simpleMessage("Description"),
         "DontHaveAcc":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "FName": MessageLookupByLibrary.simpleMessage("First name"),
+        "FieldCannotBeEmpty":
+            MessageLookupByLibrary.simpleMessage("Field cannot be empty"),
         "ForgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
-        "Gender": MessageLookupByLibrary.simpleMessage("gender"),
+        "FormatOfDate": MessageLookupByLibrary.simpleMessage("MM.dd.yyyy"),
+        "Gender": MessageLookupByLibrary.simpleMessage("Gender"),
         "Hello": MessageLookupByLibrary.simpleMessage("Hello"),
         "HowDoYouDo": MessageLookupByLibrary.simpleMessage("How do you do?"),
+        "InputError": MessageLookupByLibrary.simpleMessage("Input error"),
         "LName": MessageLookupByLibrary.simpleMessage("Last name"),
         "LastChange": MessageLookupByLibrary.simpleMessage("Last change"),
         "Location": MessageLookupByLibrary.simpleMessage("Location"),
@@ -45,9 +50,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "NoInformation": MessageLookupByLibrary.simpleMessage("no information"),
         "Password": MessageLookupByLibrary.simpleMessage("Password"),
+        "PasswordsDoNotMatch":
+            MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "PatientSearchHint":
             MessageLookupByLibrary.simpleMessage("Patient search"),
         "PatientsLbl": MessageLookupByLibrary.simpleMessage("Patients"),
+        "Registraion": MessageLookupByLibrary.simpleMessage("Registraion"),
+        "RepeatPassword":
+            MessageLookupByLibrary.simpleMessage("Repeat password"),
         "ServiceError": MessageLookupByLibrary.simpleMessage("Service error"),
         "Severity": MessageLookupByLibrary.simpleMessage("Severity"),
         "SingUp": MessageLookupByLibrary.simpleMessage("Sing up"),

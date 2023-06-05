@@ -320,10 +320,10 @@ class S {
     );
   }
 
-  /// `gender`
+  /// `Gender`
   String get Gender {
     return Intl.message(
-      'gender',
+      'Gender',
       name: 'Gender',
       desc: '',
       args: [],
@@ -365,6 +365,76 @@ class S {
     return Intl.message(
       'Last name',
       name: 'LName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registraion`
+  String get Registraion {
+    return Intl.message(
+      'Registraion',
+      name: 'Registraion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `MM.dd.yyyy`
+  String get FormatOfDate {
+    return Intl.message(
+      'MM.dd.yyyy',
+      name: 'FormatOfDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Birthday`
+  String get Birthday {
+    return Intl.message(
+      'Birthday',
+      name: 'Birthday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Repeat password`
+  String get RepeatPassword {
+    return Intl.message(
+      'Repeat password',
+      name: 'RepeatPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Field cannot be empty`
+  String get FieldCannotBeEmpty {
+    return Intl.message(
+      'Field cannot be empty',
+      name: 'FieldCannotBeEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords do not match`
+  String get PasswordsDoNotMatch {
+    return Intl.message(
+      'Passwords do not match',
+      name: 'PasswordsDoNotMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input error`
+  String get InputError {
+    return Intl.message(
+      'Input error',
+      name: 'InputError',
       desc: '',
       args: [],
     );

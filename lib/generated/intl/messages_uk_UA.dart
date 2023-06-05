@@ -27,14 +27,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "Address": MessageLookupByLibrary.simpleMessage("Адреса"),
         "Age": MessageLookupByLibrary.simpleMessage("Вік"),
         "Area": MessageLookupByLibrary.simpleMessage("Площа"),
+        "Birthday": MessageLookupByLibrary.simpleMessage("День народження"),
         "Cause": MessageLookupByLibrary.simpleMessage("Причина"),
         "DontHaveAcc": MessageLookupByLibrary.simpleMessage(
             "Все ще немає облікового запису?"),
         "FName": MessageLookupByLibrary.simpleMessage("Ім\'я"),
+        "FieldCannotBeEmpty":
+            MessageLookupByLibrary.simpleMessage("Поле не може бути пустим"),
         "ForgotPassword": MessageLookupByLibrary.simpleMessage("Забув пароль"),
+        "FormatOfDate": MessageLookupByLibrary.simpleMessage("dd.MM.yyyy"),
         "Gender": MessageLookupByLibrary.simpleMessage("Стать"),
         "Hello": MessageLookupByLibrary.simpleMessage("Привіт"),
         "HowDoYouDo": MessageLookupByLibrary.simpleMessage("Як Ваші справи?"),
+        "InputError": MessageLookupByLibrary.simpleMessage("Помилка введення"),
         "LName": MessageLookupByLibrary.simpleMessage("Прізвище"),
         "LastChange": MessageLookupByLibrary.simpleMessage("Остання зміна"),
         "Location": MessageLookupByLibrary.simpleMessage("Розташування"),
@@ -44,9 +49,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "NoInformation":
             MessageLookupByLibrary.simpleMessage("немає інформації"),
         "Password": MessageLookupByLibrary.simpleMessage("Пароль"),
+        "PasswordsDoNotMatch":
+            MessageLookupByLibrary.simpleMessage("Паролі не співпадають"),
         "PatientSearchHint":
             MessageLookupByLibrary.simpleMessage("Пошук пацієнта"),
         "PatientsLbl": MessageLookupByLibrary.simpleMessage("Пацієнти"),
+        "Registraion": MessageLookupByLibrary.simpleMessage("Реєстрація"),
+        "RepeatPassword":
+            MessageLookupByLibrary.simpleMessage("Повторіть пароль"),
         "ServiceError": MessageLookupByLibrary.simpleMessage("Помилка сервісу"),
         "Severity": MessageLookupByLibrary.simpleMessage("Важкість"),
         "SingUp": MessageLookupByLibrary.simpleMessage("Реєстрація"),

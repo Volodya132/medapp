@@ -108,6 +108,10 @@ class RealmService {
     var doctor = realm.query<Doctor>('_id == oid($id)').first;
     return doctor;
   }
+  static Future<Doctor?> getDoctorByLogin(login)async {
+    var doctor = realm.query<Doctor>('login == "$login"');
+    return doctor.isNotEmpty ? doctor.first : null;
+  }
   static Patient? getPatientByID(id) {
     var patient = realm.query<Patient>(r'_id == $0',[id]);
     return patient.isNotEmpty ? patient.first : null;
