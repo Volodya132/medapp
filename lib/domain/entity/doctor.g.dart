@@ -21,6 +21,7 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
     String BIO = "",
     String login = "",
     String password = "",
+    String salt = "",
     Iterable<String> specialities = const [],
     Iterable<ObjectId> patientsIDs = const [],
   }) {
@@ -36,6 +37,7 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
         'BIO': "",
         'login': "",
         'password': "",
+        'salt': "",
       });
     }
     RealmObjectBase.set(this, '_id', id);
@@ -49,6 +51,7 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
     RealmObjectBase.set(this, 'BIO', BIO);
     RealmObjectBase.set(this, 'login', login);
     RealmObjectBase.set(this, 'password', password);
+    RealmObjectBase.set(this, 'salt', salt);
     RealmObjectBase.set<RealmList<String>>(
         this, 'specialities', RealmList<String>(specialities));
     RealmObjectBase.set<RealmList<ObjectId>>(
@@ -129,6 +132,11 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
       throw RealmUnsupportedSetError();
 
   @override
+  String get salt => RealmObjectBase.get<String>(this, 'salt') as String;
+  @override
+  set salt(String value) => RealmObjectBase.set(this, 'salt', value);
+
+  @override
   Stream<RealmObjectChanges<Doctor>> get changes =>
       RealmObjectBase.getChanges<Doctor>(this);
 
@@ -156,6 +164,7 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
       SchemaProperty('password', RealmPropertyType.string),
       SchemaProperty('patientsIDs', RealmPropertyType.objectid,
           collectionType: RealmCollectionType.list),
+      SchemaProperty('salt', RealmPropertyType.string),
     ]);
   }
 }

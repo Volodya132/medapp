@@ -17,6 +17,7 @@ class _ViewModelState {
   String password = '';
   bool isAuthInProcess = false;
 
+  bool obscurePassword = true;
   _ViewModelAuthButtonState get authButtonState {
     if (isAuthInProcess) {
       return _ViewModelAuthButtonState.authProcess;
@@ -54,6 +55,10 @@ class _ViewModel extends ChangeNotifier {
     Navigator.of(context).pushNamed("/auth/register");
 
   }
+  void onPasswordIconPressed() async {
+    _state.obscurePassword = !_state.obscurePassword;
+    notifyListeners();
+  }
 
   Future<void> onAuthButtonPressed(BuildContext context) async {
     final login = _state.login;
@@ -71,13 +76,17 @@ class _ViewModel extends ChangeNotifier {
       notifyListeners();
       MainNavigation.showLoader(context);
     } on AuthProviderIncorrectLoginDataError {
-      _state.authErrorTitle =  S.of(context).WrongAnswerOrPassword;
+      _state.authErrorTitle =  S.of(context).ThereIsNoUserWithTheEnteredLogin;
+      _state.isAuthInProcess = false;
+      notifyListeners();
+    } on AuthProviderIncorrectPasswordDataError {
+      _state.authErrorTitle =  S.of(context).ThePasswordEnteredIsIncorrect;
       _state.isAuthInProcess = false;
       notifyListeners();
     } catch (exeption) {
       print(exeption);
       _state.authErrorTitle =
-          S.of(context).ServiceError;
+          S.of(context).ThePasswordEnteredIsIncorrect;
       _state.isAuthInProcess = false;
       notifyListeners();
     }
@@ -97,28 +106,32 @@ class AuthWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            _WelcomeWidget(),
-            SizedBox(height: 10),
-            _ErrorTitleWidget(),
-            SizedBox(height: 10),
-            _LoginWidget(),
-            SizedBox(height: 10),
-            _PasswordWidget(),
-            SizedBox(height: 10),
-            Align(
-              alignment: Alignment.centerRight,
-              child: _ForgotPasswordTitle(),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                _WelcomeWidget(),
+                SizedBox(height: 10),
+                _ErrorTitleWidget(),
+                SizedBox(height: 10),
+                _LoginWidget(),
+                SizedBox(height: 10),
+                _PasswordWidget(),
+                SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: _ForgotPasswordTitle(),
+                ),
+                SizedBox(height: 10),
+                AuthButtonWidget(),
+                SizedBox(height: 10),
+                RegWidget(),
+              ],
             ),
-            SizedBox(height: 10),
-            AuthButtonWidget(),
-            SizedBox(height: 10),
-            RegWidget(),
-          ],
+          ),
         ),
       ),
     );
@@ -182,9 +195,15 @@ class _PasswordWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
+    final obscurePassword =
+    context.select((_ViewModel value) => value.state.obscurePassword);
+    return TextFormField(
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.lock_outline),
+          prefixIcon: IconButton(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onPressed: model.onPasswordIconPressed,
+            icon: obscurePassword ? const Icon(Icons.lock_outline) :  const Icon(Icons.lock_open_outlined),),
           enabledBorder: enabledBorder,
           focusedBorder: focusedBorder,
           filled: true,
@@ -194,6 +213,8 @@ class _PasswordWidget extends StatelessWidget {
               .Password,
           fillColor: inputColor),
       onChanged: model.changePassword,
+      obscureText: obscurePassword,
+
     );
   }
 }
@@ -224,10 +245,12 @@ class AuthButtonWidget extends StatelessWidget {
 
     final child = authButtonState == _ViewModelAuthButtonState.authProcess
         ? const CircularProgressIndicator()
-        : const Text('Авторизуватися');
+        :  Text(S
+        .of(context)
+        .LogIn);
     return ElevatedButton(
       //style:  styleForCommonButton,
-      onPressed: () => onPressed?.call(context),
+      onPressed: onPressed == null ? null : () => onPressed.call(context),
       child: child,
     );
   }
@@ -245,7 +268,7 @@ class RegWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children:
             [
-              Text(S.of(context).DontHaveAcc+" "),
+              Text("${S.of(context).DontHaveAcc} "),
               Text(S.of(context).SingUp)
             ]));
   }

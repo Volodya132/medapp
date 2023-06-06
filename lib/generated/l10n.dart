@@ -439,6 +439,86 @@ class S {
       args: [],
     );
   }
+
+  /// `The password must contain at least one uppercase letter.`
+  String get ThePasswordMustContainAtLeastOneUppercaseLetter {
+    return Intl.message(
+      'The password must contain at least one uppercase letter.',
+      name: 'ThePasswordMustContainAtLeastOneUppercaseLetter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password must contain at least one lowercase letter.`
+  String get ThePasswordMustContainAtLeastOneLowercaseLetter {
+    return Intl.message(
+      'The password must contain at least one lowercase letter.',
+      name: 'ThePasswordMustContainAtLeastOneLowercaseLetter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password must contain at least one digit.`
+  String get ThePasswordMustContainAtLeastOneDigit {
+    return Intl.message(
+      'The password must contain at least one digit.',
+      name: 'ThePasswordMustContainAtLeastOneDigit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password must contain at least one special character.`
+  String get ThePasswordMustContainAtLeastOneSpecialCharacter {
+    return Intl.message(
+      'The password must contain at least one special character.',
+      name: 'ThePasswordMustContainAtLeastOneSpecialCharacter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password must contain a minimum of 8 characters.`
+  String get ThePasswordMustContainAMinimumOf8Characters {
+    return Intl.message(
+      'The password must contain a minimum of 8 characters.',
+      name: 'ThePasswordMustContainAMinimumOf8Characters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log in`
+  String get LogIn {
+    return Intl.message(
+      'Log in',
+      name: 'LogIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is no user with the entered login`
+  String get ThereIsNoUserWithTheEnteredLogin {
+    return Intl.message(
+      'There is no user with the entered login',
+      name: 'ThereIsNoUserWithTheEnteredLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password entered is incorrect`
+  String get ThePasswordEnteredIsIncorrect {
+    return Intl.message(
+      'The password entered is incorrect',
+      name: 'ThePasswordEnteredIsIncorrect',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

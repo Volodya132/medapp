@@ -25,6 +25,8 @@ class _Doctor {
 
   List<ObjectId> patientsIDs = [];
 
+  String salt = "";
+
 
 
   List<Patient?> get patients => patientsIDs.map((id) => RealmService.getPatientByID(id)).toList();

@@ -37,6 +37,13 @@
   "RepeatPassword": "Repeat password",
   "FieldCannotBeEmpty": "Field cannot be empty",
   "PasswordsDoNotMatch": "Passwords do not match",
-  "InputError": "Input error"
-
+  "InputError": "Input error",
+  "ThePasswordMustContainAtLeastOneUppercaseLetter": "The password must contain at least one uppercase letter.",
+  "ThePasswordMustContainAtLeastOneLowercaseLetter": "The password must contain at least one lowercase letter.",
+  "ThePasswordMustContainAtLeastOneDigit": "The password must contain at least one digit.",
+  "ThePasswordMustContainAtLeastOneSpecialCharacter": "The password must contain at least one special character.",
+  "ThePasswordMustContainAMinimumOf8Characters": "The password must contain a minimum of 8 characters.",
+  "LogIn": "Log in",
+  "ThereIsNoUserWithTheEnteredLogin": "There is no user with the entered login",
+  "ThePasswordEnteredIsIncorrect": "The password entered is incorrect"
 }

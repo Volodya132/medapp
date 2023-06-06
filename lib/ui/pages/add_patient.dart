@@ -86,6 +86,13 @@ class _ViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? validateOnEmpty(String? value, BuildContext context) {
+    if (value == null || value.trim().isEmpty) {
+      return S
+          .of(context).FieldCannotBeEmpty;
+    }
+    return null;
+  }
   Future<void> onAddButtonPressed(BuildContext context) async {
     final fname = _state.fname;
     final mname = _state.mname;
@@ -167,7 +174,14 @@ class _FNameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
+    return TextFormField(
+      validator: (String? value) {
+        if (value == null || value.trim().isEmpty) {
+          return S
+              .of(context).FieldCannotBeEmpty;
+        }
+        return null;
+      },
       decoration: InputDecoration(
           prefixIcon: const Icon(Icons.person),
           enabledBorder: enabledBorder,

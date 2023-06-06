@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LName": MessageLookupByLibrary.simpleMessage("Прізвище"),
         "LastChange": MessageLookupByLibrary.simpleMessage("Остання зміна"),
         "Location": MessageLookupByLibrary.simpleMessage("Розташування"),
+        "LogIn": MessageLookupByLibrary.simpleMessage("Увійти"),
         "Login": MessageLookupByLibrary.simpleMessage("Логін"),
         "MName": MessageLookupByLibrary.simpleMessage("По-батькові"),
         "Name": MessageLookupByLibrary.simpleMessage("Ім\'я"),
@@ -64,6 +65,26 @@ class MessageLookup extends MessageLookupByLibrary {
             "Я радий знову вас бачити. Ви можете продовжити там, де зупинилися, увійшовши в свій обліковий запис"),
         "TelephoneNumber":
             MessageLookupByLibrary.simpleMessage("Номер телефону"),
+        "ThePasswordEnteredIsIncorrect":
+            MessageLookupByLibrary.simpleMessage("Пароль введенно не вірно"),
+        "ThePasswordMustContainAMinimumOf8Characters":
+            MessageLookupByLibrary.simpleMessage(
+                "Пароль повинен містити як мінімум 8 символів."),
+        "ThePasswordMustContainAtLeastOneDigit":
+            MessageLookupByLibrary.simpleMessage(
+                "Пароль повинен містити хоча б одну цифру."),
+        "ThePasswordMustContainAtLeastOneLowercaseLetter":
+            MessageLookupByLibrary.simpleMessage(
+                "Пароль повинен містити хоча б одну маленьку букву."),
+        "ThePasswordMustContainAtLeastOneSpecialCharacter":
+            MessageLookupByLibrary.simpleMessage(
+                "Пароль повинен містити хоча б один спеціальний символ."),
+        "ThePasswordMustContainAtLeastOneUppercaseLetter":
+            MessageLookupByLibrary.simpleMessage(
+                "Пароль повинен містити хоча б одну велику букву."),
+        "ThereIsNoUserWithTheEnteredLogin":
+            MessageLookupByLibrary.simpleMessage(
+                "Не існує користувача з введеним логіном"),
         "Time": MessageLookupByLibrary.simpleMessage("Час"),
         "Type": MessageLookupByLibrary.simpleMessage("Тип"),
         "WelcomeBack": MessageLookupByLibrary.simpleMessage("З поверненням"),

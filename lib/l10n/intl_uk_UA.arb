@@ -36,5 +36,13 @@
   "RepeatPassword": "Повторіть пароль",
   "FieldCannotBeEmpty": "Поле не може бути пустим",
   "PasswordsDoNotMatch": "Паролі не співпадають",
-  "InputError": "Помилка введення"
+  "InputError": "Помилка введення",
+  "ThePasswordMustContainAtLeastOneUppercaseLetter": "Пароль повинен містити хоча б одну велику букву.",
+  "ThePasswordMustContainAtLeastOneLowercaseLetter": "Пароль повинен містити хоча б одну маленьку букву.",
+  "ThePasswordMustContainAtLeastOneDigit": "Пароль повинен містити хоча б одну цифру.",
+  "ThePasswordMustContainAtLeastOneSpecialCharacter": "Пароль повинен містити хоча б один спеціальний символ.",
+  "ThePasswordMustContainAMinimumOf8Characters": "Пароль повинен містити як мінімум 8 символів.",
+  "LogIn": "Увійти",
+  "ThereIsNoUserWithTheEnteredLogin": "Не існує користувача з введеним логіном",
+  "ThePasswordEnteredIsIncorrect": "Пароль введенно не вірно"
 }

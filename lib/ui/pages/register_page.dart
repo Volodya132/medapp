@@ -28,6 +28,9 @@ class _ViewModelState {
   String lname = '';
   String gender = '';
 
+  bool obscurePassword = true;
+  bool obscureRepeatPassword = true;
+
 
 
 
@@ -73,9 +76,42 @@ class _ViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String? passwordValidator(BuildContext context, String? password) {
+    if (password == null || password.isEmpty) {
+      return S.of(context).FieldCannotBeEmpty;
+    }
+    if( !password.contains(RegExp(r'[A-Z]'))) {
+        return S.of(context).ThePasswordMustContainAtLeastOneUppercaseLetter;
+    }
+    if( !password.contains(RegExp(r'[0-9]'))) {
+      return S.of(context).ThePasswordMustContainAtLeastOneDigit;
+    }
+    if( !password.contains(RegExp(r'[a-z]'))) {
+      return S.of(context).ThePasswordMustContainAtLeastOneLowercaseLetter;
+    }
+    if( !password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      return S.of(context).ThePasswordMustContainAtLeastOneSpecialCharacter;
+    }
+    if( password.length < 8) {
+      return S.of(context).ThePasswordMustContainAMinimumOf8Characters;
+    }
+    return null;
+
+  }
+
   void changeRepeatPassword(String value) {
     if (_state.repPassword == value) return;
     _state.repPassword = value;
+    notifyListeners();
+  }
+
+  void onRepeatPasswordIconPressed() async {
+      _state.obscureRepeatPassword = !_state.obscureRepeatPassword;
+      notifyListeners();
+  }
+
+  void onPasswordIconPressed() async {
+    _state.obscurePassword = !_state.obscurePassword;
     notifyListeners();
   }
 
@@ -187,37 +223,39 @@ class RegisterWidget extends StatelessWidget {
     final key =
     context.select((_ViewModel value) => value.state.formKey);
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: Form(
-            key: key,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const _ErrorTitleWidget(),
-                const SizedBox(height: 10),
-                const _lNameWidget(),
-                const SizedBox(height: 10),
-                const _fNameWidget(),
-                const SizedBox(height: 10),
-                const _mNameWidget(),
-                const SizedBox(height: 10),
-                Row(
-                  children: const [
-                    Flexible(child: _GenderWidget()),
-                    Flexible(child: _DatePickWidget()),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                const _LoginWidget(),
-                const SizedBox(height: 10),
-                const  _PasswordWidget(),
-                const SizedBox(height: 10),
-                const  _RepeatWidget(),
-                const SizedBox(height: 10),
-                const RegButtonWidget(),
-              ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Form(
+              key: key,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const _ErrorTitleWidget(),
+                  const SizedBox(height: 10),
+                  const _lNameWidget(),
+                  const SizedBox(height: 10),
+                  const _fNameWidget(),
+                  const SizedBox(height: 10),
+                  const _mNameWidget(),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: const [
+                      Flexible(child: _GenderWidget()),
+                      Flexible(child: _DatePickWidget()),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  const _LoginWidget(),
+                  const SizedBox(height: 10),
+                  const  _PasswordWidget(),
+                  const SizedBox(height: 10),
+                  const  _RepeatWidget(),
+                  const SizedBox(height: 10),
+                  const RegButtonWidget(),
+                ],
+              ),
             ),
           ),
         ),
@@ -263,16 +301,18 @@ class _PasswordWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
+    final obscureText =
+    context.select((_ViewModel value) => value.state.obscurePassword);
     return TextFormField(
       validator: (String? value) {
-        if (value == null || value.trim().isEmpty) {
-          return S
-              .of(context).FieldCannotBeEmpty;
-        }
-        return null;
+        return model.passwordValidator(context, value);
       },
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.lock_outline),
+          prefixIcon: IconButton(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onPressed: model.onPasswordIconPressed,
+            icon: obscureText ? const Icon(Icons.lock_outline) :  const Icon(Icons.lock_open_outlined),),
           enabledBorder:enabledBorder,
           focusedBorder: focusedBorder,
           filled: true,
@@ -282,6 +322,7 @@ class _PasswordWidget extends StatelessWidget {
               .Password,
           fillColor: inputColor),
       onChanged: model.changePassword,
+      obscureText: obscureText,
     );
   }
 }
@@ -294,7 +335,8 @@ class _RepeatWidget extends StatelessWidget {
     final model = context.read<_ViewModel>();
     final password =
     context.select((_ViewModel value) => value.state.password);
-
+    final obscureText =
+    context.select((_ViewModel value) => value.state.obscureRepeatPassword);
     return TextFormField(
       validator: (String? value) {
         if (value == null || value.trim().isEmpty) {
@@ -310,7 +352,11 @@ class _RepeatWidget extends StatelessWidget {
         return null;
       },
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.lock_outline),
+          prefixIcon: IconButton(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onPressed: model.onRepeatPasswordIconPressed,
+            icon: obscureText ? const Icon(Icons.lock_outline) :  const Icon(Icons.lock_open_outlined),),
           enabledBorder:enabledBorder,
           focusedBorder: focusedBorder,
           filled: true,
@@ -320,6 +366,8 @@ class _RepeatWidget extends StatelessWidget {
               .RepeatPassword,
           fillColor: inputColor),
       onChanged: model.changeRepeatPassword,
+      obscureText: obscureText,
+
     );
   }
 }
@@ -392,8 +440,9 @@ class _lNameWidget extends StatelessWidget {
     return TextFormField(
       validator: (value) {
         print(value);
-        if (value == null || value.isEmpty || value == '123') {
-          return 'Please enter some text';
+        if (value == null || value.isEmpty) {
+          return S
+              .of(context).FieldCannotBeEmpty;
         }
         return null;
       },

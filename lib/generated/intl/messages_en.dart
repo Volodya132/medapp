@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LName": MessageLookupByLibrary.simpleMessage("Last name"),
         "LastChange": MessageLookupByLibrary.simpleMessage("Last change"),
         "Location": MessageLookupByLibrary.simpleMessage("Location"),
+        "LogIn": MessageLookupByLibrary.simpleMessage("Log in"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "MName": MessageLookupByLibrary.simpleMessage("Middle name"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
@@ -65,6 +66,26 @@ class MessageLookup extends MessageLookupByLibrary {
             "I am happy to see you again. You can continue where you left off by logging in"),
         "TelephoneNumber":
             MessageLookupByLibrary.simpleMessage("telephone number"),
+        "ThePasswordEnteredIsIncorrect": MessageLookupByLibrary.simpleMessage(
+            "The password entered is incorrect"),
+        "ThePasswordMustContainAMinimumOf8Characters":
+            MessageLookupByLibrary.simpleMessage(
+                "The password must contain a minimum of 8 characters."),
+        "ThePasswordMustContainAtLeastOneDigit":
+            MessageLookupByLibrary.simpleMessage(
+                "The password must contain at least one digit."),
+        "ThePasswordMustContainAtLeastOneLowercaseLetter":
+            MessageLookupByLibrary.simpleMessage(
+                "The password must contain at least one lowercase letter."),
+        "ThePasswordMustContainAtLeastOneSpecialCharacter":
+            MessageLookupByLibrary.simpleMessage(
+                "The password must contain at least one special character."),
+        "ThePasswordMustContainAtLeastOneUppercaseLetter":
+            MessageLookupByLibrary.simpleMessage(
+                "The password must contain at least one uppercase letter."),
+        "ThereIsNoUserWithTheEnteredLogin":
+            MessageLookupByLibrary.simpleMessage(
+                "There is no user with the entered login"),
         "Time": MessageLookupByLibrary.simpleMessage("Time"),
         "Type": MessageLookupByLibrary.simpleMessage("Type"),
         "WelcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),

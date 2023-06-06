@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:medapp/domain/entity/evolutionInjury.dart';
 import 'package:medapp/domain/entity/injurySnapshot.dart';
 import 'package:medapp/domain/entity/patient.dart';
+import 'package:medapp/domain/services/crypt_service.dart';
 import 'package:medapp/domain/services/firebaseService.dart';
 import 'package:medapp/domain/services/realmService.dart';
 import 'package:realm/realm.dart';
@@ -24,7 +25,8 @@ class RegProvider {
     if((await RealmService.getDoctorByLogin(doctor.login)) != null) {
       throw RegProviderIncorrectLoginDataError();
     }
-
+    doctor.salt = CryptService.createSalt();
+    doctor.password = CryptService.encode( doctor.password, doctor.salt);
     await RealmService.addDoctor(doctor);
   }
 
