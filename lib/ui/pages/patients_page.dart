@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:medapp/domain/services/doctor_service.dart';
 import 'package:medapp/domain/services/realmService.dart';
@@ -109,9 +110,14 @@ class PatientsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(toolbarHeight: double.minPositive,
+      appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+        ),
+        toolbarHeight: 0,
         backgroundColor: Colors.transparent,
-        elevation: 0),
+        elevation: 0,
+      ),
       body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -250,20 +256,25 @@ class _PatientsListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var patients = context.select((_ViewModel vm) => vm.state.patients);
+    var fio = context.select((_ViewModel vm) => vm.state.searchingPatients);
     final viewModel = context.read<_ViewModel>();
 
     return StreamBuilder<RealmResultsChanges<Patient>>(
-        stream: RealmService.getPatientsChanges() ,
+        stream: RealmService.getPatientsChanges(fio) ,
         builder: (context, snapshot) {
           final data = snapshot.data;
           if (data == null) return Container();
           final results = data.results;
           viewModel.loadValue();
-          patients = viewModel.state.patients;
+          patients = results;
+          print(results);
+          for(var pat in results) {
+            print(pat.fname);
+          }
           return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: patients.length,
+              itemCount: results.length,
               itemBuilder: (context, index) =>
                   Card( //                           <-- Card widget
                     child:

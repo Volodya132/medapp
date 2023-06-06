@@ -17,7 +17,7 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
     String gender = "",
     String number = "",
     String email = "",
-    DateTime? birtday,
+    DateTime? birthday,
     String BIO = "",
     String login = "",
     String password = "",
@@ -47,7 +47,7 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
     RealmObjectBase.set(this, 'gender', gender);
     RealmObjectBase.set(this, 'number', number);
     RealmObjectBase.set(this, 'email', email);
-    RealmObjectBase.set(this, 'birtday', birtday);
+    RealmObjectBase.set(this, 'birthday', birthday);
     RealmObjectBase.set(this, 'BIO', BIO);
     RealmObjectBase.set(this, 'login', login);
     RealmObjectBase.set(this, 'password', password);
@@ -103,10 +103,10 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
       throw RealmUnsupportedSetError();
 
   @override
-  DateTime? get birtday =>
-      RealmObjectBase.get<DateTime>(this, 'birtday') as DateTime?;
+  DateTime? get birthday =>
+      RealmObjectBase.get<DateTime>(this, 'birthday') as DateTime?;
   @override
-  set birtday(DateTime? value) => RealmObjectBase.set(this, 'birtday', value);
+  set birthday(DateTime? value) => RealmObjectBase.set(this, 'birthday', value);
 
   @override
   String get BIO => RealmObjectBase.get<String>(this, 'BIO') as String;
@@ -158,7 +158,7 @@ class Doctor extends _Doctor with RealmEntity, RealmObjectBase, RealmObject {
       SchemaProperty('email', RealmPropertyType.string),
       SchemaProperty('specialities', RealmPropertyType.string,
           collectionType: RealmCollectionType.list),
-      SchemaProperty('birtday', RealmPropertyType.timestamp, optional: true),
+      SchemaProperty('birthday', RealmPropertyType.timestamp, optional: true),
       SchemaProperty('BIO', RealmPropertyType.string),
       SchemaProperty('login', RealmPropertyType.string),
       SchemaProperty('password', RealmPropertyType.string),

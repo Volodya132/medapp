@@ -18,7 +18,7 @@ class _Doctor {
   String number = "";
   String email = "";
   List<String> specialities = [];
-  DateTime? birtday;
+  DateTime? birthday;
   String BIO = "";
   String login = "";
   String password = "";

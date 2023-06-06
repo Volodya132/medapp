@@ -10,9 +10,11 @@ class DoctorDataProvider {
     String? id = (await sharedPreferences).getString('account_id');
 
     Doctor? doctor = (await RealmService.getDoctorByID(id));
-    RealmService.updateSubscriptionsDoctor(id);
-    //rs.closeRealm();
-    return doctor;
+    if(doctor!=null) {
+      RealmService.updateSubscriptionsDoctor(id, doctor.patientsIDs);
+      //rs.closeRealm();
+      return doctor;
+    }
 
 
   }

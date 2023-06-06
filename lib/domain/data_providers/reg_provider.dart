@@ -1,7 +1,4 @@
-import 'dart:ffi';
-import 'dart:typed_data';
 
-import 'package:medapp/domain/entity/evolutionInjury.dart';
 import 'package:medapp/domain/entity/injurySnapshot.dart';
 import 'package:medapp/domain/entity/patient.dart';
 import 'package:medapp/domain/services/crypt_service.dart';
@@ -30,10 +27,7 @@ class RegProvider {
     await RealmService.addDoctor(doctor);
   }
 
-  Future<void> registerPatient(String fname, String mname, String lname, String age, String gender, String phoneNumber, String? id) async {
-    int castage = int.parse(age);
-
-    var patient = Patient(ObjectId(), fname: fname, mname: mname, lname: lname, age: castage, gender: gender, phoneNumber: phoneNumber);
+  Future<void> registerPatient(Patient patient) async {
     String? id = (await _sharedPreferences).getString('account_id');
     Doctor? doctor = (await RealmService.getDoctorByID(id));
 

@@ -12,7 +12,7 @@ class Patient extends _Patient with RealmEntity, RealmObjectBase, RealmObject {
     String? fname,
     String? mname,
     String? lname,
-    int? age,
+    DateTime? birthday,
     String? gender,
     String? address,
     String? phoneNumber,
@@ -23,7 +23,7 @@ class Patient extends _Patient with RealmEntity, RealmObjectBase, RealmObject {
     RealmObjectBase.set(this, 'fname', fname);
     RealmObjectBase.set(this, 'mname', mname);
     RealmObjectBase.set(this, 'lname', lname);
-    RealmObjectBase.set(this, 'age', age);
+    RealmObjectBase.set(this, 'birthday', birthday);
     RealmObjectBase.set(this, 'gender', gender);
     RealmObjectBase.set(this, 'address', address);
     RealmObjectBase.set(this, 'phoneNumber', phoneNumber);
@@ -55,9 +55,10 @@ class Patient extends _Patient with RealmEntity, RealmObjectBase, RealmObject {
   set lname(String? value) => RealmObjectBase.set(this, 'lname', value);
 
   @override
-  int? get age => RealmObjectBase.get<int>(this, 'age') as int?;
+  DateTime? get birthday =>
+      RealmObjectBase.get<DateTime>(this, 'birthday') as DateTime?;
   @override
-  set age(int? value) => RealmObjectBase.set(this, 'age', value);
+  set birthday(DateTime? value) => RealmObjectBase.set(this, 'birthday', value);
 
   @override
   String? get gender => RealmObjectBase.get<String>(this, 'gender') as String?;
@@ -109,7 +110,7 @@ class Patient extends _Patient with RealmEntity, RealmObjectBase, RealmObject {
       SchemaProperty('fname', RealmPropertyType.string, optional: true),
       SchemaProperty('mname', RealmPropertyType.string, optional: true),
       SchemaProperty('lname', RealmPropertyType.string, optional: true),
-      SchemaProperty('age', RealmPropertyType.int, optional: true),
+      SchemaProperty('birthday', RealmPropertyType.timestamp, optional: true),
       SchemaProperty('gender', RealmPropertyType.string, optional: true),
       SchemaProperty('address', RealmPropertyType.string, optional: true),
       SchemaProperty('phoneNumber', RealmPropertyType.string, optional: true),

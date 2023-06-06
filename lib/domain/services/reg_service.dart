@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:medapp/domain/data_providers/reg_provider.dart';
 import 'package:medapp/domain/entity/doctor.dart';
+import 'package:medapp/domain/entity/patient.dart';
 import 'package:realm/realm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,8 +16,8 @@ class RegService {
      await _regProvider.registerDoctor(doctor);
   }
 
-  Future<void> registerPatient(String fname, String mname, String lname,String age, String gender, String phoneNumber, String? id) async {
-    await _regProvider.registerPatient(fname, mname, lname, age, gender, phoneNumber, id);
+  Future<void> registerPatient(Patient patient) async {
+    await _regProvider.registerPatient(patient);
   }
 
   Future<void> addCurrentInjury(String type, String location, String severity, String timeOfInjury,  String cause, ObjectId? patientID) async {

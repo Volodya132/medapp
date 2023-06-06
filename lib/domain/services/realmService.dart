@@ -39,17 +39,31 @@ class RealmService {
     });
     await realm.subscriptions.waitForSynchronization();
   }
+  static String makeRealmList(list) {
+    return "${"{" + list.map((id) => "oid(${id.toString()})").join(', ')}}";
+  }
+  static Future<void> updateSubscriptionsDoctor(id, patientsIds) async {
+    var patients = makeRealmList(patientsIds);
 
-  static Future<void> updateSubscriptionsDoctor(id) async {
     realm.subscriptions.update((mutableSubscriptions) {
       mutableSubscriptions.clear();
       mutableSubscriptions.add(realm.query<Doctor>('_id == oid($id)'), name: "Doctor");
-      mutableSubscriptions.add(realm.all<Patient>(), name: "DoctorsPatient");
+      mutableSubscriptions.add(realm.query<Patient>("_id IN ${patients}"), name: "DoctorsPatient");
       mutableSubscriptions.add(realm.all<Injury>(), name: "Injuries");
       mutableSubscriptions.add(realm.all<InjurySnapshot>(), name: "InjurySnapshot");
     });
     await realm.subscriptions.waitForSynchronization();
   }
+ /* static Future<void> updateSubscriptionsFilterPatient(String fio) async {
+    var fioList = fio.split(' ');
+    realm.subscriptions.update((mutableSubscriptions) {
+      mutableSubscriptions.removeByName('DoctorsPatient');
+      mutableSubscriptions.add(realm.query<Patient>("fname CONTAINS[c] '${fioList[0]}'"), name: "DoctorsPatient");
+
+    });
+    await realm.subscriptions.waitForSynchronization();
+  }*/
+
   static Future<void> closeRealm() async {
        realm.close();
   }
@@ -127,9 +141,19 @@ class RealmService {
     return injurySnapshot.isNotEmpty ? injurySnapshot.first : null;
   }
 
-  static Stream<RealmResultsChanges<Patient>> getPatientsChanges() {
+  static Stream<RealmResultsChanges<Patient>> getPatientsChanges(fio) {
+    List<String> fioList = fio.split(' ');
+    String query = "";
+    for(int i = 0; i< fioList.length; i++) {
+      query += "(fname CONTAINS[c] '${fioList[i]}' OR mname CONTAINS[c] '${fioList[i]}' OR lname CONTAINS[c] '${fioList[i]}')";
+      if(i < fioList.length-1){
+        query += "AND ";
+      }
+    }
+    print("test");
+    print(query);
     return RealmService.realm
-        .query<Patient>("TRUEPREDICATE SORT(_id ASC)")
+        .query<Patient>(query)
         .changes;
   }
 
@@ -156,4 +180,5 @@ class RealmService {
     realm.close();
   }
 }
+
 

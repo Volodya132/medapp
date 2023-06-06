@@ -15,7 +15,7 @@ class _Patient {
   String? fname;
   String? mname;
   String? lname;
-  int? age;
+  DateTime? birthday;
   String? gender;
   String? address;
   String? phoneNumber;

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:medapp/domain/entity/doctor.dart';
 import 'package:medapp/domain/services/dropMenu_service.dart';
@@ -27,16 +28,15 @@ class _ViewModelState {
   String mname = '';
   String lname = '';
   String gender = '';
+  String dateFormat ="yyyy-mm-dd";
 
   bool obscurePassword = true;
   bool obscureRepeatPassword = true;
 
 
-
-
   DateTime birthday = DateTime.now();
   bool isRegInProcess = false;
-  String dateFormat ="yyyy-mm-dd";
+
   final formKey = GlobalKey<FormState>();
 
   TextEditingController dataController = TextEditingController();
@@ -189,7 +189,7 @@ class _ViewModel extends ChangeNotifier {
       return;
     }
     try {
-      await _regService.registerDoctor(Doctor(ObjectId(), birtday: birthday, fName: fname, mName: mname, lName: lname, gender: gender, email: email, login: login, password: password));
+      await _regService.registerDoctor(Doctor(ObjectId(), birthday: birthday, fName: fname, mName: mname, lName: lname, gender: gender, email: email, login: login, password: password));
       _state.isRegInProcess = false;
       //якийсь месджбокс мб
       notifyListeners();
@@ -223,6 +223,17 @@ class RegisterWidget extends StatelessWidget {
     final key =
     context.select((_ViewModel value) => value.state.formKey);
     return Scaffold(
+      appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        title: Text(S
+            .of(context).Registraion),
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -281,7 +292,6 @@ class _LoginWidget extends StatelessWidget {
         return null;
       },
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.person),
           enabledBorder: enabledBorder,
           focusedBorder: focusedBorder,
           filled: true,
@@ -387,8 +397,7 @@ class _fNameWidget extends StatelessWidget {
         return null;
       },
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.person),
-          enabledBorder:enabledBorder,
+          enabledBorder: enabledBorder,
           focusedBorder: focusedBorder,
           filled: true,
           hintStyle: textStyleForInput,
@@ -416,7 +425,6 @@ class _mNameWidget extends StatelessWidget {
         return null;
       },
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.person),
           enabledBorder:enabledBorder,
           focusedBorder: focusedBorder,
           filled: true,
@@ -447,7 +455,6 @@ class _lNameWidget extends StatelessWidget {
         return null;
       },
       decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.person),
           enabledBorder:enabledBorder,
           focusedBorder: focusedBorder,
           filled: true,
