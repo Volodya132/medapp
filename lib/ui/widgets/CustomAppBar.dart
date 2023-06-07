@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AppBarForRegister extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget> actions;
 
-  AppBarForRegister({this.title = '', this.actions = const <Widget>[]});
+  CustomAppBar({this.title = '', this.actions = const <Widget>[]});
 
   @override
   Widget build(BuildContext context) {

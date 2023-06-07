@@ -93,6 +93,10 @@ class _ViewModel extends ChangeNotifier {
     Navigator.of(context).pushNamed('/patients_page/patientDetail', arguments: id);
   }
 
+  Future<void> onDoctorAccountClick() async {
+    Navigator.of(context).pushNamed('/patients_page/doctor_account');
+  }
+
   // This shows a CupertinoModalPopup which hosts a CupertinoAlertDialog.
   void _showAlertDialog(BuildContext context, patientID) {
     showCupertinoModalPopup<void>(
@@ -283,8 +287,8 @@ class _DoctorProfileWidget extends StatelessWidget {
     final viewModel = context.read<_ViewModel>();
     return   IconButton(
       iconSize: 70,
-      icon:  Icon(Icons.account_circle_outlined),
-      onPressed: () {  },
+      icon:  const Icon(Icons.account_circle_outlined),
+      onPressed: viewModel.onDoctorAccountClick,
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:medapp/domain/entity/evolutionInjury.dart';
 import 'package:medapp/domain/services/realmService.dart';
 import 'package:medapp/generated/l10n.dart';
+import 'package:medapp/ui/widgets/CusomButton.dart';
 import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
 import '../../domain/entity/injury.dart';
@@ -95,63 +96,72 @@ class PatientDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffe7e9fe),
-      body: SafeArea(
-          child: CustomScrollView(
-              slivers: [
+    return Container(
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [Color(0xFF3AB7FF), Color(0xFFA8E7FF), Color(0xFF3AB7FF)])),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: SafeArea(
+            child: CustomScrollView(
+                slivers: [
 
-                SliverAppBar(
-                  toolbarHeight: 80,
-                  expandedHeight: 150,
-                  pinned: true,
-                  backgroundColor: const Color(0xffe7e9fe),
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Image.asset(
-                      "assets/images/backforPatientPage.jpg",
-                      width: double.maxFinite,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  leading: const Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: _BackWidget()),
-                  bottom: PreferredSize(
-                      preferredSize: Size.zero,
-                      child: Padding(
-                          padding: const EdgeInsets.only(left: 30),
-                          child: Row(
-                            children: const [
-                              _WelcomeWidget()
-                            ],
-                          ))
-
-                  ),),
-
-                SliverToBoxAdapter(
-                    child: Container(
-                        constraints:  BoxConstraints(
-                            minHeight: MediaQuery.of(context).size.height),
+                  SliverAppBar(
+                    shadowColor: const Color(0xFF3AB7FF),
+                    toolbarHeight: 80,
+                    expandedHeight: 150,
+                    pinned: true,
+                    //backgroundColor: Colors.transparent,
+                    leading: const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: _BackWidget()),
+                    flexibleSpace: Container(
                         decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(30.0),
-                              topLeft: Radius.circular(30.0),
-                        )),
+                        gradient: LinearGradient(
+                            begin: Alignment.centerLeft,
+                            end: Alignment.centerRight,
+                            colors: [Color(0xFF3AB7FF), Color(0xFFA8E7FF), Color(0xFF3AB7FF)]))
+                    ),
+                    bottom: PreferredSize(
+                        preferredSize: Size.zero,
                         child: Padding(
-                          padding: const EdgeInsets.all(30),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
+                            padding: const EdgeInsets.only(left: 30),
+                            child: Row(
+                              children: const [
+                                _WelcomeWidget()
+                              ],
+                            ))
 
-                              _AddPatientWidget(),
-                              SizedBox(height: 15),
-                              _InjuriesListWidget(),
-                            ],
-                          ),
-                        ))),
-              ])
+                    ),),
+
+                  SliverToBoxAdapter(
+                      child: Container(
+
+                          constraints:  BoxConstraints(
+                              minHeight: MediaQuery.of(context).size.height),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(30.0),
+                                topLeft: Radius.circular(30.0),
+                          )),
+                          child: Padding(
+                            padding: const EdgeInsets.all(30),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: const [
+
+                                _AddPatientWidget(),
+                                SizedBox(height: 15),
+                                _InjuriesListWidget(),
+                              ],
+                            ),
+                          ))),
+                ])
+        ),
       ),
     );
   }
@@ -178,9 +188,15 @@ class _WelcomeWidget extends StatelessWidget {
     final title = context.select((_ViewModel vm) =>
     vm.state.patientNameTitle);
     return
-      Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 34),
+      Flexible(
+        fit: FlexFit.loose,
+        child: Text(
+          title,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 2,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 34
+          ),
+        ),
       );
   }
 
@@ -192,26 +208,10 @@ class _AddPatientWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<_ViewModel>();
-    return ElevatedButton(
-        style:  ElevatedButton.styleFrom(
-          primary: const Color(0xea0f92d9),
-          minimumSize: const Size.fromHeight(50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15), // <-- Radius
-          ),
-        ),
+    return CustomButton(
         onPressed: viewModel.onAddInjuryButtonPressed,
-        child: Row (
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: [
-            const Icon(Icons.add),
-            const SizedBox(width: 5),
-            Text(S.of(context).Add),
-
-          ],
-        ));
+        text: S.of(context).Add,
+        icon: Icons.add);
   }
 }
 

@@ -6,6 +6,7 @@ import 'package:medapp/ui/helper/theme.dart';
 import 'package:medapp/ui/pages/add_injury.dart';
 import 'package:medapp/ui/pages/add_injurySnapshot.dart';
 import 'package:medapp/ui/pages/auth_page.dart';
+import 'package:medapp/ui/pages/doctor_account_page.dart';
 import 'package:medapp/ui/pages/injureSnapshot_PaintMask_page.dart';
 import 'package:medapp/ui/pages/patient_detail_page.dart';
 import 'package:medapp/ui/pages/register_page.dart';
@@ -82,6 +83,13 @@ class MyApp extends StatelessWidget {
             return PageRouteBuilder<dynamic>(
               pageBuilder: (context, animation1, animation2) =>
                   PatientDetail.create(patientID),
+              transitionDuration: Duration.zero,
+            );
+          }
+          else if (settings.name == '/patients_page/doctor_account') {
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  DoctorAccountWidget.create(),
               transitionDuration: Duration.zero,
             );
           }

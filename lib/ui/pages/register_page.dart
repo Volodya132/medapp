@@ -17,7 +17,7 @@ import '../../generated/l10n.dart';
 import '../helper/buttonConstants.dart';
 import '../helper/inputConstants.dart';
 import '../navigation/main_navigation.dart';
-import '../widgets/AppBarForRegister.dart';
+import '../widgets/CustomAppBar.dart';
 enum _ViewModelRegButtonState { canSubmit, regProcess, disable }
 
 class _ViewModelState {
@@ -225,7 +225,7 @@ class RegisterWidget extends StatelessWidget {
     final key =
     context.select((_ViewModel value) => value.state.formKey);
     return Scaffold(
-      appBar: AppBarForRegister(title: S
+      appBar: CustomAppBar(title: S
           .of(context).Registraion),
       body: SingleChildScrollView(
         child: Padding(

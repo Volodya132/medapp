@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:medapp/domain/services/realmService.dart';
 import 'package:medapp/ui/helper/inputConstants.dart';
 import 'package:medapp/ui/widgets/CusomButton.dart';
+import 'package:medapp/ui/widgets/CustomAppBar.dart';
 import 'package:provider/provider.dart';
 
 import 'package:medapp/domain/data_providers/auth_provider.dart';
@@ -108,14 +109,7 @@ class AuthWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-        ),
-        toolbarHeight: 0,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      appBar:CustomAppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(

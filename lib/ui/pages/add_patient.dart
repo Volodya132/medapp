@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:medapp/domain/services/reg_service.dart';
-import 'package:medapp/ui/widgets/AppBarForRegister.dart';
+import 'package:medapp/ui/widgets/CustomAppBar.dart';
 import 'package:medapp/ui/widgets/CusomButton.dart';
 import 'package:provider/provider.dart';
 
@@ -189,7 +189,7 @@ class AddPatientWidget extends StatelessWidget {
     final key =
     context.select((_ViewModel value) => value.state.formKey);
     return Scaffold(
-      appBar: AppBarForRegister(title: S.of(context).AddPatient,),
+      appBar: CustomAppBar(title: S.of(context).AddPatient,),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
