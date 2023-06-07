@@ -44,5 +44,9 @@
   "ThePasswordMustContainAMinimumOf8Characters": "Пароль повинен містити як мінімум 8 символів.",
   "LogIn": "Увійти",
   "ThereIsNoUserWithTheEnteredLogin": "Не існує користувача з введеним логіном",
-  "ThePasswordEnteredIsIncorrect": "Пароль введенно не вірно"
+  "ThePasswordEnteredIsIncorrect": "Пароль введенно не вірно",
+  "Attention": "Увага",
+  "DoYouWantToDeleteThePatient": "Ви бажаєте видалити пацієнта?",
+  "Delete": "Видалити",
+  "Cancel": "Відміна"
 }

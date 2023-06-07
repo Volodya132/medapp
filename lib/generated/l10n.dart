@@ -519,6 +519,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Attention`
+  String get Attention {
+    return Intl.message(
+      'Attention',
+      name: 'Attention',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to delete the patient?`
+  String get DoYouWantToDeleteThePatient {
+    return Intl.message(
+      'Do you want to delete the patient?',
+      name: 'DoYouWantToDeleteThePatient',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get Delete {
+    return Intl.message(
+      'Delete',
+      name: 'Delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get Cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'Cancel',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:medapp/domain/entity/doctor.dart';
 import 'package:medapp/domain/services/dropMenu_service.dart';
 import 'package:medapp/domain/services/reg_service.dart';
+import 'package:medapp/ui/widgets/CusomButton.dart';
 import 'package:provider/provider.dart';
 
 import 'package:medapp/domain/data_providers/auth_provider.dart';
@@ -16,6 +17,7 @@ import '../../generated/l10n.dart';
 import '../helper/buttonConstants.dart';
 import '../helper/inputConstants.dart';
 import '../navigation/main_navigation.dart';
+import '../widgets/AppBarForRegister.dart';
 enum _ViewModelRegButtonState { canSubmit, regProcess, disable }
 
 class _ViewModelState {
@@ -223,17 +225,8 @@ class RegisterWidget extends StatelessWidget {
     final key =
     context.select((_ViewModel value) => value.state.formKey);
     return Scaffold(
-      appBar: AppBar(
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black,
-        title: Text(S
-            .of(context).Registraion),
-        elevation: 0,
-      ),
+      appBar: AppBarForRegister(title: S
+          .of(context).Registraion),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -558,11 +551,10 @@ class RegButtonWidget extends StatelessWidget {
 
     final child = authButtonState == _ViewModelRegButtonState.regProcess
         ? const CircularProgressIndicator()
-        :  Text(S
-        .of(context)
-        .Registraion);
-    return ElevatedButton(
+        :  null;
+    return CustomButton(
       onPressed: onPressed == null ? null : () => onPressed.call(context),
+      text: S.of(context).Registraion,
       child: child,
     );
   }

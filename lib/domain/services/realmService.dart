@@ -1,4 +1,4 @@
-import 'package:medapp/domain/entity/evolutionInjury.dart';
+
 import 'package:medapp/domain/entity/injurySnapshot.dart';
 import 'package:medapp/domain/entity/patient.dart';
 import 'package:realm/realm.dart';
@@ -43,22 +43,25 @@ class RealmService {
     return "${"{" + list.map((id) => "oid(${id.toString()})").join(', ')}}";
   }
   static Future<void> updateSubscriptionsDoctor(id, patientsIds) async {
-    var patients = makeRealmList(patientsIds);
 
     realm.subscriptions.update((mutableSubscriptions) {
       mutableSubscriptions.clear();
       mutableSubscriptions.add(realm.query<Doctor>('_id == oid($id)'), name: "Doctor");
-      mutableSubscriptions.add(realm.query<Patient>("_id IN ${patients}"), name: "DoctorsPatient");
+      mutableSubscriptions.add(realm.all<Patient>(), name: "DoctorsPatient");
       mutableSubscriptions.add(realm.all<Injury>(), name: "Injuries");
       mutableSubscriptions.add(realm.all<InjurySnapshot>(), name: "InjurySnapshot");
     });
     await realm.subscriptions.waitForSynchronization();
   }
+
+
+
  /* static Future<void> updateSubscriptionsFilterPatient(String fio) async {
     var fioList = fio.split(' ');
     realm.subscriptions.update((mutableSubscriptions) {
       mutableSubscriptions.removeByName('DoctorsPatient');
-      mutableSubscriptions.add(realm.query<Patient>("fname CONTAINS[c] '${fioList[0]}'"), name: "DoctorsPatient");
+      mutableSubscriptions
+      .add(realm.query<Patient>("fname CONTAINS[c] '${fioList[0]}'"), name: "DoctorsPatient");
 
     });
     await realm.subscriptions.waitForSynchronization();
@@ -68,9 +71,11 @@ class RealmService {
        realm.close();
   }
 
+
+
   static Future<void> addDoctor(Doctor doctor) async {
     realm.write(() {
-      realm.add(doctor);
+      realm.add<Doctor>(doctor, update: true);
     });
   }
 
@@ -99,6 +104,12 @@ class RealmService {
     });
   }
 
+  static Future<void> removePatientFromDoctor(Doctor doctor, patientID) async {
+    realm.write(() {
+      doctor.patientsIDs.remove(patientID);
+      realm.add<Doctor>(doctor, update: true);
+    });
+  }
   static Future<void> addInjuryToPatient(Patient patient, Injury injury) async {
     realm.write(() {
       patient.currentInjuriesIDs.add(injury.id!);
@@ -141,17 +152,17 @@ class RealmService {
     return injurySnapshot.isNotEmpty ? injurySnapshot.first : null;
   }
 
-  static Stream<RealmResultsChanges<Patient>> getPatientsChanges(fio) {
+  static Stream<RealmResultsChanges<Patient>> getPatientsChanges(fio, patientsIDS) {
+    var patients = makeRealmList(patientsIDS);
+
     List<String> fioList = fio.split(' ');
-    String query = "";
+    String query = "(_id in $patients) AND";
     for(int i = 0; i< fioList.length; i++) {
       query += "(fname CONTAINS[c] '${fioList[i]}' OR mname CONTAINS[c] '${fioList[i]}' OR lname CONTAINS[c] '${fioList[i]}')";
       if(i < fioList.length-1){
         query += "AND ";
       }
-    }
-    print("test");
-    print(query);
+    };
     return RealmService.realm
         .query<Patient>(query)
         .changes;

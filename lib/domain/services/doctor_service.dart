@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:medapp/domain/data_providers/doctor_data_provider.dart';
 import 'package:medapp/domain/entity/doctor.dart';
 import 'package:medapp/domain/services/realmService.dart';
+import 'package:realm/realm.dart';
 
 import '../data_providers/user_data_provider.dart';
 
@@ -17,6 +18,10 @@ class DoctorService {
     /*if(_doctor != null) {
       RealmService.updateSubscriptionsForDoctor(_doctor?.id);
     }*/
+  }
+
+  Future<void> deletePatient(patientID) async {
+    _doctorDataProvider.removePatient(doctor, patientID);
   }
 
 

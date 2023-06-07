@@ -15,11 +15,19 @@ class DoctorDataProvider {
       //rs.closeRealm();
       return doctor;
     }
-
-
   }
 
-  Future<void> save(Doctor doctor) async {
 
+  Future<void> save(Doctor? doctor, patientID) async {
+    if(doctor != null) {
+      RealmService.addDoctor(doctor);
+    }
   }
+  Future<void> removePatient(Doctor? doctor, patientsID) async {
+    if(doctor != null) {
+      RealmService.removePatientFromDoctor(doctor, patientsID);
+    }
+  }
+
+
 }

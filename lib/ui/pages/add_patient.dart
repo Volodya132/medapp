@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:medapp/domain/services/reg_service.dart';
+import 'package:medapp/ui/widgets/AppBarForRegister.dart';
+import 'package:medapp/ui/widgets/CusomButton.dart';
 import 'package:provider/provider.dart';
 
 import 'package:medapp/domain/data_providers/auth_provider.dart';
@@ -187,6 +189,7 @@ class AddPatientWidget extends StatelessWidget {
     final key =
     context.select((_ViewModel value) => value.state.formKey);
     return Scaffold(
+      appBar: AppBarForRegister(title: S.of(context).AddPatient,),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -424,11 +427,10 @@ class RegButtonWidget extends StatelessWidget {
 
     final child = authButtonState == _ViewModelAddButtonState.addProcess
         ? const CircularProgressIndicator()
-        : Text(S
-        .of(context)
-        .Add);
-    return ElevatedButton(
+        : null;
+    return CustomButton(
       onPressed: onPressed == null ? null : () => onPressed.call(context),
+      text: S.of(context).Add,
       child: child,
     );
   }

@@ -27,8 +27,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "Address": MessageLookupByLibrary.simpleMessage("Адреса"),
         "Age": MessageLookupByLibrary.simpleMessage("Вік"),
         "Area": MessageLookupByLibrary.simpleMessage("Площа"),
+        "Attention": MessageLookupByLibrary.simpleMessage("Увага"),
         "Birthday": MessageLookupByLibrary.simpleMessage("День народження"),
+        "Cancel": MessageLookupByLibrary.simpleMessage("Відміна"),
         "Cause": MessageLookupByLibrary.simpleMessage("Причина"),
+        "Delete": MessageLookupByLibrary.simpleMessage("Видалити"),
+        "DoYouWantToDeleteThePatient": MessageLookupByLibrary.simpleMessage(
+            "Ви бажаєте видалити пацієнта?"),
         "DontHaveAcc": MessageLookupByLibrary.simpleMessage(
             "Все ще немає облікового запису?"),
         "FName": MessageLookupByLibrary.simpleMessage("Ім\'я"),

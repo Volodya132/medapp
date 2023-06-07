@@ -45,5 +45,9 @@
   "ThePasswordMustContainAMinimumOf8Characters": "The password must contain a minimum of 8 characters.",
   "LogIn": "Log in",
   "ThereIsNoUserWithTheEnteredLogin": "There is no user with the entered login",
-  "ThePasswordEnteredIsIncorrect": "The password entered is incorrect"
+  "ThePasswordEnteredIsIncorrect": "The password entered is incorrect",
+  "Attention": "Attention",
+  "DoYouWantToDeleteThePatient": "Do you want to delete the patient?",
+  "Delete": "Delete",
+  "Cancel": "Cancel"
 }

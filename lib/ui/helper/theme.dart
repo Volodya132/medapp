@@ -23,7 +23,9 @@ final kLightTheme = ThemeData.light().copyWith(
           borderRadius: BorderRadius.circular(15), // <-- Radius
         ),)
     ),
-
+    iconTheme: IconThemeData(
+      color: COLOR_ACCENT,
+    )
 );
 
 final kDarkTheme = ThemeData.dark().copyWith(

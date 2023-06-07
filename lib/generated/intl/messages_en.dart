@@ -27,9 +27,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "Address": MessageLookupByLibrary.simpleMessage("address"),
         "Age": MessageLookupByLibrary.simpleMessage("age"),
         "Area": MessageLookupByLibrary.simpleMessage("Area"),
+        "Attention": MessageLookupByLibrary.simpleMessage("Attention"),
         "Birthday": MessageLookupByLibrary.simpleMessage("Birthday"),
+        "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "Cause": MessageLookupByLibrary.simpleMessage("Cause"),
+        "Delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "Description": MessageLookupByLibrary.simpleMessage("Description"),
+        "DoYouWantToDeleteThePatient": MessageLookupByLibrary.simpleMessage(
+            "Do you want to delete the patient?"),
         "DontHaveAcc":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "FName": MessageLookupByLibrary.simpleMessage("First name"),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:medapp/domain/services/realmService.dart';
 import 'package:medapp/ui/helper/inputConstants.dart';
+import 'package:medapp/ui/widgets/CusomButton.dart';
 import 'package:provider/provider.dart';
 
 import 'package:medapp/domain/data_providers/auth_provider.dart';
@@ -254,12 +255,11 @@ class AuthButtonWidget extends StatelessWidget {
 
     final child = authButtonState == _ViewModelAuthButtonState.authProcess
         ? const CircularProgressIndicator()
-        :  Text(S
-        .of(context)
-        .LogIn);
-    return ElevatedButton(
+        :  null;
+    return CustomButton(
       //style:  styleForCommonButton,
       onPressed: onPressed == null ? null : () => onPressed.call(context),
+      text: S.of(context).LogIn,
       child: child,
     );
   }

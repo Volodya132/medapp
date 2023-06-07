@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -5,6 +6,7 @@ import 'package:medapp/domain/services/doctor_service.dart';
 import 'package:medapp/domain/services/realmService.dart';
 import 'package:medapp/generated/l10n.dart';
 import 'package:medapp/ui/helper/buttonConstants.dart';
+import 'package:medapp/ui/widgets/CusomButton.dart';
 import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
 import '../../domain/entity/doctor.dart';
@@ -19,11 +21,14 @@ class _ViewModelState {
   var patients;
   String searchingPatients;
 
+  List<ObjectId> patientsIDS = [];
+
 
   _ViewModelState({
     required this.doctorNameTitle,
     required this.patients,
     required this.searchingPatients,
+    required this.patientsIDS
   });
 
 
@@ -31,11 +36,13 @@ class _ViewModelState {
     String? doctorNameTitle,
     var patients,
     String? searchingPatients,
+    List<ObjectId>? patientsIDS
   }) {
     return _ViewModelState(
-      doctorNameTitle: doctorNameTitle ?? this.doctorNameTitle,
-      patients: patients ?? this.patients,
-      searchingPatients: searchingPatients ?? this.searchingPatients,
+        doctorNameTitle: doctorNameTitle ?? this.doctorNameTitle,
+        patients: patients ?? this.patients,
+        searchingPatients: searchingPatients ?? this.searchingPatients,
+        patientsIDS: patientsIDS ?? this.patientsIDS
     );
   }
 
@@ -55,7 +62,7 @@ class _ViewModel extends ChangeNotifier {
   final _authService = AuthService();
   final _doctorService = DoctorService();
 
-  var _state = _ViewModelState(doctorNameTitle: '', patients: [], searchingPatients: '');
+  var _state = _ViewModelState(doctorNameTitle: '', patients: [], searchingPatients: '', patientsIDS:[]);
   _ViewModelState get state => _state;
 
   void loadValue() async {
@@ -65,6 +72,10 @@ class _ViewModel extends ChangeNotifier {
 
   _ViewModel(this.context) {
     loadValue();
+  }
+
+  Future<void> removePatientFromDoctor(patientId)async {
+    _doctorService.deletePatient(patientId);
   }
 
   void changeSearching(String value) {
@@ -81,17 +92,54 @@ class _ViewModel extends ChangeNotifier {
   Future<void> onPatientClick(id) async {
     Navigator.of(context).pushNamed('/patients_page/patientDetail', arguments: id);
   }
+
+  // This shows a CupertinoModalPopup which hosts a CupertinoAlertDialog.
+  void _showAlertDialog(BuildContext context, patientID) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Text(S.of(context).Attention),
+        content: Text(S.of(context).DoYouWantToDeleteThePatient),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(S.of(context).Cancel),
+          ),
+          CupertinoDialogAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              removePatientFromDoctor(patientID);
+              _updateState();
+              Navigator.pop(context);
+
+            },
+            child: Text(S.of(context).Delete),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> onPatientLongPress(id, BuildContext context) async {
+      _showAlertDialog(context, id);
+  }
   
   Future<void> onLogoutPressed(BuildContext context) async {
     await _authService.logout();
     MainNavigation.showLoader(context);
   }
   void _updateState() {
-    final Doctor doctor = _doctorService.doctor!;
-    _state = _state.copyWith(
-      doctorNameTitle: doctor.fName,
-      patients: doctor.patients,
-    );
+    final Doctor? doctor = _doctorService.doctor;
+    if(doctor != null) {
+      _state = _state.copyWith(
+          doctorNameTitle: doctor.fName,
+          patients: doctor.patients,
+          patientsIDS: doctor.patientsIDs
+      );
+    }
     notifyListeners();
   }
 }
@@ -130,7 +178,7 @@ class PatientsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children:const [
                       _WelcomeWidget(),
-                      _MenuWidget()
+                      Flexible(child: _DoctorProfileWidget())
                   ],),
                   const SizedBox(height: 20),
                   const _SearchingWidget(),
@@ -219,33 +267,24 @@ class _AddPatientWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<_ViewModel>();
-    return ElevatedButton(
-
-      onPressed: viewModel.onAddPatientButtonPressed,
-      child: Row (
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-
-        children: [
-            const Icon(Icons.add),
-            const SizedBox(width: 5),
-            Text(S.of(context).AddPatient),
-
-        ],
-    ));
+    return CustomButton(
+        onPressed:  viewModel.onAddPatientButtonPressed,
+        text: S.of(context).AddPatient,
+        icon: Icons.add) ;
   }
 }
 
 
-class _MenuWidget extends StatelessWidget {
-  const _MenuWidget({Key? key}) : super(key: key);
+class _DoctorProfileWidget extends StatelessWidget {
+  const _DoctorProfileWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<_ViewModel>();
-    return FloatingActionButton(
-      onPressed: () => viewModel.onLogoutPressed(context),
-      child: const Text('Вихід'),
+    return   IconButton(
+      iconSize: 70,
+      icon:  Icon(Icons.account_circle_outlined),
+      onPressed: () {  },
     );
   }
 }
@@ -256,21 +295,19 @@ class _PatientsListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var patients = context.select((_ViewModel vm) => vm.state.patients);
+    var patientsIDS = context.select((_ViewModel vm) => vm.state.patientsIDS);
     var fio = context.select((_ViewModel vm) => vm.state.searchingPatients);
     final viewModel = context.read<_ViewModel>();
 
     return StreamBuilder<RealmResultsChanges<Patient>>(
-        stream: RealmService.getPatientsChanges(fio) ,
+        stream: RealmService.getPatientsChanges(fio, patientsIDS) ,
         builder: (context, snapshot) {
+
           final data = snapshot.data;
           if (data == null) return Container();
           final results = data.results;
+
           viewModel.loadValue();
-          patients = results;
-          print(results);
-          for(var pat in results) {
-            print(pat.fname);
-          }
           return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -279,13 +316,14 @@ class _PatientsListWidget extends StatelessWidget {
                   Card( //                           <-- Card widget
                     child:
                     ListTile(
-                      title: Text("${patients[index]?.fname ?? "No fname"} ${patients[index]?.lname ?? "No lname"}"),
+                      title: Text("${results[index].lname} ${results[index].fname} ${results[index].mname}" ),
                       subtitle: Text('${S
                           .of(context)
                           .LastChange}: ${S
                           .of(context)
                           .NoInformation}'),
                       onTap: () => viewModel.onPatientClick(patients[index]?.id),
+                      onLongPress: () => viewModel.onPatientLongPress(patients[index]?.id, context),
                     ),
                   ));
         }
