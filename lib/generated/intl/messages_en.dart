@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "AboutMyself": MessageLookupByLibrary.simpleMessage("About myself"),
         "Add": MessageLookupByLibrary.simpleMessage("Add"),
         "AddPatient": MessageLookupByLibrary.simpleMessage("Add patient"),
         "Address": MessageLookupByLibrary.simpleMessage("address"),
@@ -31,12 +32,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "Birthday": MessageLookupByLibrary.simpleMessage("Birthday"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "Cause": MessageLookupByLibrary.simpleMessage("Cause"),
+        "ChangePassword":
+            MessageLookupByLibrary.simpleMessage("Change password"),
         "Delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "Description": MessageLookupByLibrary.simpleMessage("Description"),
         "DoYouWantToDeleteThePatient": MessageLookupByLibrary.simpleMessage(
             "Do you want to delete the patient?"),
         "DontHaveAcc":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
+        "Email": MessageLookupByLibrary.simpleMessage("Email"),
+        "Exit": MessageLookupByLibrary.simpleMessage("Exit"),
         "FName": MessageLookupByLibrary.simpleMessage("First name"),
         "FieldCannotBeEmpty":
             MessageLookupByLibrary.simpleMessage("Field cannot be empty"),
@@ -46,6 +51,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Gender": MessageLookupByLibrary.simpleMessage("Gender"),
         "Hello": MessageLookupByLibrary.simpleMessage("Hello"),
         "HowDoYouDo": MessageLookupByLibrary.simpleMessage("How do you do?"),
+        "IncorrectOldPassword":
+            MessageLookupByLibrary.simpleMessage("Incorrect old password"),
         "InputError": MessageLookupByLibrary.simpleMessage("Input error"),
         "LName": MessageLookupByLibrary.simpleMessage("Last name"),
         "LastChange": MessageLookupByLibrary.simpleMessage("Last change"),
@@ -54,14 +61,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "MName": MessageLookupByLibrary.simpleMessage("Middle name"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
+        "NewPassword": MessageLookupByLibrary.simpleMessage("New password"),
         "NoInformation": MessageLookupByLibrary.simpleMessage("no information"),
+        "OldPassword": MessageLookupByLibrary.simpleMessage("Old password"),
         "Password": MessageLookupByLibrary.simpleMessage("Password"),
+        "PasswordChange":
+            MessageLookupByLibrary.simpleMessage("Password change"),
         "PasswordsDoNotMatch":
             MessageLookupByLibrary.simpleMessage("Passwords do not match"),
         "PatientSearchHint":
             MessageLookupByLibrary.simpleMessage("Patient search"),
         "PatientsLbl": MessageLookupByLibrary.simpleMessage("Patients"),
         "Registraion": MessageLookupByLibrary.simpleMessage("Registraion"),
+        "RepeatNewPassword":
+            MessageLookupByLibrary.simpleMessage("Repeat new password"),
         "RepeatPassword":
             MessageLookupByLibrary.simpleMessage("Repeat password"),
         "ServiceError": MessageLookupByLibrary.simpleMessage("Service error"),
@@ -70,7 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "SubtitleOnLoginScreen": MessageLookupByLibrary.simpleMessage(
             "I am happy to see you again. You can continue where you left off by logging in"),
         "TelephoneNumber":
-            MessageLookupByLibrary.simpleMessage("telephone number"),
+            MessageLookupByLibrary.simpleMessage("Telephone number"),
         "ThePasswordEnteredIsIncorrect": MessageLookupByLibrary.simpleMessage(
             "The password entered is incorrect"),
         "ThePasswordMustContainAMinimumOf8Characters":

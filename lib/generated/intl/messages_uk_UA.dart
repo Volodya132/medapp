@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "AboutMyself": MessageLookupByLibrary.simpleMessage("Про себе"),
         "Add": MessageLookupByLibrary.simpleMessage("Додати"),
         "AddPatient": MessageLookupByLibrary.simpleMessage("Добавити пацієнта"),
         "Address": MessageLookupByLibrary.simpleMessage("Адреса"),
@@ -31,11 +32,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "Birthday": MessageLookupByLibrary.simpleMessage("День народження"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Відміна"),
         "Cause": MessageLookupByLibrary.simpleMessage("Причина"),
+        "ChangePassword":
+            MessageLookupByLibrary.simpleMessage("Змінити пароль"),
         "Delete": MessageLookupByLibrary.simpleMessage("Видалити"),
         "DoYouWantToDeleteThePatient": MessageLookupByLibrary.simpleMessage(
             "Ви бажаєте видалити пацієнта?"),
         "DontHaveAcc": MessageLookupByLibrary.simpleMessage(
             "Все ще немає облікового запису?"),
+        "Email": MessageLookupByLibrary.simpleMessage("Електронна пошта"),
+        "Exit": MessageLookupByLibrary.simpleMessage("Вихід"),
         "FName": MessageLookupByLibrary.simpleMessage("Ім\'я"),
         "FieldCannotBeEmpty":
             MessageLookupByLibrary.simpleMessage("Поле не може бути пустим"),
@@ -44,6 +49,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Gender": MessageLookupByLibrary.simpleMessage("Стать"),
         "Hello": MessageLookupByLibrary.simpleMessage("Привіт"),
         "HowDoYouDo": MessageLookupByLibrary.simpleMessage("Як Ваші справи?"),
+        "IncorrectOldPassword":
+            MessageLookupByLibrary.simpleMessage("Не вірний старий пароль"),
         "InputError": MessageLookupByLibrary.simpleMessage("Помилка введення"),
         "LName": MessageLookupByLibrary.simpleMessage("Прізвище"),
         "LastChange": MessageLookupByLibrary.simpleMessage("Остання зміна"),
@@ -52,15 +59,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "Login": MessageLookupByLibrary.simpleMessage("Логін"),
         "MName": MessageLookupByLibrary.simpleMessage("По-батькові"),
         "Name": MessageLookupByLibrary.simpleMessage("Ім\'я"),
+        "NewPassword": MessageLookupByLibrary.simpleMessage("Новий пароль"),
         "NoInformation":
             MessageLookupByLibrary.simpleMessage("немає інформації"),
+        "OldPassword": MessageLookupByLibrary.simpleMessage("Старий пароль"),
         "Password": MessageLookupByLibrary.simpleMessage("Пароль"),
+        "PasswordChange": MessageLookupByLibrary.simpleMessage("Змінна паролю"),
         "PasswordsDoNotMatch":
             MessageLookupByLibrary.simpleMessage("Паролі не співпадають"),
         "PatientSearchHint":
             MessageLookupByLibrary.simpleMessage("Пошук пацієнта"),
         "PatientsLbl": MessageLookupByLibrary.simpleMessage("Пацієнти"),
         "Registraion": MessageLookupByLibrary.simpleMessage("Реєстрація"),
+        "RepeatNewPassword":
+            MessageLookupByLibrary.simpleMessage("Повторіть новий пароль"),
         "RepeatPassword":
             MessageLookupByLibrary.simpleMessage("Повторіть пароль"),
         "ServiceError": MessageLookupByLibrary.simpleMessage("Помилка сервісу"),

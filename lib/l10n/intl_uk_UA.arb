@@ -48,5 +48,14 @@
   "Attention": "Увага",
   "DoYouWantToDeleteThePatient": "Ви бажаєте видалити пацієнта?",
   "Delete": "Видалити",
-  "Cancel": "Відміна"
+  "Cancel": "Відміна",
+  "Email": "Електронна пошта",
+  "AboutMyself": "Про себе",
+  "ChangePassword": "Змінити пароль",
+  "OldPassword": "Старий пароль",
+  "NewPassword": "Новий пароль",
+  "RepeatNewPassword": "Повторіть новий пароль",
+  "PasswordChange": "Змінна паролю",
+  "IncorrectOldPassword": "Не вірний старий пароль",
+  "Exit": "Вихід"
 }

@@ -6,6 +6,7 @@ import 'package:realm/realm.dart';
 import '../entity/doctor.dart';
 import '../entity/injury.dart';
 
+class InvalidOldPassword  {}
 class RealmService {
   static final String appId = "application-0-ftetu";
   static final Uri baseUrl = Uri.parse("https://realm.mongodb.com");
@@ -108,6 +109,17 @@ class RealmService {
     realm.write(() {
       doctor.patientsIDs.remove(patientID);
       realm.add<Doctor>(doctor, update: true);
+    });
+  }
+
+  static Future<void> changePasswordDoctor(Doctor doctor, oldPassword, newPassword, newSalt) async {
+    realm.write(() {
+      if(oldPassword == doctor.password) {
+        doctor.password = newPassword;
+        doctor.salt = newSalt;
+        return;
+      }
+      throw InvalidOldPassword;
     });
   }
   static Future<void> addInjuryToPatient(Patient patient, Injury injury) async {

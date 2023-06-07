@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
+class TransparentButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final IconData? icon;
   final String text;
   final Widget? child;
 
-  const CustomButton({super.key, required this.onPressed, this.icon, required this.text, this.child});
+  const TransparentButton({super.key, required this.onPressed, this.icon, required this.text, this.child});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return OutlinedButton(
+        style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.red,
+            side: const BorderSide(color: Colors.red)
+        ),
         onPressed: onPressed,
         child: child ?? Row (
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -20,7 +24,7 @@ class CustomButton extends StatelessWidget {
             icon != null? const SizedBox(width: 5) : Container(),
             Text(text, style:
     const TextStyle(
-    fontSize: 18),)
+    fontSize: 18)),
           ],
         ));
   }

@@ -346,7 +346,6 @@ class _RepeatWidget extends StatelessWidget {
           return S
               .of(context).FieldCannotBeEmpty;
         }
-        print("password: ${password}\nvalue:${value}");
         if(password != value) {
 
           return S

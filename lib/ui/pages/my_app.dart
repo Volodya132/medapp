@@ -18,6 +18,7 @@ import 'package:medapp/ui/pages/patients_page.dart';
 import 'package:medapp/ui/pages/loader_page.dart';
 
 import 'add_patient.dart';
+import 'change_password_page.dart';
 import 'injuries_detail.dart';
 import 'injurySnapshot_detail_page.dart';
 
@@ -89,7 +90,14 @@ class MyApp extends StatelessWidget {
           else if (settings.name == '/patients_page/doctor_account') {
             return PageRouteBuilder<dynamic>(
               pageBuilder: (context, animation1, animation2) =>
-                  DoctorAccountWidget.create(),
+                  DoctorAccountWidget.create(context),
+              transitionDuration: Duration.zero,
+            );
+          }
+          else if (settings.name == '/patients_page/doctor_account/changePassword') {
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  ChangePassword.create(),
               transitionDuration: Duration.zero,
             );
           }

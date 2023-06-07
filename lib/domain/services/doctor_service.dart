@@ -14,15 +14,26 @@ class DoctorService {
 
   Future<void> initilalize() async {
     _doctor = await _doctorDataProvider.load();
-
     /*if(_doctor != null) {
       RealmService.updateSubscriptionsForDoctor(_doctor?.id);
     }*/
   }
+  
+  Future<bool> isDoctorPassword(password)async {
+    
+    return _doctorDataProvider.isDoctorPassword(password);
+  }
+  
 
   Future<void> deletePatient(patientID) async {
     _doctorDataProvider.removePatient(doctor, patientID);
   }
+
+  Future<void> changePassword(oldPassword, newPassword)async {
+    _doctorDataProvider.changePassword(oldPassword, newPassword);
+
+  }
+
 
 
 }

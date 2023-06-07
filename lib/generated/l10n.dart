@@ -300,10 +300,10 @@ class S {
     );
   }
 
-  /// `telephone number`
+  /// `Telephone number`
   String get TelephoneNumber {
     return Intl.message(
-      'telephone number',
+      'Telephone number',
       name: 'TelephoneNumber',
       desc: '',
       args: [],
@@ -555,6 +555,96 @@ class S {
     return Intl.message(
       'Cancel',
       name: 'Cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Email`
+  String get Email {
+    return Intl.message(
+      'Email',
+      name: 'Email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About myself`
+  String get AboutMyself {
+    return Intl.message(
+      'About myself',
+      name: 'AboutMyself',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change password`
+  String get ChangePassword {
+    return Intl.message(
+      'Change password',
+      name: 'ChangePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Old password`
+  String get OldPassword {
+    return Intl.message(
+      'Old password',
+      name: 'OldPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New password`
+  String get NewPassword {
+    return Intl.message(
+      'New password',
+      name: 'NewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Repeat new password`
+  String get RepeatNewPassword {
+    return Intl.message(
+      'Repeat new password',
+      name: 'RepeatNewPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password change`
+  String get PasswordChange {
+    return Intl.message(
+      'Password change',
+      name: 'PasswordChange',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect old password`
+  String get IncorrectOldPassword {
+    return Intl.message(
+      'Incorrect old password',
+      name: 'IncorrectOldPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Exit`
+  String get Exit {
+    return Intl.message(
+      'Exit',
+      name: 'Exit',
       desc: '',
       args: [],
     );

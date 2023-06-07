@@ -77,7 +77,7 @@ class _ViewModel extends ChangeNotifier {
   void _updateState() {
     final Patient patient = _patientService.patient!;
     _state = _state.copyWith(
-      patientNameTitle: "${patient.fname ?? "No name"} ${patient.lname ?? "No lname"}",
+      patientNameTitle: "${patient.lname} ${patient.fname} ${patient.mname} ",
       injuries: patient.currentInjuries,
     );
     notifyListeners();

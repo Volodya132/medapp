@@ -24,7 +24,7 @@
   "DontHaveAcc": "Don't have an account?",
   "SingUp": "Sing up",
   "Add": "Add",
-  "TelephoneNumber": "telephone number",
+  "TelephoneNumber": "Telephone number",
   "Address": "address",
   "Gender": "Gender",
   "Age": "age",
@@ -49,5 +49,14 @@
   "Attention": "Attention",
   "DoYouWantToDeleteThePatient": "Do you want to delete the patient?",
   "Delete": "Delete",
-  "Cancel": "Cancel"
+  "Cancel": "Cancel",
+  "Email": "Email",
+  "AboutMyself": "About myself",
+  "ChangePassword": "Change password",
+  "OldPassword": "Old password",
+  "NewPassword": "New password",
+  "RepeatNewPassword": "Repeat new password",
+  "PasswordChange": "Password change",
+  "IncorrectOldPassword": "Incorrect old password",
+  "Exit": "Exit"
 }

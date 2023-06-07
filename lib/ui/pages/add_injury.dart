@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medapp/domain/services/reg_service.dart';
+import 'package:medapp/ui/widgets/CustomTextField.dart';
 import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
 import '../../generated/l10n.dart';
@@ -147,22 +148,12 @@ class AddInjuryWidget extends StatelessWidget {
 
 class _TypeWidget extends StatelessWidget {
   const _TypeWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
-      decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.type_specimen_outlined),
-          enabledBorder: enabledBorder,
-          focusedBorder: focusedBorder,
-          filled: true,
-          hintStyle: textStyleForInput,
-          hintText: S
-              .of(context)
-              .Type,
-          fillColor: inputColor),
+    return InputWidget(
       onChanged: model.changeType,
+      hintText: S.of(context).Type,
     );
   }
 }
