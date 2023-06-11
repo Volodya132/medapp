@@ -108,9 +108,7 @@ class _ViewModel extends ChangeNotifier {
         lastDate: DateTime.now()
     );
     if(pickedDate != null){
-      print(pickedDate.toString());
       String formattedDate = DateFormat(_state.dateFormat).format(pickedDate);
-      print(formattedDate);
       _state.dataController.text = formattedDate.toString();
       _state.birthday = pickedDate;
     }

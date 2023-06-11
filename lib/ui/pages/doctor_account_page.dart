@@ -181,12 +181,13 @@ Widget build(BuildContext context) {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: const [
+                              _BIO(),
+                              SizedBox(height: 10),
                               _TelephoneNumber(),
                               SizedBox(height: 10),
                               _Email(),
                               SizedBox(height: 10),
-                              _BIO(),
-                              SizedBox(height: 10),
+
                               _ChangePasswordWidget(),
                               SizedBox(height: 10),
                               _ExitButton(),

@@ -40,12 +40,10 @@ class RegProvider {
       String type,
       String location,
       String severity,
-      String timeOfInjury,
+      DateTime timeOfInjury,
       String cause,
       ObjectId? patientID) async {
-    DateTime castDateOfInjury = DateTime.parse(timeOfInjury).toUtc();
-
-    var injury = Injury(ObjectId(), type: type, location: location, severity: severity, timeOfInjury: castDateOfInjury, cause: cause );
+    var injury = Injury(ObjectId(), type: type, location: location, severity: severity, timeOfInjury: timeOfInjury, cause: cause );
     Patient? patient = (await RealmService.getPatientByID(patientID));
     await RealmService.addInjury(injury);
     await RealmService.addInjuryToPatient(patient!, injury);

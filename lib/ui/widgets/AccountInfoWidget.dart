@@ -19,7 +19,7 @@ class AccountInfoWidget extends StatelessWidget {
             children: [
               Text(title,
                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
-              //const Icon(Icons.border_color_rounded),
+              const Icon(Icons.border_color_rounded),
             ],
           ),
           const SizedBox(height: 5),

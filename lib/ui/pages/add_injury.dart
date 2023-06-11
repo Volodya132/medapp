@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medapp/domain/services/reg_service.dart';
 import 'package:medapp/ui/widgets/CustomTextField.dart';
 import 'package:provider/provider.dart';
@@ -15,12 +16,15 @@ class _ViewModelState {
   String type = "";
   String location = "";
   String severity = "";
-  String timeOfInjury = "";
+  DateTime dateTimeOfInjury = DateTime.now();
   String cause = "";
   List<String> additionalSymptoms = [];
   bool isAddInProcess = false;
 
-  _ViewModelAddButtonState get authButtonState {
+  String dateFormat ="yyyy-mm-dd";
+  TextEditingController dataController = TextEditingController();
+
+  _ViewModelAddButtonState get addButtonState {
     if (isAddInProcess) {
       return _ViewModelAddButtonState.addProcess;
     } else if (type.isNotEmpty) {
@@ -61,24 +65,25 @@ class _ViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changeTimeOfInjury(String value) {
-    if (_state.timeOfInjury == value) return;
-    _state.timeOfInjury = value;
-    notifyListeners();
-  }
 
   void changeCause(String value) {
     if (_state.cause == value) return;
     _state.cause = value;
     notifyListeners();
   }
+  void changeTimeOfInjury(String value) {
+    if (_state.cause == value) return;
+    _state.cause = value;
+    notifyListeners();
+  }
+
 
 
   Future<void> onAddButtonPressed(BuildContext context) async {
     final type = _state.type;
     final location = _state.location;
     final severity = _state.severity;
-    final timeOfInjury = _state.timeOfInjury;
+    final timeOfInjury = _state.dateTimeOfInjury;
     final cause = _state.cause;
   //  if (name.isEmpty || age.isEmpty || gender.isEmpty || address.isEmpty || phoneNumber.isEmpty) return;
     //print(name +"\n"+ age+"\n"+  gender+"\n"+  address+"\n"+  phoneNumber);
@@ -117,26 +122,28 @@ class AddInjuryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              _ErrorTitleWidget(),
-              SizedBox(height: 10),
-              _TypeWidget(),
-              SizedBox(height: 10),
-              _LocationWidget(),
-              SizedBox(height: 10),
-              _SeverityWidget(),
-              SizedBox(height: 10),
-              _TimeWidget(),
-              SizedBox(height: 10),
-              _CauseWidget(),
-              SizedBox(height: 10),
-              RegButtonWidget(),
-            ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                _ErrorTitleWidget(),
+                SizedBox(height: 10),
+                _TypeWidget(),
+                SizedBox(height: 10),
+                _LocationWidget(),
+                SizedBox(height: 10),
+                _SeverityWidget(),
+                SizedBox(height: 10),
+                _TimeWidget(),
+                SizedBox(height: 10),
+                _CauseWidget(),
+                SizedBox(height: 10),
+                RegButtonWidget(),
+              ],
+            ),
           ),
         ),
       ),
@@ -160,91 +167,53 @@ class _TypeWidget extends StatelessWidget {
 
 class _LocationWidget extends StatelessWidget {
   const _LocationWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
-      decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.location_searching),
-          enabledBorder: enabledBorder,
-          focusedBorder: focusedBorder,
-          filled: true,
-          hintStyle: textStyleForInput,
-          hintText: S
-              .of(context)
-              .Location,
-          fillColor: inputColor),
+    return InputWidget(
       onChanged: model.changeLocation,
+      hintText: S.of(context).Location,
     );
   }
 }
 
 class _SeverityWidget extends StatelessWidget {
   const _SeverityWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
-      decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.insert_chart_outlined_rounded),
-          enabledBorder: enabledBorder,
-          focusedBorder: focusedBorder,
-          filled: true,
-          hintStyle: textStyleForInput,
-          hintText: S
-              .of(context)
-              .Severity,
-          fillColor: inputColor),
+    return InputWidget(
       onChanged: model.changeSeverity,
+      hintText: S.of(context).Severity,
     );
   }
 }
 
 class _TimeWidget extends StatelessWidget {
   const _TimeWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
-      decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.access_time),
-          enabledBorder: enabledBorder,
-          focusedBorder: focusedBorder,
-          filled: true,
-          hintStyle: textStyleForInput,
-          hintText: S
-              .of(context)
-              .Time,
-          fillColor: inputColor),
+    return InputWidget(
       onChanged: model.changeTimeOfInjury,
+      hintText: S.of(context).Time,
     );
   }
 }
 
 class _CauseWidget extends StatelessWidget {
   const _CauseWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
-      decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.close_sharp),
-          enabledBorder: enabledBorder,
-          focusedBorder: focusedBorder,
-          filled: true,
-          hintStyle: textStyleForInput,
-          hintText: S
-              .of(context)
-              .Cause,
-          fillColor: inputColor),
+    return InputWidget(
       onChanged: model.changeCause,
+      hintText: S.of(context).Cause,
     );
   }
 }
+
+
 class _ErrorTitleWidget extends StatelessWidget {
   const _ErrorTitleWidget({Key? key}) : super(key: key);
 
@@ -261,15 +230,16 @@ class RegButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<_ViewModel>();
-    final authButtonState = context.select((_ViewModel value) =>
-    value.state.authButtonState);
 
-    final onPressed = authButtonState == _ViewModelAddButtonState.canSubmit
+    final model = context.read<_ViewModel>();
+    final addButtonState = context.select((_ViewModel value) =>
+    value.state.addButtonState);
+
+    final onPressed = addButtonState == _ViewModelAddButtonState.canSubmit
         ? model.onAddButtonPressed
         : null;
 
-    final child = authButtonState == _ViewModelAddButtonState.addProcess
+    final child = addButtonState == _ViewModelAddButtonState.addProcess
         ? const CircularProgressIndicator()
         : Text(S
         .of(context)
