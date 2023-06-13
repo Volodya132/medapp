@@ -50,6 +50,7 @@ dependencies:
   crypt: ^4.3.0
   intl_phone_number_input: ^0.7.3+1
   test_api: ^0.6.0
+  package_info_plus: ^4.0.2
 
 dev_dependencies:
 
