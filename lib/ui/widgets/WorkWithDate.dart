@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class WorkWithDate {
+
+  static String fromDateToString(DateTime dateTime, String format) {
+    return  DateFormat(format).format(dateTime).toString();
+  }
+
   static Future<DateTime?> pickDate(context, {firstDate, lastDate})async {
     firstDate ??= DateTime(1900);
     lastDate ??= DateTime.now();

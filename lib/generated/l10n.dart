@@ -310,10 +310,10 @@ class S {
     );
   }
 
-  /// `address`
+  /// `Address`
   String get Address {
     return Intl.message(
-      'address',
+      'Address',
       name: 'Address',
       desc: '',
       args: [],
@@ -715,6 +715,16 @@ class S {
     return Intl.message(
       'Details of the injury',
       name: 'DetailsOfTheInjury',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add injury`
+  String get AddInjury {
+    return Intl.message(
+      'Add injury',
+      name: 'AddInjury',
       desc: '',
       args: [],
     );

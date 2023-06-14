@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 
 
 class AccountInfoWidget extends StatelessWidget {
-  var title;
-  var textInfo;
+  final String title;
+  final String? textInfo;
 
-  AccountInfoWidget({Key? key, this.title, this.textInfo}) : super(key: key);
+  const AccountInfoWidget({Key? key, required this.title, this.textInfo})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return
+      textInfo == null ? Container()
+          :
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -18,18 +21,19 @@ class AccountInfoWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(title,
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 22),),
               const Icon(Icons.border_color_rounded),
             ],
           ),
           const SizedBox(height: 5),
           SizedBox(
             child: Text(
-              textInfo,
+              textInfo!,
               style:
               const TextStyle(
                   fontWeight: FontWeight.w400,
-                  fontSize: 24),
+                  fontSize: 18),
             ),
           ),
         ],

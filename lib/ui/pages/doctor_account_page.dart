@@ -175,12 +175,12 @@ Widget build(BuildContext context) {
                               topRight: Radius.circular(30.0),
                               topLeft: Radius.circular(30.0),
                             )),
-                        child: Padding(
-                          padding: const EdgeInsets.all(30),
+                        child: const Padding(
+                          padding:  EdgeInsets.all(30),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
+                            children:  [
                               _BIO(),
                               SizedBox(height: 10),
                               _TelephoneNumber(),

@@ -30,6 +30,7 @@ class RegProvider {
   Future<void> registerPatient(Patient patient) async {
     String? id = (await _sharedPreferences).getString('account_id');
     Doctor? doctor = (await RealmService.getDoctorByID(id));
+
     await RealmService.addPatientToDoctor(doctor!, patient);
     await RealmService.addPatient(patient);
 

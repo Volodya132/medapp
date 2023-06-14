@@ -25,7 +25,7 @@
   "SingUp": "Sing up",
   "Add": "Add",
   "TelephoneNumber": "Telephone number",
-  "Address": "address",
+  "Address": "Address",
   "Gender": "Gender",
   "Age": "age",
   "FName": "First name",
@@ -65,6 +65,7 @@
   "TheMaskIsSaved": "The mask is saved",
   "AddRecord": "Add record",
   "DoYouReallyWantToDeleteTheInjuryRecord": "Do you really want to delete the injury record?",
-  "DetailsOfTheInjury": "Details of the injury"
+  "DetailsOfTheInjury": "Details of the injury",
+  "AddInjury": "Add injury"
 
 }

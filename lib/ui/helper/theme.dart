@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 const COLOR_PRIMARY = Colors.white;
-final COLOR_ACCENT = Color(0xea0f92d9);
+final COLOR_ACCENT = Color(0xff0f92d9);
 
 final kLightTheme = ThemeData.light().copyWith(
     primaryColor: COLOR_PRIMARY,

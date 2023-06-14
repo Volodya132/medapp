@@ -5,33 +5,50 @@ import 'package:medapp/domain/entity/evolutionInjury.dart';
 import 'package:medapp/domain/services/realmService.dart';
 import 'package:medapp/generated/l10n.dart';
 import 'package:medapp/ui/widgets/CusomButton.dart';
+import 'package:medapp/ui/widgets/WorkWithDate.dart';
 import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import '../../domain/entity/injury.dart';
 import '../../domain/entity/patient.dart';
 import '../../domain/services/patient_service.dart';
+import '../helper/theme.dart';
+import '../widgets/AccountInfoWidget.dart';
 
 
 
 class _ViewModelState {
   final String patientNameTitle;
+  final DateTime? birthday;
+  final String address;
+  final String telephoneNumber;
   var injuries;
+  String dateFormat ="yyyy-mm-dd";
+  int currentState = 0;
 
 
   _ViewModelState({
     required this.patientNameTitle,
     required this.injuries,
+    this.birthday,
+    required this.telephoneNumber,
+    required this.address,
   });
 
 
   _ViewModelState copyWith({
     String? patientNameTitle,
     var injuries,
+    DateTime? birthday,
+    String? telephoneNumber,
+    String? address,
   }) {
     return _ViewModelState(
       patientNameTitle: patientNameTitle ?? this.patientNameTitle,
       injuries: injuries ?? this.injuries,
-
+      birthday: birthday ?? this.birthday,
+      telephoneNumber: telephoneNumber ?? this.telephoneNumber,
+      address: address ?? this.address,
     );
   }
 
@@ -51,7 +68,7 @@ class _ViewModel extends ChangeNotifier {
   final ObjectId id;
   final _patientService = PatientService();
 
-  var _state = _ViewModelState(patientNameTitle: '', injuries: []);
+  var _state = _ViewModelState(patientNameTitle: '', injuries: [],  telephoneNumber: '', address: '');
   _ViewModelState get state => _state;
 
   void loadValue() async {
@@ -63,7 +80,9 @@ class _ViewModel extends ChangeNotifier {
     loadValue();
   }
 
-
+  void setDataFormat(String formatOfDate) {
+    _state.dateFormat = formatOfDate;
+  }
   Future<void> onAddInjuryButtonPressed() async {
     Navigator.of(context).pushNamed('/patients_page/patientDetail/addInjury', arguments: id);
   }
@@ -75,11 +94,20 @@ class _ViewModel extends ChangeNotifier {
     Navigator.of(context).pop();
   }
 
+  Future<void> changeState(index) async {
+    state.currentState = index;
+    notifyListeners();
+  }
+
+
   void _updateState() {
     final Patient patient = _patientService.patient!;
     _state = _state.copyWith(
       patientNameTitle: "${patient.lname} ${patient.fname} ${patient.mname} ",
       injuries: patient.currentInjuries,
+      birthday: patient.birthday,
+      address: patient.address,
+      telephoneNumber: patient.phoneNumber
     );
     notifyListeners();
   }
@@ -135,6 +163,8 @@ class PatientDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var currentState = context.select((_ViewModel vm) =>
+    vm.state.currentState);
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -187,15 +217,17 @@ class PatientDetail extends StatelessWidget {
                                 topLeft: Radius.circular(30.0),
                           )),
                           child: Padding(
-                            padding: const EdgeInsets.all(30),
+                            padding:  EdgeInsets.all(30),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: const [
-
-                                _AddPatientWidget(),
+                              children:  [
+                                _Swicher(),
                                 SizedBox(height: 15),
-                                _InjuriesListWidget(),
+                                currentState == 0
+                                    ? _InjuriesInfo()
+                                :_InformationAboutPatient(),
+
                               ],
                             ),
                           ))),
@@ -205,6 +237,131 @@ class PatientDetail extends StatelessWidget {
     );
   }
 }
+
+
+
+class _Swicher extends StatelessWidget {
+  const _Swicher({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var currentState = context.select((_ViewModel vm) =>
+    vm.state.currentState);
+    final viewModel = context.read<_ViewModel>();
+    return Container(
+      child: ToggleSwitch(
+        fontSize: 22,
+        minWidth: 170,
+        activeBgColors: const [[Color(0xff6ae11e)],[Color(0xff6ae11e)] ],
+        activeFgColor: Colors.black,
+        customTextStyles: const [TextStyle(
+            color: Colors.black,
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold)],
+        animate: true,
+        animationDuration: 300,
+        initialLabelIndex: currentState,
+        totalSwitches: 2,
+        labels: const ["Injuries", "Information"],
+        onToggle: (index) {
+          if(index != null) {
+            viewModel.changeState(index);
+          }
+        },
+      ),
+    );
+  }
+}
+
+class _InjuriesInfo extends StatelessWidget {
+  const _InjuriesInfo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  const Column(
+        children: [
+          _AddPatientWidget(),
+          SizedBox(height: 15),
+          _InjuriesListWidget(),
+          SizedBox(height: 10),
+        ]
+    );
+  }
+}
+
+class _InformationAboutPatient extends StatelessWidget {
+  const _InformationAboutPatient({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return  const Column(
+        children: [
+          _TelephoneNumber(),
+          SizedBox(height: 15),
+          _Address(),
+          SizedBox(height: 15),
+          _BirthdayWidget()
+        ]
+    );
+  }
+}
+
+
+
+
+class _TelephoneNumber extends StatelessWidget {
+  const _TelephoneNumber({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var telephoneNumber = context.select((_ViewModel vm) =>
+    vm.state.telephoneNumber);
+    telephoneNumber = telephoneNumber.isEmpty ? S
+        .of(context)
+        .NoInformation : telephoneNumber;
+    return AccountInfoWidget(title: S
+        .of(context)
+        .TelephoneNumber, textInfo: telephoneNumber);
+  }
+}
+
+class _Address extends StatelessWidget {
+  const _Address({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var address = context.select((_ViewModel vm) =>
+    vm.state.address);
+    address = address.isEmpty ? S
+        .of(context)
+        .NoInformation : address;
+    return AccountInfoWidget(title: S
+        .of(context)
+        .Address, textInfo: address);
+  }
+}
+
+class _BirthdayWidget extends StatelessWidget {
+  const _BirthdayWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.read<_ViewModel>();
+    DateTime? birthday = context.select((_ViewModel vm) =>
+    vm.state.birthday);
+    viewModel.setDataFormat(S.of(context).FormatOfDate);
+    print(123);
+    print(birthday);
+    if(birthday == null) return Container();
+
+    return AccountInfoWidget(title: S
+        .of(context)
+        .Birthday, textInfo:  WorkWithDate.fromDateToString(birthday, S.of(context).FormatOfDate));
+  }
+}
+
+
+
 
 class _BackWidget extends StatelessWidget {
   const _BackWidget({Key? key}) : super(key: key);
@@ -249,7 +406,7 @@ class _AddPatientWidget extends StatelessWidget {
     final viewModel = context.read<_ViewModel>();
     return CustomButton(
         onPressed: viewModel.onAddInjuryButtonPressed,
-        text: S.of(context).Add,
+        text: S.of(context).AddInjury,
         icon: Icons.add);
   }
 }
@@ -277,7 +434,13 @@ class _InjuriesListWidget extends StatelessWidget {
                   Card( //                           <-- Card widget
                     child:
                     ListTile(
-                      title: Text(injuries[index]?.type ?? "No label"),
+                      title: Text(injuries[index]?.type ?? "No label",
+                        style:
+                        const TextStyle(
+                           // fontWeight: FontWeight.bold,
+                            //fontSize: 22,
+                        ),
+                      ),
                       subtitle: Text('${S
                           .of(context)
                           .LastChange}: ${S

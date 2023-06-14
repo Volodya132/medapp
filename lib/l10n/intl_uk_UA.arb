@@ -64,5 +64,6 @@
   "TheMaskIsSaved": "Маска збеержена",
   "AddRecord": "Добавити запис",
   "DoYouReallyWantToDeleteTheInjuryRecord": "Ви дійсно бажаєте видалити запис травми?",
-  "DetailsOfTheInjury": "Деталі травми"
+  "DetailsOfTheInjury": "Деталі травми",
+  "AddInjury": "Добавити травму"
 }

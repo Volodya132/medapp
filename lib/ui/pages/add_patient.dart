@@ -130,6 +130,8 @@ class _ViewModel extends ChangeNotifier {
     final gender = _state.gender;
     final address = _state.address;
     final phoneNumber = _state.phoneNumber.phoneNumber;
+    final birthday= _state.birthday;
+
 
 
     _state.addErrorTitle = '';
@@ -151,7 +153,7 @@ class _ViewModel extends ChangeNotifier {
     }
     
     try {
-      await _regService.registerPatient(Patient(ObjectId(), fname: fname, mname: mname, lname: lname, gender: gender, address: address, phoneNumber: phoneNumber));
+      await _regService.registerPatient(Patient(ObjectId(), birthday: birthday, fname: fname, mname: mname, lname: lname, gender: gender, address: address, phoneNumber: phoneNumber));
       _state.isAddInProcess = false;
       //якийсь месджбокс мб
       notifyListeners();
