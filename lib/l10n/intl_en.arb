@@ -33,6 +33,7 @@
   "LName": "Last name",
   "Registraion": "Registraion",
   "FormatOfDate": "MM.dd.yyyy",
+  "FormatOfDateTime": "MM.dd.yyyy h:mm a",
   "Birthday": "Birthday",
   "RepeatPassword": "Repeat password",
   "FieldCannotBeEmpty": "Field cannot be empty",

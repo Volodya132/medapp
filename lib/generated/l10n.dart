@@ -390,6 +390,16 @@ class S {
     );
   }
 
+  /// `MM.dd.yyyy h:mm a`
+  String get FormatOfDateTime {
+    return Intl.message(
+      'MM.dd.yyyy h:mm a',
+      name: 'FormatOfDateTime',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Birthday`
   String get Birthday {
     return Intl.message(

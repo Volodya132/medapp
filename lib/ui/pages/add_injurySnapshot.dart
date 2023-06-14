@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medapp/domain/services/reg_service.dart';
 import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
@@ -10,17 +11,26 @@ import '../helper/buttonConstants.dart';
 import '../helper/inputConstants.dart';
 import '../navigation/main_navigation.dart';
 import 'package:http/http.dart' as http;
+
+import '../widgets/CustomAppBar.dart';
+import '../widgets/CustomTextField.dart';
+import '../widgets/WorkWithDate.dart';
 enum _ViewModelAddButtonState { canSubmit, addProcess, disable }
 
 class _ViewModelState {
   String addErrorTitle = '';
-  String timeOfInjury = "";
+  DateTime dateTimeOfInjury = DateTime.now();
   String area = "";
   String description = "";
   String severity = "";
   List<String> imagePaths = [];
 
   bool isAddInProcess = false;
+
+  String dateFormat ="yyyy-mm-dd h:mm a";
+  TextEditingController dataController = TextEditingController();
+
+
 
   _ViewModelAddButtonState get authButtonState {
     if (isAddInProcess) {
@@ -44,9 +54,9 @@ class _ViewModel extends ChangeNotifier {
   _ViewModelState get state => _state;
 
 
-  void changeTimeOfInjury(String value) {
-    if (_state.timeOfInjury == value) return;
-    _state.timeOfInjury = value;
+  void changeTimeOfInjury(DateTime value) {
+    if (_state.dateTimeOfInjury == value) return;
+    _state.dateTimeOfInjury = value;
     notifyListeners();
   }
 
@@ -71,13 +81,13 @@ class _ViewModel extends ChangeNotifier {
 
 
   Future<void> onAddButtonPressed(BuildContext context) async {
-    final timeOfInjury = _state.timeOfInjury;
+    final timeOfInjury = _state.dateTimeOfInjury;
     final area = _state.area;
     final description = _state.description;
     final severity = _state.severity;
     final imagePaths = _state.imagePaths;
     //  if (name.isEmpty || age.isEmpty || gender.isEmpty || address.isEmpty || phoneNumber.isEmpty) return;
-    print(timeOfInjury +"\n"+ area+"\n"+  description+"\n"+  severity+"\n");
+
     _state.addErrorTitle = '';
     _state.isAddInProcess = true;
     notifyListeners();
@@ -115,6 +125,19 @@ class _ViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future selectDateTime(BuildContext context)async {
+    DateTime? pickedDateTime = await WorkWithDate.pickDate(context);
+    if(pickedDateTime == null) return;
+    state.dateTimeOfInjury = pickedDateTime;
+    String formattedDate = DateFormat(_state.dateFormat).format(pickedDateTime);
+    _state.dataController.text = formattedDate.toString();
+    notifyListeners();
+  }
+
+  void setDataFormat(String formatOfDateTime) {
+    _state.dateFormat = formatOfDateTime;
+  }
 }
 
 class AddInjurySnapshotWidget extends StatelessWidget {
@@ -130,126 +153,96 @@ class AddInjurySnapshotWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      SingleChildScrollView(
-        child:Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: const [
-              _ErrorTitleWidget(),
-              SizedBox(height: 10),
-              _TimeOfInjuryWidget(),
-              SizedBox(height: 10),
-              _AreaWidget(),
-              SizedBox(height: 10),
-              _SeverityWidget(),
-              SizedBox(height: 10),
-              _DescriptionWidget(),
-              SizedBox(height: 10),
-              _ImagesWidget(),
-              SizedBox(height: 10),
-              _PickImagesButtonWidget(),
-              SizedBox(height: 10),
-              _AddButtonWidget(),
-            ],
+        appBar: CustomAppBar(title: S
+            .of(context)
+            .AddRecord),
+        body:
+        const SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _ErrorTitleWidget(),
+                  SizedBox(height: 10),
+                  _TimeOfInjuryWidget(),
+                  SizedBox(height: 10),
+                  _AreaWidget(),
+                  SizedBox(height: 10),
+                  _SeverityWidget(),
+                  SizedBox(height: 10),
+                  _DescriptionWidget(),
+                  SizedBox(height: 10),
+                  _ImagesWidget(),
+                  SizedBox(height: 10),
+                  _PickImagesButtonWidget(),
+                  SizedBox(height: 10),
+                  _AddButtonWidget(),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-    ));
+        ));
   }
 }
 
 
 
+
 class _TimeOfInjuryWidget extends StatelessWidget {
   const _TimeOfInjuryWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
-      decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.insert_chart_outlined_rounded),
-          enabledBorder: enabledBorder,
-          focusedBorder: focusedBorder,
-          filled: true,
-          hintStyle: textStyleForInput,
-          hintText: S
-              .of(context)
-              .Time,
-          fillColor: inputColor),
-      onChanged: model.changeTimeOfInjury,
+    final dataController =
+    context.select((_ViewModel value) => value.state.dataController);
+    model.setDataFormat(S.of(context).FormatOfDateTime);
+    return InputWidget(
+      controller: dataController,
+      readOnly: true,
+      onTap: () => model.selectDateTime(context),
+      hintText: S.of(context).Time,
     );
   }
 }
 
 class _AreaWidget extends StatelessWidget {
   const _AreaWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
-      decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.insert_chart_outlined_rounded),
-          enabledBorder: enabledBorder,
-          focusedBorder: focusedBorder,
-          filled: true,
-          hintStyle: textStyleForInput,
-          hintText: S
-              .of(context)
-              .Area,
-          fillColor: inputColor),
+    return InputWidget(
       onChanged: model.changeArea,
+      hintText: S.of(context).Area,
     );
   }
 }
 
 class _DescriptionWidget extends StatelessWidget {
   const _DescriptionWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
-      decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.insert_chart_outlined_rounded),
-          enabledBorder: enabledBorder,
-          focusedBorder: focusedBorder,
-          filled: true,
-          hintStyle: textStyleForInput,
-          hintText: S
-              .of(context)
-              .Description,
-          fillColor: inputColor),
+    return InputWidget(
       onChanged: model.changeDescription,
+      hintText: S.of(context).Description,
     );
   }
 }
 
 class _SeverityWidget extends StatelessWidget {
   const _SeverityWidget({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
-    return TextField(
-      decoration: InputDecoration(
-          prefixIcon: const Icon(Icons.insert_chart_outlined_rounded),
-          enabledBorder: enabledBorder,
-          focusedBorder: focusedBorder,
-          filled: true,
-          hintStyle: textStyleForInput,
-          hintText: S
-              .of(context)
-              .Severity,
-          fillColor: inputColor),
+    return InputWidget(
       onChanged: model.changeSeverity,
+      hintText: S.of(context).Severity,
     );
   }
 }
+
 
 
 class _ErrorTitleWidget extends StatelessWidget {
@@ -300,16 +293,17 @@ class _ImagesWidget extends StatelessWidget {
     return imagePaths.isEmpty
         ? Container()
         : SizedBox(
-      height: 100,
+        height: 100,
         child: ListView.builder(
-      scrollDirection: Axis.horizontal,
-      shrinkWrap: true,
-      itemCount: imagePaths.length,
-      itemBuilder: (context, index) =>
-          Container( //                           <-- Card widget
-              child: Image.file(File(imagePaths[index]))
-          ),
-    ));
+
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemCount: imagePaths.length,
+          itemBuilder: (context, index) =>
+              Card( //                           <-- Card widget
+                  child: Image.file(File(imagePaths[index]))
+              ),
+        ));
   }
 }
 

@@ -10,13 +10,20 @@ class InputWidget extends StatelessWidget {
   final String? hintText;
   final bool obscureText;
   final validator;
+  final bool readOnly;
+  final VoidCallback? onTap;
 
-  const InputWidget({Key? key, IconData? this.icon, this.onIconPressed, this.hintText, this.onChanged, this.obscureText =false, this.validator}) : super(key: key);
+  final TextEditingController? controller;
+
+  const InputWidget({Key? key, IconData? this.icon, this.onIconPressed, this.hintText, this.onChanged, this.obscureText =false, this.validator, this.readOnly = false, this.onTap, this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return TextFormField(
+      controller: controller,
+      onTap: onTap,
+      readOnly: readOnly,
       decoration: InputDecoration(
           prefixIcon:icon != null ?IconButton(
             splashColor: Colors.transparent,

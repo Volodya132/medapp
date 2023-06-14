@@ -50,7 +50,7 @@ class RegProvider {
   }
 
   Future<void> addInjurySnapshot(
-      String datetime,
+      DateTime datetime,
       List<String> imageLocalPaths,
       String area,
       String description,
@@ -62,9 +62,8 @@ class RegProvider {
     imageLocalPaths = await FileService.copyFiles(imageLocalPaths, "$doctorId/$injuryIdString");
     List<String> dbPaths = await FirebaseService.uploadFiles(imageLocalPaths, "$doctorId/$injuryIdString");
     double castArea = double.parse(area);
-    DateTime castDateTime = DateTime.parse(datetime).toUtc();
 
-    var injurySnapshot = InjurySnapshot(ObjectId(), datetime: castDateTime, imageLocalPaths: imageLocalPaths, imageDBPaths: dbPaths, area: castArea, description: description, severity: severity );
+    var injurySnapshot = InjurySnapshot(ObjectId(), datetime: datetime, imageLocalPaths: imageLocalPaths, imageDBPaths: dbPaths, area: castArea, description: description, severity: severity );
     Injury? injury = (await RealmService.getInjuryByID(injuryID));
     await RealmService.addInjurySnapshot(injurySnapshot);
     await RealmService.addSnapshotToInjury(injurySnapshot, injury!);

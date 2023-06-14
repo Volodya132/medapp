@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medapp/domain/services/reg_service.dart';
 import 'package:medapp/ui/widgets/CustomTextField.dart';
+import 'package:medapp/ui/widgets/WorkWithDate.dart';
 import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
 import '../../generated/l10n.dart';
@@ -22,7 +23,7 @@ class _ViewModelState {
   List<String> additionalSymptoms = [];
   bool isAddInProcess = false;
 
-  String dateFormat ="yyyy-mm-dd";
+  String dateFormat ="yyyy-mm-dd h:mm a";
   TextEditingController dataController = TextEditingController();
 
   _ViewModelAddButtonState get addButtonState {
@@ -72,9 +73,18 @@ class _ViewModel extends ChangeNotifier {
     _state.cause = value;
     notifyListeners();
   }
-  void changeTimeOfInjury(String value) {
-    if (_state.cause == value) return;
-    _state.cause = value;
+  void changeTimeOfInjury(DateTime value) {
+    if (_state.dateTimeOfInjury == value) return;
+    _state.dateTimeOfInjury = value;
+    notifyListeners();
+  }
+
+  Future<void> selectDateTime(BuildContext context) async {
+    DateTime? pickedDateTime = await WorkWithDate.pickDate(context);
+    if(pickedDateTime == null) return;
+    state.dateTimeOfInjury = pickedDateTime;
+    String formattedDate = DateFormat(_state.dateFormat).format(pickedDateTime);
+    _state.dataController.text = formattedDate.toString();
     notifyListeners();
   }
 
@@ -107,6 +117,10 @@ class _ViewModel extends ChangeNotifier {
       _state.isAddInProcess = false;
       notifyListeners();
     }
+  }
+
+  void setDataFormat(String formatOfDate) {
+    _state.dateFormat = formatOfDate;
   }
 }
 
@@ -196,8 +210,13 @@ class _TimeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<_ViewModel>();
+    final dataController =
+    context.select((_ViewModel value) => value.state.dataController);
+    model.setDataFormat(S.of(context).FormatOfDateTime);
     return InputWidget(
-      onChanged: model.changeTimeOfInjury,
+      controller: dataController,
+      readOnly: true,
+      onTap: () => model.selectDateTime(context),
       hintText: S.of(context).Time,
     );
   }

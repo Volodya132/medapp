@@ -50,6 +50,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "ForgotPassword":
             MessageLookupByLibrary.simpleMessage("Forgot password"),
         "FormatOfDate": MessageLookupByLibrary.simpleMessage("MM.dd.yyyy"),
+        "FormatOfDateTime":
+            MessageLookupByLibrary.simpleMessage("MM.dd.yyyy h:mm a"),
         "Gender": MessageLookupByLibrary.simpleMessage("Gender"),
         "Hello": MessageLookupByLibrary.simpleMessage("Hello"),
         "HowDoYouDo": MessageLookupByLibrary.simpleMessage("How do you do?"),

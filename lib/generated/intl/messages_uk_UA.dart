@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Поле не може бути пустим"),
         "ForgotPassword": MessageLookupByLibrary.simpleMessage("Забув пароль"),
         "FormatOfDate": MessageLookupByLibrary.simpleMessage("dd.MM.yyyy"),
+        "FormatOfDateTime":
+            MessageLookupByLibrary.simpleMessage("dd.MM.yyyy HH:mm"),
         "Gender": MessageLookupByLibrary.simpleMessage("Стать"),
         "Hello": MessageLookupByLibrary.simpleMessage("Привіт"),
         "HowDoYouDo": MessageLookupByLibrary.simpleMessage("Як Ваші справи?"),

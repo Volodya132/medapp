@@ -32,6 +32,7 @@
   "LName": "Прізвище",
   "Registraion": "Реєстрація",
   "FormatOfDate": "dd.MM.yyyy",
+  "FormatOfDateTime": "dd.MM.yyyy HH:mm",
   "Birthday": "День народження",
   "RepeatPassword": "Повторіть пароль",
   "FieldCannotBeEmpty": "Поле не може бути пустим",
