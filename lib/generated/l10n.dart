@@ -649,6 +649,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Mask painting`
+  String get MaskPainting {
+    return Intl.message(
+      'Mask painting',
+      name: 'MaskPainting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Brush Size`
+  String get BrushSize {
+    return Intl.message(
+      'Brush Size',
+      name: 'BrushSize',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The mask is saved`
+  String get TheMaskIsSaved {
+    return Intl.message(
+      'The mask is saved',
+      name: 'TheMaskIsSaved',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

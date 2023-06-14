@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Area": MessageLookupByLibrary.simpleMessage("Площа"),
         "Attention": MessageLookupByLibrary.simpleMessage("Увага"),
         "Birthday": MessageLookupByLibrary.simpleMessage("День народження"),
+        "BrushSize": MessageLookupByLibrary.simpleMessage("Розмір кісточки"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Відміна"),
         "Cause": MessageLookupByLibrary.simpleMessage("Причина"),
         "ChangePassword":
@@ -58,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LogIn": MessageLookupByLibrary.simpleMessage("Увійти"),
         "Login": MessageLookupByLibrary.simpleMessage("Логін"),
         "MName": MessageLookupByLibrary.simpleMessage("По-батькові"),
+        "MaskPainting": MessageLookupByLibrary.simpleMessage("Малювання маски"),
         "Name": MessageLookupByLibrary.simpleMessage("Ім\'я"),
         "NewPassword": MessageLookupByLibrary.simpleMessage("Новий пароль"),
         "NoInformation":
@@ -82,6 +84,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Я радий знову вас бачити. Ви можете продовжити там, де зупинилися, увійшовши в свій обліковий запис"),
         "TelephoneNumber":
             MessageLookupByLibrary.simpleMessage("Номер телефону"),
+        "TheMaskIsSaved":
+            MessageLookupByLibrary.simpleMessage("Маска збеержена"),
         "ThePasswordEnteredIsIncorrect":
             MessageLookupByLibrary.simpleMessage("Пароль введенно не вірно"),
         "ThePasswordMustContainAMinimumOf8Characters":

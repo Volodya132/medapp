@@ -11,6 +11,7 @@ import 'domain/entity/injurySnapshot.dart';
 import 'domain/entity/patient.dart';
 import 'firebase_options.dart';
 
+
 final String appId = "application-0-ftetu";
 final Uri baseUrl = Uri.parse("https://realm.mongodb.com");
 

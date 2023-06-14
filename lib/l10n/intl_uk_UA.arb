@@ -57,5 +57,8 @@
   "RepeatNewPassword": "Повторіть новий пароль",
   "PasswordChange": "Змінна паролю",
   "IncorrectOldPassword": "Не вірний старий пароль",
-  "Exit": "Вихід"
+  "Exit": "Вихід",
+  "MaskPainting": "Малювання маски",
+  "BrushSize": "Розмір кісточки",
+  "TheMaskIsSaved": "Маска збеержена"
 }

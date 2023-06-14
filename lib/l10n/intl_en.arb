@@ -58,5 +58,8 @@
   "RepeatNewPassword": "Repeat new password",
   "PasswordChange": "Password change",
   "IncorrectOldPassword": "Incorrect old password",
-  "Exit": "Exit"
+  "Exit": "Exit",
+  "MaskPainting": "Mask painting",
+  "BrushSize": "Brush Size",
+  "TheMaskIsSaved": "The mask is saved"
 }

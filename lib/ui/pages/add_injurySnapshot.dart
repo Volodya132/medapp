@@ -101,7 +101,6 @@ class _ViewModel extends ChangeNotifier {
   }
 
   Future<void> onPickImagesButtonPressed() async {
-    print("Привіт");
     FilePickerResult? result = await FilePicker.platform.pickFiles(allowMultiple: true);
     if (result != null) {
       for(String? file in result.paths) {

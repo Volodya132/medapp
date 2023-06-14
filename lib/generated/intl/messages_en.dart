@@ -30,6 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Area": MessageLookupByLibrary.simpleMessage("Area"),
         "Attention": MessageLookupByLibrary.simpleMessage("Attention"),
         "Birthday": MessageLookupByLibrary.simpleMessage("Birthday"),
+        "BrushSize": MessageLookupByLibrary.simpleMessage("Brush Size"),
         "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "Cause": MessageLookupByLibrary.simpleMessage("Cause"),
         "ChangePassword":
@@ -60,6 +61,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LogIn": MessageLookupByLibrary.simpleMessage("Log in"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "MName": MessageLookupByLibrary.simpleMessage("Middle name"),
+        "MaskPainting": MessageLookupByLibrary.simpleMessage("Mask painting"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "NewPassword": MessageLookupByLibrary.simpleMessage("New password"),
         "NoInformation": MessageLookupByLibrary.simpleMessage("no information"),
@@ -84,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "I am happy to see you again. You can continue where you left off by logging in"),
         "TelephoneNumber":
             MessageLookupByLibrary.simpleMessage("Telephone number"),
+        "TheMaskIsSaved":
+            MessageLookupByLibrary.simpleMessage("The mask is saved"),
         "ThePasswordEnteredIsIncorrect": MessageLookupByLibrary.simpleMessage(
             "The password entered is incorrect"),
         "ThePasswordMustContainAMinimumOf8Characters":
