@@ -52,15 +52,7 @@ class _ViewModelState {
     );
   }
 
-  String? getLastChange(int index) {
 
-    DateTime? result = injuries[index].getLastChange();
-    if(result != null) {
-      final DateFormat formatter = DateFormat('dd/MM/yyy');
-      return formatter.format(result);
-    }
-    return null;
-  }
 }
 
 class _ViewModel extends ChangeNotifier {
@@ -74,6 +66,7 @@ class _ViewModel extends ChangeNotifier {
   void loadValue() async {
     await _patientService.initilalize(id);
     _updateState();
+
   }
 
   _ViewModel(this.context, this.id) {
@@ -98,7 +91,14 @@ class _ViewModel extends ChangeNotifier {
     state.currentState = index;
     notifyListeners();
   }
+  String? getLastChange(Injury injury) {
 
+    DateTime? result = injury.getLastChange();
+    if(result != null) {
+      return WorkWithDate.fromDateToString(result, S.of(context).FormatOfDate);
+    }
+    return null;
+  }
 
   void _updateState() {
     final Patient patient = _patientService.patient!;
@@ -352,7 +352,12 @@ class _BirthdayWidget extends StatelessWidget {
     viewModel.setDataFormat(S.of(context).FormatOfDate);
     print(123);
     print(birthday);
-    if(birthday == null) return Container();
+    if(birthday == null) {
+      return AccountInfoWidget(title: S
+        .of(context)
+        .Birthday, textInfo: S.of(context).NoInformation);
+    }
+
 
     return AccountInfoWidget(title: S
         .of(context)
@@ -443,8 +448,7 @@ class _InjuriesListWidget extends StatelessWidget {
                       ),
                       subtitle: Text('${S
                           .of(context)
-                          .LastChange}: ${S
-                          .of(context)
+                          .LastChange}: ${viewModel.getLastChange(injuries[index]) ?? S.of(context)
                           .NoInformation}'),
                       onTap: () => viewModel.onInjuryTap(injuries[index]?.id),
                       onLongPress: () => viewModel.onInjureLongPress(injuries[index]?.id, context),

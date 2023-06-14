@@ -32,7 +32,7 @@ class _Patient {
           result = (currentInjuries[i] as EvolutionInjury).getLastChange();
         }
         else {
-          result = currentInjuries[i].timeOfInjury;
+          result = currentInjuries[i].getLastChange();
         }
       }
       else {
@@ -41,7 +41,7 @@ class _Patient {
           last = (currentInjuries[i] as EvolutionInjury).getLastChange();
         }
         else {
-          last = currentInjuries[i].timeOfInjury;
+          last = currentInjuries[i].getLastChange();
         }
         if (last != null && last.isAfter(result)) {
           result = last;

@@ -7,6 +7,7 @@ import 'package:medapp/domain/services/realmService.dart';
 import 'package:medapp/generated/l10n.dart';
 import 'package:medapp/ui/helper/buttonConstants.dart';
 import 'package:medapp/ui/widgets/CusomButton.dart';
+import 'package:medapp/ui/widgets/WorkWithDate.dart';
 import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
 import '../../domain/entity/doctor.dart';
@@ -20,7 +21,7 @@ class _ViewModelState {
   final String doctorNameTitle;
   var patients;
   String searchingPatients;
-
+  String dateFormat ="yyyy-mm-dd";
   List<ObjectId> patientsIDS = [];
 
 
@@ -46,15 +47,7 @@ class _ViewModelState {
     );
   }
 
-  String? getLastChange(int index) {
 
-    DateTime? result = patients[index].getLastChange();
-    if(result != null) {
-      final DateFormat formatter = DateFormat('dd/MM/yyy');
-      return formatter.format(result);
-    }
-    return null;
-  }
 }
 
 class _ViewModel extends ChangeNotifier {
@@ -68,12 +61,21 @@ class _ViewModel extends ChangeNotifier {
   void loadValue() async {
     await _doctorService.initilalize();
     _updateState();
+    _state.dateFormat = S.of(context).FormatOfDate;
   }
 
   _ViewModel(this.context) {
+
     loadValue();
   }
+  String? getLastChange(Patient patient) {
 
+    DateTime? result = patient.getLastChange();
+    if(result != null) {
+      return WorkWithDate.fromDateToString(result, state.dateFormat);
+    }
+    return null;
+  }
   Future<void> removePatientFromDoctor(patientId)async {
     _doctorService.deletePatient(patientId);
   }
@@ -323,8 +325,7 @@ class _PatientsListWidget extends StatelessWidget {
                       title: Text("${results[index].lname} ${results[index].fname} ${results[index].mname}" ),
                       subtitle: Text('${S
                           .of(context)
-                          .LastChange}: ${S
-                          .of(context)
+                          .LastChange}: ${viewModel.getLastChange(results[index]) ?? S.of(context)
                           .NoInformation}'),
                       onTap: () => viewModel.onPatientClick(patients[index]?.id),
                       onLongPress: () => viewModel.onPatientLongPress(patients[index]?.id, context),
