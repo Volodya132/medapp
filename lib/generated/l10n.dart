@@ -699,6 +699,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Do you really want to delete the injury record?`
+  String get DoYouReallyWantToDeleteTheInjuryRecord {
+    return Intl.message(
+      'Do you really want to delete the injury record?',
+      name: 'DoYouReallyWantToDeleteTheInjuryRecord',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

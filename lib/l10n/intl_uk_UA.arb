@@ -62,5 +62,6 @@
   "MaskPainting": "Малювання маски",
   "BrushSize": "Розмір кісточки",
   "TheMaskIsSaved": "Маска збеержена",
-  "AddRecord": "Добавити запис"
+  "AddRecord": "Добавити запис",
+  "DoYouReallyWantToDeleteTheInjuryRecord": "Ви дійсно бажаєте видалити запис травми?"
 }

@@ -63,5 +63,6 @@
   "MaskPainting": "Mask painting",
   "BrushSize": "Brush Size",
   "TheMaskIsSaved": "The mask is saved",
-  "AddRecord": "Add record"
+  "AddRecord": "Add record",
+  "DoYouReallyWantToDeleteTheInjuryRecord": "Do you really want to delete the injury record?"
 }

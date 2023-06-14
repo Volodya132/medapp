@@ -16,5 +16,10 @@ class PatientService {
     }*/
   }
 
+  Future deleteInjure(injureId)async {
+
+    _patientDataProvider.deleteInjure(_patient, injureId);
+  }
+
 
 }

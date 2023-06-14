@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medapp/domain/entity/evolutionInjury.dart';
@@ -82,6 +83,44 @@ class _ViewModel extends ChangeNotifier {
     );
     notifyListeners();
   }
+
+  Future<void> removeInjureFromPatient(injureId)async {
+
+    _patientService.deleteInjure(injureId);
+  }
+
+  void _showAlertDialog(BuildContext context, injureID) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Text(S.of(context).Attention),
+        content: Text(S.of(context).DoYouReallyWantToDeleteTheInjuryRecord),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text(S.of(context).Cancel),
+          ),
+          CupertinoDialogAction(
+            isDestructiveAction: true,
+            onPressed: () {
+              removeInjureFromPatient(injureID);
+              _updateState();
+              Navigator.pop(context);
+
+            },
+            child: Text(S.of(context).Delete),
+          ),
+        ],
+      ),
+    );
+  }
+  Future<void>  onInjureLongPress(id, BuildContext context)async {
+    _showAlertDialog(context, id);
+  }
+
 }
 
 class PatientDetail extends StatelessWidget {
@@ -245,6 +284,7 @@ class _InjuriesListWidget extends StatelessWidget {
                           .of(context)
                           .NoInformation}'),
                       onTap: () => viewModel.onInjuryTap(injuries[index]?.id),
+                      onLongPress: () => viewModel.onInjureLongPress(injuries[index]?.id, context),
                     ),
                   ));
         }

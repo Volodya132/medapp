@@ -12,4 +12,10 @@ class PatientDataProvider {
   Future<void> save(Patient patient) async {
 
   }
+
+  Future deleteInjure(Patient? patient, injureId)async {
+    if(patient != null) {
+      RealmService.removeInjureFromPatient(patient, injureId);
+    }
+  }
 }

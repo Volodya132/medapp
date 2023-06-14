@@ -202,6 +202,15 @@ class RealmService {
   static void dispose() {
     realm.close();
   }
+
+  static Future removeInjureFromPatient(Patient patient, injureId)async {
+    realm.write(() {
+      patient.currentInjuriesIDs.remove(injureId);
+
+
+      realm.add<Patient>(patient, update: true);
+    });
+  }
 }
 
 

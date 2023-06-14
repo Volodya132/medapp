@@ -38,6 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Change password"),
         "Delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "Description": MessageLookupByLibrary.simpleMessage("Description"),
+        "DoYouReallyWantToDeleteTheInjuryRecord":
+            MessageLookupByLibrary.simpleMessage(
+                "Do you really want to delete the injury record?"),
         "DoYouWantToDeleteThePatient": MessageLookupByLibrary.simpleMessage(
             "Do you want to delete the patient?"),
         "DontHaveAcc":
