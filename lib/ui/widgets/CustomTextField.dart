@@ -18,11 +18,11 @@ class InputWidget extends StatelessWidget {
 
     return TextFormField(
       decoration: InputDecoration(
-          prefixIcon: IconButton(
+          prefixIcon:icon != null ?IconButton(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onPressed: onIconPressed,
-            icon: Icon(icon)),
+            icon: Icon(icon)) : null,
           enabledBorder: enabledBorder,
           focusedBorder: focusedBorder,
           filled: true,

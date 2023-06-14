@@ -194,9 +194,9 @@ class AddPatientWidget extends StatelessWidget {
           child: Center(
             child: Form(
               key: key,
-              child: Column(
+              child: const Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children:  [
                   _ErrorTitleWidget(),
                   SizedBox(height: 10),
                   _FNameWidget(),

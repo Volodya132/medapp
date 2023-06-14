@@ -12,9 +12,11 @@ import 'package:medapp/domain/services/injurySnapshot_service.dart';
 import 'package:medapp/domain/services/realmService.dart';
 import 'package:medapp/generated/l10n.dart';
 import 'package:medapp/ui/widgets/CustomSnagBar.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../domain/entity/injury.dart';
 import '../../domain/entity/patient.dart';
 import '../../domain/services/patient_service.dart';
@@ -112,6 +114,8 @@ class _ViewModel extends ChangeNotifier {
           BrushSizePickerDialog(initialBrushSize: _state.brushSize),
     );
 
+
+
     if (selectedBrushSize != null) {
         _state.brushSize = selectedBrushSize;
         updateBrushSize();
@@ -205,6 +209,17 @@ class _ViewModel extends ChangeNotifier {
       return;
     }
     state.painterController.setBackgroundImage(bytes);
+  }
+
+  Future saveAndShare() async{
+    Uint8List? bytes = state.painterController.getImageBytes();
+    if(bytes == null) {
+      return;
+    }
+    final directory = await getApplicationDocumentsDirectory();
+    final image = File('${directory.path}/temp_mask.png');
+    image.writeAsBytesSync(bytes);
+    await Share.shareXFiles([XFile(image.path)]);
   }
 }
 
@@ -328,6 +343,12 @@ class _CustomSpeedDial extends StatelessWidget {
               child: const Icon(Icons.folder_rounded),
               onTap: () async {
                 model.onFileOpen();
+              }
+          ),
+          SpeedDialChild(
+              child: const Icon(Icons.share),
+              onTap: () async {
+                model.saveAndShare();
               }
           ),
 

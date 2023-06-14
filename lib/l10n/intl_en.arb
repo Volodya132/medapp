@@ -61,5 +61,6 @@
   "Exit": "Exit",
   "MaskPainting": "Mask painting",
   "BrushSize": "Brush Size",
-  "TheMaskIsSaved": "The mask is saved"
+  "TheMaskIsSaved": "The mask is saved",
+  "AddRecord": "Add record"
 }

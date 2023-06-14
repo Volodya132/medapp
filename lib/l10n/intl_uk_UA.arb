@@ -60,5 +60,6 @@
   "Exit": "Вихід",
   "MaskPainting": "Малювання маски",
   "BrushSize": "Розмір кісточки",
-  "TheMaskIsSaved": "Маска збеержена"
+  "TheMaskIsSaved": "Маска збеержена",
+  "AddRecord": "Добавити запис"
 }

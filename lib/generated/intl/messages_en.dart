@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "AboutMyself": MessageLookupByLibrary.simpleMessage("About myself"),
         "Add": MessageLookupByLibrary.simpleMessage("Add"),
         "AddPatient": MessageLookupByLibrary.simpleMessage("Add patient"),
+        "AddRecord": MessageLookupByLibrary.simpleMessage("Add record"),
         "Address": MessageLookupByLibrary.simpleMessage("address"),
         "Age": MessageLookupByLibrary.simpleMessage("age"),
         "Area": MessageLookupByLibrary.simpleMessage("Area"),

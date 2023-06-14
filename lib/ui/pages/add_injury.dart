@@ -8,6 +8,7 @@ import '../../generated/l10n.dart';
 import '../helper/buttonConstants.dart';
 import '../helper/inputConstants.dart';
 import '../navigation/main_navigation.dart';
+import '../widgets/CustomAppBar.dart';
 enum _ViewModelAddButtonState { canSubmit, addProcess, disable }
 
 class _ViewModelState {
@@ -121,14 +122,15 @@ class AddInjuryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
+    return  Scaffold(
+      appBar: CustomAppBar(title: S.of(context).AddRecord),
+      body: const SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children:  [
                 _ErrorTitleWidget(),
                 SizedBox(height: 10),
                 _TypeWidget(),

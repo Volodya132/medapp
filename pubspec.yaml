@@ -57,6 +57,7 @@ dependencies:
   image_gallery_saver: ^2.0.2
   permission_handler: ^10.3.0
   image: ^4.0.17
+  share_plus: ^7.0.2
 
 dev_dependencies:
   flutter_test:
