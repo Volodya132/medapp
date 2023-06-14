@@ -14,6 +14,7 @@ import '../../domain/entity/patient.dart';
 import '../../domain/services/patient_service.dart';
 import '../helper/theme.dart';
 import '../widgets/AccountInfoWidget.dart';
+import '../widgets/CustomSwitch.dart';
 
 
 
@@ -249,25 +250,11 @@ class _Swicher extends StatelessWidget {
     vm.state.currentState);
     final viewModel = context.read<_ViewModel>();
     return Container(
-      child: ToggleSwitch(
-        fontSize: 22,
-        minWidth: 170,
-        activeBgColors: const [[Color(0xff6ae11e)],[Color(0xff6ae11e)] ],
-        activeFgColor: Colors.black,
-        customTextStyles: const [TextStyle(
-            color: Colors.black,
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold)],
-        animate: true,
-        animationDuration: 300,
-        initialLabelIndex: currentState,
-        totalSwitches: 2,
-        labels: const ["Injuries", "Information"],
-        onToggle: (index) {
-          if(index != null) {
-            viewModel.changeState(index);
-          }
-        },
+      child: CustomSwitch(
+        currentState: currentState,
+        labels: [S.of(context).Injuries,S.of(context).Information],
+        onChanged: viewModel.changeState
+
       ),
     );
   }

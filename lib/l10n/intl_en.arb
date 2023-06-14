@@ -66,6 +66,8 @@
   "AddRecord": "Add record",
   "DoYouReallyWantToDeleteTheInjuryRecord": "Do you really want to delete the injury record?",
   "DetailsOfTheInjury": "Details of the injury",
-  "AddInjury": "Add injury"
+  "AddInjury": "Add injury",
+  "Injuries": "Injuries",
+  "Information": "Information"
 
 }

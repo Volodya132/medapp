@@ -65,5 +65,7 @@
   "AddRecord": "Добавити запис",
   "DoYouReallyWantToDeleteTheInjuryRecord": "Ви дійсно бажаєте видалити запис травми?",
   "DetailsOfTheInjury": "Деталі травми",
-  "AddInjury": "Добавити травму"
+  "AddInjury": "Добавити травму",
+  "Injuries": "Травми",
+  "Information": "Інформація"
 }

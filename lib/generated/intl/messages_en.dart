@@ -63,6 +63,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "HowDoYouDo": MessageLookupByLibrary.simpleMessage("How do you do?"),
         "IncorrectOldPassword":
             MessageLookupByLibrary.simpleMessage("Incorrect old password"),
+        "Information": MessageLookupByLibrary.simpleMessage("Information"),
+        "Injuries": MessageLookupByLibrary.simpleMessage("Injuries"),
         "InputError": MessageLookupByLibrary.simpleMessage("Input error"),
         "LName": MessageLookupByLibrary.simpleMessage("Last name"),
         "LastChange": MessageLookupByLibrary.simpleMessage("Last change"),

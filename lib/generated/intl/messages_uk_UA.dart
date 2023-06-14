@@ -61,6 +61,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "HowDoYouDo": MessageLookupByLibrary.simpleMessage("Як Ваші справи?"),
         "IncorrectOldPassword":
             MessageLookupByLibrary.simpleMessage("Не вірний старий пароль"),
+        "Information": MessageLookupByLibrary.simpleMessage("Інформація"),
+        "Injuries": MessageLookupByLibrary.simpleMessage("Травми"),
         "InputError": MessageLookupByLibrary.simpleMessage("Помилка введення"),
         "LName": MessageLookupByLibrary.simpleMessage("Прізвище"),
         "LastChange": MessageLookupByLibrary.simpleMessage("Остання зміна"),
