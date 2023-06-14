@@ -129,7 +129,8 @@ class _ViewModel extends ChangeNotifier {
     }
     else if(_state.paintState == _PaintState.white) {
       _state.painterController.setBlendMode(BlendMode.srcOver);
-      _state.painterController.setStrokeColor(Colors.white);
+      _state.painterController.setStrokeColor(Color.fromARGB(100, 23, 23, 23));
+
     }
     else {
       _state.painterController.setBlendMode(BlendMode.dstOut);
@@ -167,6 +168,7 @@ class _ViewModel extends ChangeNotifier {
     replaceAll('.', '-').
     replaceAll(':', '-');
     final name = 'mask_$time';
+
     final res = await ImageGallerySaver.saveImage(bytes, name: name);
     return res['filePath'];
   }

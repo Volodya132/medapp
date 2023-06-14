@@ -163,7 +163,7 @@ class PatientDetail extends StatelessWidget {
                             end: Alignment.centerRight,
                             colors: [Color(0xFF3AB7FF), Color(0xFFA8E7FF), Color(0xFF3AB7FF)]))
                     ),
-                    bottom: PreferredSize(
+                    bottom: const PreferredSize(
                         preferredSize: Size.zero,
                         child: Padding(
                             padding: const EdgeInsets.only(left: 30),

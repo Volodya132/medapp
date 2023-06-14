@@ -63,5 +63,6 @@
   "BrushSize": "Розмір кісточки",
   "TheMaskIsSaved": "Маска збеержена",
   "AddRecord": "Добавити запис",
-  "DoYouReallyWantToDeleteTheInjuryRecord": "Ви дійсно бажаєте видалити запис травми?"
+  "DoYouReallyWantToDeleteTheInjuryRecord": "Ви дійсно бажаєте видалити запис травми?",
+  "DetailsOfTheInjury": "Деталі травми"
 }

@@ -12,6 +12,7 @@ import '../../domain/entity/injurySnapshot.dart';
 import '../../domain/entity/patient.dart';
 import '../../domain/services/injury_service.dart';
 import '../../domain/services/patient_service.dart';
+import '../widgets/CustomAppBar.dart';
 
 
 
@@ -19,6 +20,7 @@ class _ViewModelState {
   final String injuryNameTitle;
   List<InjurySnapshot?> injurySnapshots;
 
+  String dateFormat ="yyyy-mm-dd h:mm a";
 
   _ViewModelState({
     required this.injuryNameTitle,
@@ -70,6 +72,9 @@ class _ViewModel extends ChangeNotifier {
     Navigator.of(context).pushNamed('/patients_page/patientDetail/injuryDetail/injurySnapshotDetail', arguments: snapshotID);
   }
 
+  String convertDateTimeToString(DateTime dateTime) {
+    return DateFormat(_state.dateFormat).format(dateTime).toString();
+  }
   void _updateState() {
     final Injury injury = _injuryService.injury!;
 
@@ -94,14 +99,15 @@ class InjuryDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      appBar: CustomAppBar(title: S.of(context).DetailsOfTheInjury),
+      body: const SafeArea(
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
+                children:  [
                   _WelcomeWidget(),
                   SizedBox(height: 25),
                   _AddInjurySnapshotWidget(),
@@ -170,6 +176,7 @@ class _InjurySnapshotsListWidget extends StatelessWidget {
     vm.state.injurySnapshots);
     final viewModel = context.read<_ViewModel>();
 
+
     return StreamBuilder<RealmResultsChanges<InjurySnapshot>>(
         stream: RealmService.getInjurySnapshotChanges(),
         builder: (context, snapshot) {
@@ -184,7 +191,9 @@ class _InjurySnapshotsListWidget extends StatelessWidget {
               itemCount: injurySnapshot.length,
               itemBuilder: (context, index) =>
                   GestureDetector(
-                      onTap: () => viewModel.onInjurySnapshotImageTap(injurySnapshot[index]?.id),
+                      onTap: () =>
+                          viewModel.onInjurySnapshotImageTap(
+                              injurySnapshot[index]?.id),
                       child: Card( //
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)
@@ -202,7 +211,7 @@ class _InjurySnapshotsListWidget extends StatelessWidget {
                                   image: DecorationImage(
                                     image: getImageIfExist(
                                         injurySnapshot[index]),
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                                 height: 200,
@@ -214,8 +223,12 @@ class _InjurySnapshotsListWidget extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment
                                         .start,
                                     children: [
-                                      Text(injurySnapshot[index]?.id
-                                          .toString() ?? "Null"),
+                                      injurySnapshot[index] == null
+                                          ? Container()
+                                          : injurySnapshot[index]!.datetime ==
+                                          null ? Container()
+                                          : Text(
+                                          viewModel.convertDateTimeToString(injurySnapshot[index]!.datetime!)),
                                       Text('${S
                                           .of(context)
                                           .LastChange}: ${S
@@ -236,6 +249,8 @@ class _InjurySnapshotsListWidget extends StatelessWidget {
     );
   }
 }
+
+
 
 ImageProvider<Object> getImageIfExist(InjurySnapshot? injurySnapshot) {
   if(injurySnapshot == null){

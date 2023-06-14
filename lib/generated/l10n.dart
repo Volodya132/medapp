@@ -709,6 +709,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Details of the injury`
+  String get DetailsOfTheInjury {
+    return Intl.message(
+      'Details of the injury',
+      name: 'DetailsOfTheInjury',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -64,5 +64,7 @@
   "BrushSize": "Brush Size",
   "TheMaskIsSaved": "The mask is saved",
   "AddRecord": "Add record",
-  "DoYouReallyWantToDeleteTheInjuryRecord": "Do you really want to delete the injury record?"
+  "DoYouReallyWantToDeleteTheInjuryRecord": "Do you really want to delete the injury record?",
+  "DetailsOfTheInjury": "Details of the injury"
+
 }
