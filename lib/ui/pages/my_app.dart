@@ -18,6 +18,7 @@ import 'package:medapp/ui/pages/patients_page.dart';
 import 'package:medapp/ui/pages/loader_page.dart';
 
 import 'add_patient.dart';
+import 'add_photo_to_injurysnapshot.dart';
 import 'change_password_page.dart';
 import 'injuries_detail.dart';
 import 'injurySnapshot_detail_page.dart';
@@ -129,11 +130,24 @@ class MyApp extends StatelessWidget {
             );
           }
           else if (settings.name == '/patients_page/patientDetail/injuryDetail/injurySnapshotDetail') {
-            final arguments = settings.arguments;
-            final injurySnapshotID = arguments is ObjectId ? arguments : 0;
+            print( settings.arguments);
+            final arguments = settings.arguments as List;
+            var snapshotID = arguments[0];
+            var injuryID = arguments[1];
             return PageRouteBuilder<dynamic>(
               pageBuilder: (context, animation1, animation2) =>
-                  InjurySnapshotDetailPage.create(injurySnapshotID),
+                  InjurySnapshotDetailPage.create(snapshotID, injuryID),
+              transitionDuration: Duration.zero,
+            );
+          }
+          else if (settings.name == '/patients_page/patientDetail/injuryDetail/injurySnapshotDetail/addPhoto') {
+            print( settings.arguments);
+            final arguments = settings.arguments as List;
+            var snapshotID = arguments[0];
+            var injuryID = arguments[1];
+            return PageRouteBuilder<dynamic>(
+              pageBuilder: (context, animation1, animation2) =>
+                  InjurySnapshotDetailAddPhotosPage.create(snapshotID, injuryID),
               transitionDuration: Duration.zero,
             );
           }

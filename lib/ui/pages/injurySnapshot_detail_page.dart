@@ -11,6 +11,7 @@ import 'package:realm/realm.dart';
 import '../../domain/entity/injury.dart';
 import '../../domain/entity/patient.dart';
 import '../../domain/services/patient_service.dart';
+import '../widgets/CusomButton.dart';
 import '../widgets/CustomAppBar.dart';
 
 
@@ -57,18 +58,22 @@ class _ViewModelState {
 
 class _ViewModel extends ChangeNotifier {
   BuildContext context;
-  final ObjectId id;
+  final ObjectId snapshotID;
+  final ObjectId injuryID;
   final _injurySnapshot = InjurySnapshotService();
 
   var _state = _ViewModelState(dateTime: null, images: [], area: '', description: '', severity: '', );
   _ViewModelState get state => _state;
 
+  Future<void> onAddPhotoButtonPressed() async {
+    Navigator.of(context).pushNamed('/patients_page/patientDetail/injuryDetail/injurySnapshotDetail/addPhoto', arguments: [snapshotID, injuryID]);
+  }
   void loadValue() async {
-    await _injurySnapshot.initilalize(id);
+    await _injurySnapshot.initilalize(snapshotID);
     _updateState();
   }
 
-  _ViewModel(this.context, this.id) {
+  _ViewModel(this.context, this.snapshotID, this.injuryID) {
     loadValue();
   }
 
@@ -93,9 +98,9 @@ class _ViewModel extends ChangeNotifier {
 class InjurySnapshotDetailPage extends StatelessWidget {
   const InjurySnapshotDetailPage({Key? key}) : super(key: key);
 
-  static Widget create(id) {
+  static Widget create(snapshotID, injuryID) {
     return ChangeNotifierProvider(
-      create: (context) => _ViewModel(context, id),
+      create: (context) => _ViewModel(context, snapshotID, injuryID),
       child: const InjurySnapshotDetailPage(),
     );
   }
@@ -116,6 +121,7 @@ class InjurySnapshotDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children:  [
+                  _AddInjurySnapshotWidget(),
                   SizedBox(height: 20),
                   _InjureSnapshotListWidget(),
                 ],
@@ -127,7 +133,18 @@ class InjurySnapshotDetailPage extends StatelessWidget {
   }
 }
 
+class _AddInjurySnapshotWidget extends StatelessWidget {
+  const _AddInjurySnapshotWidget({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = context.read<_ViewModel>();
+    return CustomButton(
+        onPressed: viewModel.onAddPhotoButtonPressed,
+        text: S.of(context).AddAPhoto,
+        icon: Icons.add);
+  }
+}
 
 
 
@@ -140,7 +157,7 @@ class _InjureSnapshotListWidget extends StatelessWidget {
     final viewModel = context.read<_ViewModel>();
 
     return StreamBuilder<RealmResultsChanges<InjurySnapshot>>(
-        stream: RealmService.getInjurySnapshotChanges1(),
+        stream: RealmService.getInjurySnapshotChanges(),
         builder: (context, snapshot) {
           final data = snapshot.data;
           if (data == null) return Container();
@@ -150,6 +167,7 @@ class _InjureSnapshotListWidget extends StatelessWidget {
           print(images);
           return ListView.builder(
               //scrollDirection: Axis.horizontal,
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: images.length,
               itemBuilder: (context, index) =>

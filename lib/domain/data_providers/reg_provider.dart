@@ -55,7 +55,7 @@ class RegProvider {
 
     String doctorId = (await _sharedPreferences).getString('account_id')!; //
     String injuryIdString = injuryID.toString();
-    print("paths: ${injurySnapshot.imageLocalPaths}");
+
     List<String> imageLocalPaths = (await FileService.copyFiles(injurySnapshot.imageLocalPaths, "$doctorId/$injuryIdString"));
     List<String> dbPaths = await FirebaseService.uploadFiles(imageLocalPaths, "$doctorId/$injuryIdString");
 

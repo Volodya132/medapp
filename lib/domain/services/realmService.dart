@@ -219,6 +219,13 @@ class RealmService {
       realm.add<Patient>(patient, update: true);
     });
   }
+
+  static Future addPhotosToInjurySnapshot(InjurySnapshot injurySnapshot, imageLocalPaths, dbPaths)async {
+    realm.write(() {
+      injurySnapshot.imageLocalPaths.addAll(imageLocalPaths);
+      injurySnapshot.imageDBPaths.addAll(dbPaths);
+    });
+  }
 }
 
 

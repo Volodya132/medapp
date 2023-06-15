@@ -13,6 +13,7 @@ import '../../domain/entity/patient.dart';
 import '../../domain/services/injury_service.dart';
 import '../../domain/services/patient_service.dart';
 import '../widgets/AccountInfoWidget.dart';
+import '../widgets/CusomButton.dart';
 import '../widgets/CustomAppBar.dart';
 import '../widgets/CustomSwitch.dart';
 import '../widgets/WorkWithDate.dart';
@@ -71,7 +72,7 @@ class _ViewModelState {
 
 class _ViewModel extends ChangeNotifier {
   BuildContext context;
-  final ObjectId id;
+  final ObjectId injuryID;
 
   final _injuryService = InjuryService();
 
@@ -84,21 +85,21 @@ class _ViewModel extends ChangeNotifier {
     notifyListeners();
   }
   void loadValue() async {
-    await _injuryService.initilalize(id);
+    await _injuryService.initilalize(injuryID);
     _updateState();
 
   }
 
-  _ViewModel(this.context, this.id) {
+  _ViewModel(this.context, this.injuryID) {
     loadValue();
   }
 
 
   Future<void> onAddInjurySnapshotButtonPressed() async {
-    Navigator.of(context).pushNamed('/patients_page/patientDetail/injuryDetail/addInjurySnapshot', arguments: id);
+    Navigator.of(context).pushNamed('/patients_page/patientDetail/injuryDetail/addInjurySnapshot', arguments: injuryID);
   }
   Future<void> onInjurySnapshotImageTap(snapshotID) async {
-    Navigator.of(context).pushNamed('/patients_page/patientDetail/injuryDetail/injurySnapshotDetail', arguments: snapshotID);
+    Navigator.of(context).pushNamed('/patients_page/patientDetail/injuryDetail/injurySnapshotDetail', arguments: [snapshotID, injuryID]);
   }
 
   String convertDateTimeToString(DateTime dateTime) {
@@ -294,33 +295,20 @@ class _WelcomeWidget extends StatelessWidget {
 
 }
 
+
 class _AddInjurySnapshotWidget extends StatelessWidget {
   const _AddInjurySnapshotWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final viewModel = context.read<_ViewModel>();
-    return ElevatedButton(
-        style:  ElevatedButton.styleFrom(
-          primary: const Color(0xea0f92d9),
-          minimumSize: const Size.fromHeight(50),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15), // <-- Radius
-          ),
-        ),
+    return CustomButton(
         onPressed: viewModel.onAddInjurySnapshotButtonPressed,
-        child: Row (
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-
-          children: [
-            const Icon(Icons.add),
-            Text(S.of(context).Add),
-
-          ],
-        ));
+        text: S.of(context).Add,
+        icon: Icons.add);
   }
 }
+
 
 
 class _InjurySnapshotsListWidget extends StatelessWidget {
