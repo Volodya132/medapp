@@ -5,16 +5,18 @@ import 'package:medapp/domain/entity/injurySnapshot.dart';
 import 'package:medapp/domain/services/injurySnapshot_service.dart';
 import 'package:medapp/domain/services/realmService.dart';
 import 'package:medapp/generated/l10n.dart';
+import 'package:medapp/ui/widgets/WorkWithDate.dart';
 import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
 import '../../domain/entity/injury.dart';
 import '../../domain/entity/patient.dart';
 import '../../domain/services/patient_service.dart';
+import '../widgets/CustomAppBar.dart';
 
 
 
 class _ViewModelState {
-  final String dateTime;
+  final DateTime? dateTime;
   final List<String> images;
   final String area;
   final String description;
@@ -58,7 +60,7 @@ class _ViewModel extends ChangeNotifier {
   final ObjectId id;
   final _injurySnapshot = InjurySnapshotService();
 
-  var _state = _ViewModelState(dateTime: '', images: [], area: '', description: '', severity: '', );
+  var _state = _ViewModelState(dateTime: null, images: [], area: '', description: '', severity: '', );
   _ViewModelState get state => _state;
 
   void loadValue() async {
@@ -77,7 +79,7 @@ class _ViewModel extends ChangeNotifier {
   void _updateState() {
     final injurySnapshot = _injurySnapshot.injurySnapshot;
     _state = _state.copyWith(
-      dateTime: injurySnapshot?.datetime.toString(),
+      dateTime: injurySnapshot?.datetime,
       images: injurySnapshot?.imageLocalPaths,
       area: injurySnapshot?.area.toString(),
       description: injurySnapshot?.description,
@@ -100,16 +102,20 @@ class InjurySnapshotDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime? dateTime = context.select((_ViewModel vm) =>
+    vm.state.dateTime);
+    var title = S.of(context).NoInformation;
+    if(dateTime != null) title = WorkWithDate.fromDateToString(dateTime, S.of(context).FormatOfDateTime);
     return Scaffold(
-      body: SafeArea(
+      appBar: CustomAppBar(title: title),
+      body: const SafeArea(
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  _WelcomeWidget(),
+                children:  [
                   SizedBox(height: 20),
                   _InjureSnapshotListWidget(),
                 ],
@@ -122,31 +128,7 @@ class InjurySnapshotDetailPage extends StatelessWidget {
 }
 
 
-class _WelcomeWidget extends StatelessWidget {
-  const _WelcomeWidget({Key? key}) : super(key: key);
 
-
-  @override
-  Widget build(BuildContext context) {
-    final title = "${S.of(context).Hello} ${context.select((_ViewModel vm) => vm.state.dateTime)}";
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children:  [
-        Text(
-          title,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 34),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          S.of(context).HowDoYouDo,
-          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Colors.grey),
-        ),
-      ],
-    );
-  }
-}
 
 
 class _InjureSnapshotListWidget extends StatelessWidget {
@@ -158,7 +140,7 @@ class _InjureSnapshotListWidget extends StatelessWidget {
     final viewModel = context.read<_ViewModel>();
 
     return StreamBuilder<RealmResultsChanges<InjurySnapshot>>(
-        stream: RealmService.getInjurySnapshotChanges(),
+        stream: RealmService.getInjurySnapshotChanges1(),
         builder: (context, snapshot) {
           final data = snapshot.data;
           if (data == null) return Container();

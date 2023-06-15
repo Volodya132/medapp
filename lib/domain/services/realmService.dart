@@ -182,18 +182,26 @@ class RealmService {
 
   static Stream<RealmResultsChanges<Injury>> getInjuriesChanges() {
     return RealmService.realm
-        .query<Injury>("TRUEPREDICATE SORT(_id ASC)")
+        .query<Injury>("TRUEPREDICATE SORT(_id DESC)")
         .changes;
   }
   static Stream<RealmResultsChanges<InjurySnapshot>> getInjurySnapshotChanges() {
+
     return RealmService.realm
-        .query<InjurySnapshot>("TRUEPREDICATE SORT(_id ASC)")
+        .query<InjurySnapshot>("TRUEPREDICATE SORT(datetime DESC)")
+        .changes;
+  }
+
+  static Stream<RealmResultsChanges<InjurySnapshot>> getInjurySnapshotChanges1() {
+
+    return RealmService.realm
+        .query<InjurySnapshot>("TRUEPREDICATE SORT(_id DESC)")
         .changes;
   }
 
   static Stream<RealmResultsChanges<Doctor>> getDoctorChanges() {
     return RealmService.realm
-        .query<Doctor>("TRUEPREDICATE SORT(_id ASC)")
+        .query<Doctor>("TRUEPREDICATE SORT(_id DESC)")
         .changes;
   }
 

@@ -19,4 +19,14 @@ class _InjurySnapshot {
   double? area;
   String? description;
   String? severity;
+
+  void setImageLocalPaths( List<String> newPaths) {
+    imageLocalPaths.clear();
+    imageLocalPaths.addAll(newPaths);
+  }
+
+  void setDBPaths( List<String> newPaths) {
+    imageDBPaths.clear();
+    imageDBPaths.addAll(newPaths);
+  }
 }

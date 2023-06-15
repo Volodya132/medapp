@@ -50,24 +50,29 @@ class RegProvider {
     await RealmService.addInjuryToPatient(patient!, injury);
   }
 
-  Future<void> addInjurySnapshot(
-      DateTime datetime,
-      List<String> imageLocalPaths,
-      String area,
-      String description,
-      String severity,
+  Future<void> addInjurySnapshot(InjurySnapshot injurySnapshot,
       ObjectId? injuryID) async {
 
     String doctorId = (await _sharedPreferences).getString('account_id')!; //
     String injuryIdString = injuryID.toString();
-    imageLocalPaths = await FileService.copyFiles(imageLocalPaths, "$doctorId/$injuryIdString");
+    print("paths: ${injurySnapshot.imageLocalPaths}");
+    List<String> imageLocalPaths = (await FileService.copyFiles(injurySnapshot.imageLocalPaths, "$doctorId/$injuryIdString"));
     List<String> dbPaths = await FirebaseService.uploadFiles(imageLocalPaths, "$doctorId/$injuryIdString");
-    double castArea = double.parse(area);
 
-    var injurySnapshot = InjurySnapshot(ObjectId(), datetime: datetime, imageLocalPaths: imageLocalPaths, imageDBPaths: dbPaths, area: castArea, description: description, severity: severity );
+
+    injurySnapshot.imageLocalPaths.clear();
+    for(var path in imageLocalPaths) {
+      injurySnapshot.imageLocalPaths.add(path);
+    }
+
+    for(var path in dbPaths) {
+      injurySnapshot.imageDBPaths.add(path);
+    }
+
     Injury? injury = (await RealmService.getInjuryByID(injuryID));
-    await RealmService.addInjurySnapshot(injurySnapshot);
     await RealmService.addSnapshotToInjury(injurySnapshot, injury!);
+    await RealmService.addInjurySnapshot(injurySnapshot);
+
 
   }
 }

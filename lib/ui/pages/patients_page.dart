@@ -327,8 +327,8 @@ class _PatientsListWidget extends StatelessWidget {
                           .of(context)
                           .LastChange}: ${viewModel.getLastChange(results[index]) ?? S.of(context)
                           .NoInformation}'),
-                      onTap: () => viewModel.onPatientClick(patients[index]?.id),
-                      onLongPress: () => viewModel.onPatientLongPress(patients[index]?.id, context),
+                      onTap: () => viewModel.onPatientClick(results[index].id),
+                      onLongPress: () => viewModel.onPatientLongPress(results[index].id, context),
                     ),
                   ));
         }

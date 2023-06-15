@@ -16,13 +16,15 @@ class FileService {
 
   static Future<List<String>> copyFiles(List<String> files, newDir)async {
     final path = await createDirectory(newDir);
+    List<String> resList = [];
     for(int i = 0; i < files.length; i++) {
 
       final originalFile = File(files[i]);
       String newName = '${DateTime.now().microsecondsSinceEpoch}.${files[i].split('/').last.split('.').last}';
       files[i] = (await originalFile.copy("$path/$newName")).path;
+      resList.add( files[i] );
     }
-    return files;
+    return resList;
   }
 
 

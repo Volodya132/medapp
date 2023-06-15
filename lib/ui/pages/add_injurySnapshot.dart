@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medapp/domain/entity/injurySnapshot.dart';
 import 'package:medapp/domain/services/reg_service.dart';
 import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
@@ -93,13 +94,19 @@ class _ViewModel extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _regService.addInjurySnapshot(timeOfInjury, imagePaths, area, description, severity, id);
-
+      _regService.addInjurySnapshot(InjurySnapshot(ObjectId(),
+          datetime: timeOfInjury,
+          area: double.parse(area),
+          description: description,
+          severity: severity,
+          imageLocalPaths: imagePaths), id);
 
       _state.isAddInProcess = false;
       //якийсь месджбокс мб
-      notifyListeners();
+
+
       Navigator.of(context).pop();
+      notifyListeners();
 
     } catch (exeption) {
       print(exeption);

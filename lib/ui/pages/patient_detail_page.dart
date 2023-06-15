@@ -337,8 +337,7 @@ class _BirthdayWidget extends StatelessWidget {
     DateTime? birthday = context.select((_ViewModel vm) =>
     vm.state.birthday);
     viewModel.setDataFormat(S.of(context).FormatOfDate);
-    print(123);
-    print(birthday);
+
     if(birthday == null) {
       return AccountInfoWidget(title: S
         .of(context)
