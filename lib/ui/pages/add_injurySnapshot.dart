@@ -166,7 +166,7 @@ class AddInjurySnapshotWidget extends StatelessWidget {
         body:
         const SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(20.0),
             child: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,

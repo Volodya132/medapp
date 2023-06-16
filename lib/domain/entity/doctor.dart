@@ -3,8 +3,6 @@ import 'package:medapp/domain/services/realmService.dart';
 import 'package:realm/realm.dart';
 part 'doctor.g.dart';
 
-
-
 @RealmModel()
 class _Doctor {
   @PrimaryKey()
@@ -22,12 +20,8 @@ class _Doctor {
   String BIO = "";
   String login = "";
   String password = "";
-
   List<ObjectId> patientsIDs = [];
-
   String salt = "";
-
-
 
   List<Patient?> get patients => patientsIDs.map((id) => RealmService.getPatientByID(id)).toList();
 

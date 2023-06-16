@@ -22,10 +22,7 @@ class RealmService {
     final user = await app.logIn(Credentials.anonymous());
     final config = Configuration.flexibleSync(user, schemaList);
     realm = Realm(config);
-
-    //if (_realm.subscriptions.isEmpty) {
-      updateSubscriptions();
-    //}
+    updateSubscriptions();
 
   }
 

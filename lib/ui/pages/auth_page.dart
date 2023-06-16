@@ -10,7 +10,6 @@ import 'package:medapp/domain/data_providers/auth_provider.dart';
 import 'package:medapp/domain/services/auth_service.dart';
 
 import '../../generated/l10n.dart';
-import '../helper/buttonConstants.dart';
 import '../navigation/main_navigation.dart';
 enum _ViewModelAuthButtonState { canSubmit, authProcess, disable }
 
