@@ -72,21 +72,20 @@ class FirebaseService {
       for (Reference ref in storageDirectoryList) {
         storageFilesList.addAll(await getAllFileNamesInDirectory(ref.fullPath));
       }
-      for(var item in storageFilesList) {
-        print(item);
-      }
+
       //final storageFileNames = storageFilesList.map((ref) => ref.name).toSet();
 
       // Files present locally but not on storage -> upload to storage
       final filesToUpload = localFiles
-          .where((path) => !storageFilesList.contains(Path.relative(path, from: localDirectory.path)))
+          .where((path) => !storageFilesList.contains(Path.relative(path, from: localDirectory.parent.path)))
           .toList();
-      await uploadFilesWithStructure(filesToUpload, localFolderPath, storageFolderPath);
 
+      await uploadFilesWithStructure(filesToUpload, localFolderPath, storageFolderPath);
       // Files present on storage but not locally -> download from storage
       final filesToDownload = storageFilesList
           .where((name) => !localFiles.contains('${Path.dirname(localFolderPath)}/$name'))
           .toList();
+
       for (final file in filesToDownload) {
         downloadFileWithStructure(file, Path.dirname(localFolderPath));
       }

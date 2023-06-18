@@ -105,11 +105,12 @@ class _ViewModel extends ChangeNotifier {
     final Patient patient = _patientService.patient!;
     _state = _state.copyWith(
       patientNameTitle: "${patient.lname} ${patient.fname} ${patient.mname} ",
-      injuries: patient.currentInjuries,
+      injuries: patient.currentInjuriesIDs,
       birthday: patient.birthday,
       address: patient.address,
       telephoneNumber: patient.phoneNumber
     );
+    print(patient.currentInjuriesIDs);
     notifyListeners();
   }
 
@@ -414,18 +415,20 @@ class _InjuriesListWidget extends StatelessWidget {
         builder: (context, snapshot) {
           final data = snapshot.data;
           if (data == null) return Container();
-          //final results = data.results;
           viewModel.loadValue();
-          injuries = viewModel.state.injuries;
+          final queryList = RealmService.makeRealmList(injuries);
+          final results = data.results.query("_id in $queryList SORT(_id DESC)");
+
+
           return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: injuries.length,
+              itemCount: results.length,
               itemBuilder: (context, index) =>
                   Card( //                           <-- Card widget
                     child:
                     ListTile(
-                      title: Text(injuries[index]?.type ?? "No label",
+                      title: Text(results[index].type ?? "No label",
                         style:
                         const TextStyle(
                            // fontWeight: FontWeight.bold,
@@ -434,10 +437,10 @@ class _InjuriesListWidget extends StatelessWidget {
                       ),
                       subtitle: Text('${S
                           .of(context)
-                          .LastChange}: ${viewModel.getLastChange(injuries[index]) ?? S.of(context)
+                          .LastChange}: ${viewModel.getLastChange(results[index]) ?? S.of(context)
                           .NoInformation}'),
-                      onTap: () => viewModel.onInjuryTap(injuries[index]?.id),
-                      onLongPress: () => viewModel.onInjureLongPress(injuries[index]?.id, context),
+                      onTap: () => viewModel.onInjuryTap(results[index].id),
+                      onLongPress: () => viewModel.onInjureLongPress(results[index].id, context),
                     ),
                   ));
         }

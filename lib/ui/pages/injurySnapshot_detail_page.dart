@@ -164,7 +164,7 @@ class _InjureSnapshotListWidget extends StatelessWidget {
           final results = data.results;
           viewModel.loadValue();
           images = viewModel.state.images;
-          print(images);
+
           return ListView.builder(
               //scrollDirection: Axis.horizontal,
               physics: const NeverScrollableScrollPhysics(),

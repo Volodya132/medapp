@@ -300,20 +300,22 @@ class _PatientsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var patients = context.select((_ViewModel vm) => vm.state.patients);
+
     var patientsIDS = context.select((_ViewModel vm) => vm.state.patientsIDS);
     var fio = context.select((_ViewModel vm) => vm.state.searchingPatients);
     final viewModel = context.read<_ViewModel>();
 
     return StreamBuilder<RealmResultsChanges<Patient>>(
-        stream: RealmService.getPatientsChanges(fio, patientsIDS) ,
+        stream: RealmService.getPatientsChangesByFio(fio) ,
         builder: (context, snapshot) {
 
           final data = snapshot.data;
           if (data == null) return Container();
-          final results = data.results;
-
           viewModel.loadValue();
+          final queryList = RealmService.makeRealmList(patientsIDS);
+          final results = data.results.query("_id in $queryList SORT(_id DESC)");
+
+
           return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

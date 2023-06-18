@@ -177,6 +177,21 @@ class RealmService {
         .changes;
   }
 
+  static Stream<RealmResultsChanges<Patient>> getPatientsChangesByFio(fio) {
+
+    List<String> fioList = fio.split(' ');
+    String query = "";
+    for(int i = 0; i< fioList.length; i++) {
+      query += "(fname CONTAINS[c] '${fioList[i]}' OR mname CONTAINS[c] '${fioList[i]}' OR lname CONTAINS[c] '${fioList[i]}')";
+      if(i < fioList.length-1){
+        query += "AND ";
+      }
+    };
+    return RealmService.realm
+        .query<Patient>(query)
+        .changes;
+  }
+
   static Stream<RealmResultsChanges<Injury>> getInjuriesChanges() {
     return RealmService.realm
         .query<Injury>("TRUEPREDICATE SORT(_id DESC)")
