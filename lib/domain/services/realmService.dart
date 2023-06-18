@@ -106,6 +106,10 @@ class RealmService {
     realm.write(() {
       doctor.patientsIDs.remove(patientID);
       realm.add<Doctor>(doctor, update: true);
+      var patient = getPatientByID(patientID);
+      if(patient != null) {
+        realm.delete<Patient>(patient);
+      }
     });
   }
 
@@ -226,9 +230,21 @@ class RealmService {
   static Future removeInjureFromPatient(Patient patient, injureId)async {
     realm.write(() {
       patient.currentInjuriesIDs.remove(injureId);
-
-
       realm.add<Patient>(patient, update: true);
+      var injure = getInjuryByID(injureId);
+      if(injure != null) {
+        realm.delete<Injury>(injure);
+      }
+    });
+  }
+  static Future removeInjureSnapshotFromInjure(Injury injure, injureSnapshotID)async {
+    realm.write(() {
+      injure.injurySnapshotIDs.remove(injureSnapshotID);
+      realm.add<Injury>(injure, update: true);
+      var injureSnapshot = getInjurySnapshotByID(injureSnapshotID);
+      if(injureSnapshot != null) {
+        realm.delete<InjurySnapshot>(injureSnapshot);
+      }
     });
   }
 
@@ -236,6 +252,16 @@ class RealmService {
     realm.write(() {
       injurySnapshot.imageLocalPaths.addAll(imageLocalPaths);
       injurySnapshot.imageDBPaths.addAll(dbPaths);
+    });
+  }
+
+  static void deletePhotoFromInjurySnapshot(InjurySnapshot injurySnapshot, String photo) {
+    realm.write(() {
+      var photoName = photo.split('/').last;
+      print(photoName);
+      injurySnapshot.imageLocalPaths.removeWhere((item) => item.contains(photoName));
+      injurySnapshot.imageDBPaths.removeWhere((item) => item.contains(photoName));
+
     });
   }
 }

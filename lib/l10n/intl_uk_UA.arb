@@ -69,5 +69,7 @@
   "Injuries": "Травми",
   "Information": "Інформація",
   "Notes": "Записи",
-  "AddAPhoto": "Добавити знімок"
+  "AddAPhoto": "Добавити знімок",
+  "DoYouWantToDeleteTheNote": "Ви бажаєте видалити запис?",
+  "DoYouWantToDeleteThePhoto": "Ви бажаєте видалити фото?"
 }

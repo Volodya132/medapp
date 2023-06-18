@@ -769,6 +769,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Do you want to delete the note?`
+  String get DoYouWantToDeleteTheNote {
+    return Intl.message(
+      'Do you want to delete the note?',
+      name: 'DoYouWantToDeleteTheNote',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to delete the photo?`
+  String get DoYouWantToDeleteThePhoto {
+    return Intl.message(
+      'Do you want to delete the photo?',
+      name: 'DoYouWantToDeleteThePhoto',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medapp/domain/entity/injurySnapshot.dart';
+import 'package:medapp/domain/services/SyncService.dart';
 import 'package:medapp/domain/services/injurySnapshot_service.dart';
 import 'package:medapp/domain/services/realmService.dart';
 import 'package:medapp/generated/l10n.dart';
@@ -54,6 +56,8 @@ class _ViewModelState {
 
     return null;
   }
+
+
 }
 
 class _ViewModel extends ChangeNotifier {
@@ -91,6 +95,53 @@ class _ViewModel extends ChangeNotifier {
       severity: injurySnapshot?.severity,
     );
     notifyListeners();
+  }
+
+  Future<void> removePhotoInjurySnapshot(photo)async {
+    _injurySnapshot.deletePhotoFromInjurySnapshot(photo);
+  }
+
+  void _showAlertDialog(BuildContext context, photo)async {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) =>
+          CupertinoAlertDialog(
+            title: Text(S
+                .of(context)
+                .Attention),
+            content: Text(S
+                .of(context)
+                .DoYouWantToDeleteThePhoto),
+            actions: <CupertinoDialogAction>[
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(S
+                    .of(context)
+                    .Cancel),
+              ),
+              CupertinoDialogAction(
+                isDestructiveAction: true,
+                onPressed: () {
+                  removePhotoInjurySnapshot(photo);
+                  _updateState();
+                  Navigator.pop(context);
+                  notifyListeners();
+                },
+                child: Text(S
+                    .of(context)
+                    .Delete),
+              ),
+            ],
+          ),
+    );
+  }
+
+  onInjurySnapShotLongPress(photo, BuildContext context)async {
+
+    _showAlertDialog(context, photo);
   }
 }
 
@@ -161,11 +212,14 @@ class _InjureSnapshotListWidget extends StatelessWidget {
         builder: (context, snapshot) {
           final data = snapshot.data;
           if (data == null) return Container();
-          final results = data.results;
           viewModel.loadValue();
-          images = viewModel.state.images;
+          final results = data.results.query('_id == oid(${viewModel.snapshotID})');
+          if(results.isEmpty) return const CircularProgressIndicator();
+          SyncService.sync();
+          images =results.first.imageLocalPaths;
 
           return ListView.builder(
+              reverse: true,
               //scrollDirection: Axis.horizontal,
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -174,6 +228,7 @@ class _InjureSnapshotListWidget extends StatelessWidget {
                   Card( //                           <-- Card widget
                       child:
                       GestureDetector(
+                          onLongPress: () => viewModel.onInjurySnapShotLongPress(images[index], context),
                           onTap: () => viewModel.onInjurySnapshotImageTap(images[index]),
                           child: Image.file(File(images[index])),
                       )

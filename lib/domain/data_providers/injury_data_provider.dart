@@ -12,4 +12,10 @@ class InjuryDataProvider {
   Future<void> save(Injury injury) async {
 
   }
+
+  void removeInjurySnapshot(Injury? injury, injurySnapshot)async {
+    if(injury != null) {
+      RealmService.removeInjureSnapshotFromInjure(injury, injurySnapshot);
+    }
+  }
 }

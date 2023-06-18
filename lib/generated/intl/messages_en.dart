@@ -45,8 +45,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "DoYouReallyWantToDeleteTheInjuryRecord":
             MessageLookupByLibrary.simpleMessage(
                 "Do you really want to delete the injury record?"),
+        "DoYouWantToDeleteTheNote": MessageLookupByLibrary.simpleMessage(
+            "Do you want to delete the note?"),
         "DoYouWantToDeleteThePatient": MessageLookupByLibrary.simpleMessage(
             "Do you want to delete the patient?"),
+        "DoYouWantToDeleteThePhoto": MessageLookupByLibrary.simpleMessage(
+            "Do you want to delete the photo?"),
         "DontHaveAcc":
             MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "Email": MessageLookupByLibrary.simpleMessage("Email"),

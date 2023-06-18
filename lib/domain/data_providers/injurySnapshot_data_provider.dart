@@ -25,4 +25,10 @@ class InjurySnapshotDataProvider {
     }
     throw InjurySnapshotDataProviderError;
   }
+
+  void deletePhotoFromInjurySnapshot(InjurySnapshot? injurySnapshot, photo)async {
+    if(injurySnapshot != null) {
+      RealmService.deletePhotoFromInjurySnapshot(injurySnapshot, photo);
+    }
+  }
 }

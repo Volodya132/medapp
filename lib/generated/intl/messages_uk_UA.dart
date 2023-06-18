@@ -44,8 +44,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "DoYouReallyWantToDeleteTheInjuryRecord":
             MessageLookupByLibrary.simpleMessage(
                 "Ви дійсно бажаєте видалити запис травми?"),
+        "DoYouWantToDeleteTheNote":
+            MessageLookupByLibrary.simpleMessage("Ви бажаєте видалити запис?"),
         "DoYouWantToDeleteThePatient": MessageLookupByLibrary.simpleMessage(
             "Ви бажаєте видалити пацієнта?"),
+        "DoYouWantToDeleteThePhoto":
+            MessageLookupByLibrary.simpleMessage("Ви бажаєте видалити фото?"),
         "DontHaveAcc": MessageLookupByLibrary.simpleMessage(
             "Все ще немає облікового запису?"),
         "Email": MessageLookupByLibrary.simpleMessage("Електронна пошта"),

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medapp/domain/entity/evolutionInjury.dart';
@@ -13,6 +14,7 @@ import '../../domain/entity/patient.dart';
 import '../../domain/services/SyncService.dart';
 import '../../domain/services/injury_service.dart';
 import '../../domain/services/patient_service.dart';
+import '../helper/ImagesFunc.dart';
 import '../widgets/AccountInfoWidget.dart';
 import '../widgets/CusomButton.dart';
 import '../widgets/CustomAppBar.dart';
@@ -110,10 +112,15 @@ class _ViewModel extends ChangeNotifier {
     return DateFormat(_state.dateTimeFormat).format(dateTime).toString();
   }
 
-  void updateImages(injuries)async {
+  void updateImages(RealmResults<InjurySnapshot> injuriesPhoto)async {
     var tempImage = [];
-    for (int i = 0; i < injuries.length; i++) {
-      tempImage.add(getImageIfExist(injuries[i]));
+    for (int i = 0; i < injuriesPhoto.length; i++) {
+      if(injuriesPhoto[i].imageLocalPaths.isNotEmpty) {
+        tempImage.add(getImageIfExist(injuriesPhoto[i].imageLocalPaths.first));
+      }
+      else {
+        tempImage.add(getImageIfExist(null));
+      }
     }
     if (tempImage != state.imagesList) {
       state.imagesList = tempImage;
@@ -134,6 +141,53 @@ class _ViewModel extends ChangeNotifier {
     );
     notifyListeners();
   }
+
+  Future<void> removeInjurySnapshotFromInjury(injurySnapshot)async {
+    _injuryService.deleteInjurySnapshot(injurySnapshot);
+  }
+
+  void _showAlertDialog(BuildContext context, injurySnapshotID)async {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) =>
+          CupertinoAlertDialog(
+            title: Text(S
+                .of(context)
+                .Attention),
+            content: Text(S
+                .of(context)
+                .DoYouWantToDeleteTheNote),
+            actions: <CupertinoDialogAction>[
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(S
+                    .of(context)
+                    .Cancel),
+              ),
+              CupertinoDialogAction(
+                isDestructiveAction: true,
+                onPressed: () {
+                  removeInjurySnapshotFromInjury(injurySnapshotID);
+                  _updateState();
+                  Navigator.pop(context);
+                  notifyListeners();
+                },
+                child: Text(S
+                    .of(context)
+                    .Delete),
+              ),
+            ],
+          ),
+    );
+  }
+
+  onInjurySnapShotLongPress(id, BuildContext context)async {
+    _showAlertDialog(context, id);
+  }
+
 }
 
 class InjuryDetail extends StatelessWidget {
@@ -321,7 +375,7 @@ class _InjurySnapshotsListWidget extends StatelessWidget {
           //injurySnapshot = viewModel.state.injurySnapshots;
           var imagesList = [];
           for (int i = 0; i < results.length; i++) {
-            imagesList.add(getImageIfExist(results[i]));
+            imagesList.add(getImageIfExist(results[i].imageLocalPaths.isNotEmpty ? results[i].imageLocalPaths.first : null));
           }
 
           return ListView.builder(
@@ -329,6 +383,7 @@ class _InjurySnapshotsListWidget extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: results.length,
               itemBuilder: (context, index) => GestureDetector(
+                  onLongPress: () => viewModel.onInjurySnapShotLongPress(results[index].id, context),
                   onTap: () {
                     viewModel.onInjurySnapshotImageTap(results[index].id);
                   },
@@ -388,17 +443,3 @@ class _InjurySnapshotsListWidget extends StatelessWidget {
   }
 }
 
-ImageProvider<Object> getImageIfExist(InjurySnapshot? injurySnapshot) {
-  if (injurySnapshot == null) {
-    return const AssetImage("assets/images/loader.png");
-  }
-  if (injurySnapshot.imageLocalPaths.isEmpty) {
-    return const AssetImage("assets/images/loader.png");
-  }
-  var file = File(injurySnapshot.imageLocalPaths[0]);
-  if (file.existsSync()) {
-    return FileImage(file);
-  } else {
-    return const AssetImage("assets/images/loader.png");
-  }
-}

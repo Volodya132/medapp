@@ -216,7 +216,7 @@ class _PickImagesButtonWidget extends StatelessWidget {
       onPressed: model.onPickImagesButtonPressed,
       child: Text("${S
           .of(context)
-          .Add} image"),
+          .AddAPhoto}"),
     );
   }
 }

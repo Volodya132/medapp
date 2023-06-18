@@ -12,5 +12,9 @@ class InjuryService {
     _injury = await _injuryDataProvider.load(id);
   }
 
+  void deleteInjurySnapshot(injurySnapshot)async {
+    _injuryDataProvider.removeInjurySnapshot(_injury, injurySnapshot);
+  }
+
 
 }

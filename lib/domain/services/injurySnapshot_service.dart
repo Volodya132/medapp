@@ -32,4 +32,8 @@ class InjurySnapshotService {
 
   }
 
+  void deletePhotoFromInjurySnapshot(photo)async {
+    _injurySnapshotDataProvider.deletePhotoFromInjurySnapshot(injurySnapshot, photo);
+  }
+
 }
