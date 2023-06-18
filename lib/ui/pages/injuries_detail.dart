@@ -10,6 +10,7 @@ import 'package:realm/realm.dart';
 import '../../domain/entity/injury.dart';
 import '../../domain/entity/injurySnapshot.dart';
 import '../../domain/entity/patient.dart';
+import '../../domain/services/SyncService.dart';
 import '../../domain/services/injury_service.dart';
 import '../../domain/services/patient_service.dart';
 import '../widgets/AccountInfoWidget.dart';
@@ -28,6 +29,7 @@ class _ViewModelState {
   final String cause;
   List<ObjectId?> injurySnapshots;
 
+  List imagesList = [];
   String dateTimeFormat ="yyyy-mm-dd h:mm a";
 
   _ViewModelState({
@@ -104,6 +106,19 @@ class _ViewModel extends ChangeNotifier {
 
   String convertDateTimeToString(DateTime dateTime) {
     return DateFormat(_state.dateTimeFormat).format(dateTime).toString();
+  }
+
+  void updateImages(injuries) {
+    var tempImage = [];
+    for(int i = 0; i < injuries.length; i++) {
+      tempImage.add(getImageIfExist(injuries[i]));
+    }
+    if(tempImage != state.imagesList) {
+      state.imagesList = tempImage;
+      notifyListeners();
+    }
+
+
   }
   void _updateState() {
     final Injury injury = _injuryService.injury!;
@@ -318,25 +333,39 @@ class _InjurySnapshotsListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var injurySnapshot = context.select((_ViewModel vm) =>
     vm.state.injurySnapshots);
+    var updateImages = context.select((_ViewModel vm) =>
+    vm.state.imagesList);
     final viewModel = context.read<_ViewModel>();
+
     return StreamBuilder<RealmResultsChanges<InjurySnapshot>>(
         stream: RealmService.getInjurySnapshotChanges(),
         builder: (context, snapshot) {
           final data = snapshot.data;
-          if (data == null) return Container();
+          SyncService.sync();
+          if (data == null) return const CircularProgressIndicator();
+          viewModel.loadValue();
           final queryList = RealmService.makeRealmList(injurySnapshot);
           final results = data.results.query("_id in $queryList SORT(datetime DESC)");
-          viewModel.loadValue();
+
+
           //injurySnapshot = viewModel.state.injurySnapshots;
+          var imagesList = [];
+          for(int i = 0; i < results.length; i++) {
+            imagesList.add(getImageIfExist(results[i]));
+          }
+
+
           return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: results.length,
               itemBuilder: (context, index) =>
                   GestureDetector(
-                      onTap: () =>
-                          viewModel.onInjurySnapshotImageTap(
-                              results[index].id),
+                      onTap: () {
+
+                        viewModel.updateImages(results);
+
+                      },
                       child: Card( //
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)
@@ -352,8 +381,9 @@ class _InjurySnapshotsListWidget extends StatelessWidget {
                                       topLeft: Radius.circular(10),
                                       topRight: Radius.circular(10)),
                                   image: DecorationImage(
-                                    image: getImageIfExist(
-                                        results[index]),
+                                    image: updateImages.length != results.length
+                                        ? imagesList[index]
+                                        : updateImages[index],
                                     fit: BoxFit.cover,
                                   ),
                                 ),

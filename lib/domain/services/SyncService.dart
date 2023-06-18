@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SyncService {
     static final sharedPreferences = SharedPreferences.getInstance();
 
-    static void sync() async{
+    static Future<void> sync() async{
         String? id = (await sharedPreferences).getString('account_id');
         if(id != null) {
             FileService.createDirectory(id);
