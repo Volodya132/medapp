@@ -89,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "PatientSearchHint":
             MessageLookupByLibrary.simpleMessage("Пошук пацієнта"),
         "PatientsLbl": MessageLookupByLibrary.simpleMessage("Пацієнти"),
+        "Photos": MessageLookupByLibrary.simpleMessage("Фотографії"),
         "Registraion": MessageLookupByLibrary.simpleMessage("Реєстрація"),
         "RepeatNewPassword":
             MessageLookupByLibrary.simpleMessage("Повторіть новий пароль"),

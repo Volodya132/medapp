@@ -91,6 +91,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "PatientSearchHint":
             MessageLookupByLibrary.simpleMessage("Patient search"),
         "PatientsLbl": MessageLookupByLibrary.simpleMessage("Patients"),
+        "Photos": MessageLookupByLibrary.simpleMessage("Photos"),
         "Registraion": MessageLookupByLibrary.simpleMessage("Registraion"),
         "RepeatNewPassword":
             MessageLookupByLibrary.simpleMessage("Repeat new password"),

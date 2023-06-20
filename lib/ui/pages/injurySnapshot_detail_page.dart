@@ -13,8 +13,10 @@ import 'package:realm/realm.dart';
 import '../../domain/entity/injury.dart';
 import '../../domain/entity/patient.dart';
 import '../../domain/services/patient_service.dart';
+import '../widgets/AccountInfoWidget.dart';
 import '../widgets/CusomButton.dart';
 import '../widgets/CustomAppBar.dart';
+import '../widgets/CustomSwitch.dart';
 
 
 
@@ -25,6 +27,7 @@ class _ViewModelState {
   final String description;
   final String? severity;
 
+  int currentState = 0;
 
 
   _ViewModelState({
@@ -77,6 +80,11 @@ class _ViewModel extends ChangeNotifier {
     _updateState();
   }
 
+  Future<void> changeState(index) async {
+    state.currentState = index;
+    print(state.currentState);
+    notifyListeners();
+  }
   _ViewModel(this.context, this.snapshotID, this.injuryID) {
     loadValue();
   }
@@ -162,9 +170,10 @@ class InjurySnapshotDetailPage extends StatelessWidget {
     vm.state.dateTime);
     var title = S.of(context).NoInformation;
     if(dateTime != null) title = WorkWithDate.fromDateToString(dateTime, S.of(context).FormatOfDateTime);
+    var currentState = context.select((_ViewModel vm) => vm.state.currentState);
     return Scaffold(
       appBar: CustomAppBar(title: title),
-      body: const SafeArea(
+      body:  SafeArea(
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(30),
@@ -172,15 +181,102 @@ class InjurySnapshotDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children:  [
-                  _AddInjurySnapshotWidget(),
-                  SizedBox(height: 20),
-                  _InjureSnapshotListWidget(),
-                ],
+                  _Swicher(),
+                  SizedBox(height: 15),
+                  currentState == 0 ? _PhotosWidgets() : _InformationWidgets(),
+                 ],
               ),
             ),
           )
       ),
     );
+  }
+}
+
+class _Swicher extends StatelessWidget {
+  const _Swicher({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var currentState = context.select((_ViewModel vm) => vm.state.currentState);
+    final viewModel = context.read<_ViewModel>();
+    return Container(
+      child: CustomSwitch(
+          currentState: currentState,
+          labels: [S.of(context).Photos, S.of(context).Information],
+          onChanged: viewModel.changeState),
+    );
+  }
+}
+
+class _PhotosWidgets extends StatelessWidget {
+  const _PhotosWidgets({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(children: [
+      _AddInjurySnapshotWidget(),
+      SizedBox(height: 20),
+      _InjureSnapshotListWidget(),
+    ]);
+  }
+}
+
+class _InformationWidgets extends StatelessWidget {
+  const _InformationWidgets({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(children: [
+      _SeverityInfoWidget(),
+      SizedBox(height: 15),
+      _AreaInfoWidget(),
+      SizedBox(height: 15),
+      _DescriptionInfoWidget(),
+      SizedBox(height: 15),
+
+    ]);
+  }
+}
+class _SeverityInfoWidget extends StatelessWidget {
+  const _SeverityInfoWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var injurySeverity =
+    context.select((_ViewModel vm) => vm.state.severity);
+    injurySeverity =
+    injurySeverity == null || injurySeverity.isEmpty ? S.of(context).NoInformation : injurySeverity;
+    return AccountInfoWidget(
+        title: S.of(context).Severity, textInfo: injurySeverity);
+  }
+}
+
+class _AreaInfoWidget extends StatelessWidget {
+  const _AreaInfoWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var info =
+    context.select((_ViewModel vm) => vm.state.area);
+    info =
+    info == null || info.isEmpty ? S.of(context).NoInformation : info;
+    return AccountInfoWidget(
+        title: S.of(context).Severity, textInfo: info);
+  }
+}
+
+class _DescriptionInfoWidget extends StatelessWidget {
+  const _DescriptionInfoWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var info =
+    context.select((_ViewModel vm) => vm.state.description);
+    info =
+    info == null || info.isEmpty ? S.of(context).NoInformation : info;
+    return AccountInfoWidget(
+        title: S.of(context).Severity, textInfo: info);
   }
 }
 

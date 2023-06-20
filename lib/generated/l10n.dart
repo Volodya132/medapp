@@ -789,6 +789,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Photos`
+  String get Photos {
+    return Intl.message(
+      'Photos',
+      name: 'Photos',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
