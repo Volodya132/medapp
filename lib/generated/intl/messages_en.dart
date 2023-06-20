@@ -77,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LogIn": MessageLookupByLibrary.simpleMessage("Log in"),
         "Login": MessageLookupByLibrary.simpleMessage("Login"),
         "MName": MessageLookupByLibrary.simpleMessage("Middle name"),
+        "Man": MessageLookupByLibrary.simpleMessage("Man"),
         "MaskPainting": MessageLookupByLibrary.simpleMessage("Mask painting"),
         "Name": MessageLookupByLibrary.simpleMessage("Name"),
         "NewPassword": MessageLookupByLibrary.simpleMessage("New password"),
@@ -129,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Time": MessageLookupByLibrary.simpleMessage("Time"),
         "Type": MessageLookupByLibrary.simpleMessage("Type"),
         "WelcomeBack": MessageLookupByLibrary.simpleMessage("Welcome Back"),
+        "Woman": MessageLookupByLibrary.simpleMessage("Woman"),
         "WrongAnswerOrPassword":
             MessageLookupByLibrary.simpleMessage("Wrong answer or password")
       };

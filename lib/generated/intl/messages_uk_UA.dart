@@ -75,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "LogIn": MessageLookupByLibrary.simpleMessage("Увійти"),
         "Login": MessageLookupByLibrary.simpleMessage("Логін"),
         "MName": MessageLookupByLibrary.simpleMessage("По-батькові"),
+        "Man": MessageLookupByLibrary.simpleMessage("Чоловік"),
         "MaskPainting": MessageLookupByLibrary.simpleMessage("Малювання маски"),
         "Name": MessageLookupByLibrary.simpleMessage("Ім\'я"),
         "NewPassword": MessageLookupByLibrary.simpleMessage("Новий пароль"),
@@ -127,6 +128,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Time": MessageLookupByLibrary.simpleMessage("Час"),
         "Type": MessageLookupByLibrary.simpleMessage("Тип"),
         "WelcomeBack": MessageLookupByLibrary.simpleMessage("З поверненням"),
+        "Woman": MessageLookupByLibrary.simpleMessage("Жінка"),
         "WrongAnswerOrPassword": MessageLookupByLibrary.simpleMessage(
             "Неправильний пароль або логін")
       };

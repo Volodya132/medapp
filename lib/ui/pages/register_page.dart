@@ -15,7 +15,9 @@ import 'package:realm/realm.dart';
 import '../../domain/data_providers/reg_provider.dart';
 import '../../generated/l10n.dart';
 import '../helper/buttonConstants.dart';
+import '../helper/genders.dart';
 import '../helper/inputConstants.dart';
+import '../helper/translator.dart';
 import '../navigation/main_navigation.dart';
 import '../widgets/CustomAppBar.dart';
 enum _ViewModelRegButtonState { canSubmit, regProcess, disable }
@@ -169,9 +171,10 @@ class _ViewModel extends ChangeNotifier {
     final fname = _state.fname;
     final mname = _state.mname;
     final lname = _state.lname;
-    final gender = _state.gender;
+    final gender = genders[translateList(genders, context).indexOf(_state.gender)];
     final email = _state.email;
     final birthday = _state.birthday;
+
 
     _state.regErrorTitle = '';
     _state.isRegInProcess = true;
@@ -474,7 +477,7 @@ class _GenderWidget extends StatelessWidget {
         }
         return null;
       },
-      items: DropMenuService.fromList2DropItems(['Чоловік', 'Жінка']),
+      items: DropMenuService.fromList2DropItems(translateList(genders, context)),
       decoration: InputDecoration(
           enabledBorder:enabledBorder,
           focusedBorder: focusedBorder,

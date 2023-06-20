@@ -799,6 +799,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Woman`
+  String get Woman {
+    return Intl.message(
+      'Woman',
+      name: 'Woman',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Man`
+  String get Man {
+    return Intl.message(
+      'Man',
+      name: 'Man',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

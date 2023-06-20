@@ -15,7 +15,9 @@ import '../../domain/entity/patient.dart';
 import '../../domain/services/dropMenu_service.dart';
 import '../../generated/l10n.dart';
 import '../helper/buttonConstants.dart';
+import '../helper/genders.dart';
 import '../helper/inputConstants.dart';
+import '../helper/translator.dart';
 import '../navigation/main_navigation.dart';
 enum _ViewModelAddButtonState { canSubmit, addProcess, disable }
 
@@ -127,7 +129,7 @@ class _ViewModel extends ChangeNotifier {
     final fname = _state.fname;
     final mname = _state.mname;
     final lname = _state.lname;
-    final gender = _state.gender;
+    final gender = genders[translateList(genders, context).indexOf(_state.gender)];
     final address = _state.address;
     final phoneNumber = _state.phoneNumber.phoneNumber;
     final birthday= _state.birthday;
@@ -333,7 +335,7 @@ class _GenderWidget extends StatelessWidget {
 
 
     return DropdownButtonFormField(
-      items: DropMenuService.fromList2DropItems(['Чоловік', 'Жінка']),
+      items: DropMenuService.fromList2DropItems(translateList(genders, context)),
       decoration: InputDecoration(
           enabledBorder:enabledBorder,
           focusedBorder: focusedBorder,
